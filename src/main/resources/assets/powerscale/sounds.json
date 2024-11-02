@@ -1,0 +1,32 @@
+{
+    "cursed_heart_use": {
+        "category": "player",
+        "subtitle": "powerscale.subtitle.cursed_heart_use",
+        "sounds": [
+            "minecraft:random/fizz"
+        ]
+    },
+    "enchanted_heart_use": {
+        "category": "player",
+        "subtitle": "powerscale.subtitle.enchanted_heart_use",
+        "sounds": [
+            "minecraft:block/enchantment_table/enchant1"
+        ]
+    },
+    "heart_crystal_use": {
+        "category": "player",
+        "subtitle": "powerscale.subtitle.heart_crystal_use",
+        "sounds": [
+            "powerscale:heart_crystal_use"
+        ]
+    },
+    "player_died": {
+        "category": "player",
+        "subtitle": "powerscale.subtitle.player_died",
+        "sounds": [
+            "powerscale:sadtrombone",
+            "powerscale:mlg_airhorn",
+            "powerscale:wilhelm"
+        ]
+    }
+}
