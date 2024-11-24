@@ -14,6 +14,7 @@ import net.silentchaos512.powerscale.PowerScale;
 import net.silentchaos512.powerscale.core.scalingattribute.MobScalingSet;
 import net.silentchaos512.powerscale.core.scalingattribute.MutatorSet;
 import net.silentchaos512.powerscale.core.scalingattribute.ScalingAttribute;
+import net.silentchaos512.powerscale.setup.Const;
 
 import java.nio.file.Path;
 import java.util.*;
@@ -29,21 +30,21 @@ public class ScalingAttributesProvider implements DataProvider {
     private Map<ResourceLocation, ScalingAttribute> getScalingAttributes() {
         return Util.make(() -> {
             Map<ResourceLocation, ScalingAttribute> ret = new LinkedHashMap<>();
-            ret.put(PowerScale.getId("attack_damage"),
+            ret.put(Const.ATTACK_DAMAGE,
                     new ScalingAttribute(
                             Attributes.ATTACK_DAMAGE,
                             new MobScalingSet(Config.COMMON.defaultScalingAttributeAttackDamage),
                             new MutatorSet(Config.COMMON.defaultScalingAttributeAttackDamage)
                     )
             );
-            ret.put(PowerScale.getId("max_health"),
+            ret.put(Const.MAX_HEALTH,
                     new ScalingAttribute(
                             Attributes.MAX_HEALTH,
                             new MobScalingSet(Config.COMMON.defaultScalingAttributeMaxHealth),
                             new MutatorSet(Config.COMMON.defaultScalingAttributeMaxHealth)
                     )
             );
-            ret.put(PowerScale.getId("movement_speed"),
+            ret.put(Const.MOVEMENT_SPEED,
                     new ScalingAttribute(
                             Attributes.MOVEMENT_SPEED,
                             new MobScalingSet(Config.COMMON.defaultScalingAttributeMovementSpeed),

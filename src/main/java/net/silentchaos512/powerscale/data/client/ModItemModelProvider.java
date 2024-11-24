@@ -22,6 +22,10 @@ public class ModItemModelProvider extends ItemModelProvider {
 
         builder(PsItems.HEART_CRYSTAL, itemGenerated);
         builder(PsItems.POWER_CRYSTAL, itemGenerated);
+        builder(PsItems.WING_CRYSTAL, itemGenerated);
+        builder(PsItems.HEALTH_BOOSTER_POTION, itemGenerated);
+        builder(PsItems.POWER_BOOSTER_POTION, itemGenerated);
+        builder(PsItems.SPEED_BOOSTER_POTION, itemGenerated);
     }
 
     private ItemModelBuilder builder(ItemLike item) {

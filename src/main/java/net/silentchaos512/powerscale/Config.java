@@ -39,6 +39,8 @@ public class Config {
     public static final class Common {
         public final ModConfigSpec.BooleanValue detailedLogging;
 
+        public final ModConfigSpec.BooleanValue simpleAttributeBoosters;
+
         public final ModConfigSpec.DoubleValue difficultyPlayerInitial;
         public final ModConfigSpec.DoubleValue difficultyPlayerMax;
         public final ModConfigSpec.DoubleValue difficultyPlayerMin;
@@ -68,6 +70,10 @@ public class Config {
                             "Do not use this unless you are diagnosing development issues."
                     )
                     .define("detailed_logging", false);
+
+            simpleAttributeBoosters = builder
+                    .comment("Allows the ingredients for attribute booster potions (crystals) to be used directly")
+                    .define("item.simple_attribute_boosters", false);
 
             final double minMaxDifficulty = 999_999;
             difficultyPlayerInitial = builder

@@ -1,5 +1,12 @@
 {
   "config.jade.plugin_powerscale.mob": "Power Scale: Mob",
+  "item.powerscale.health_booster_potion": "Health Booster Potion",
+  "item.powerscale.heart_crystal": "Heart Crystal",
+  "item.powerscale.mutator.desc": "%s: %s",
+  "item.powerscale.power_booster_potion": "Power Booster Potion",
+  "item.powerscale.power_crystal": "Power Crystal",
+  "item.powerscale.speed_booster_potion": "Speed Booster Potion",
+  "item.powerscale.wing_crystal": "Wing Crystal",
   "network.powerscale.failure": "Network Failure (Power Scale)",
   "powerscale.configuration.attack_damage": "Attack Damage",
   "powerscale.configuration.boss_difficulty": "Boss Mob Difficulty",
@@ -8,6 +15,7 @@
   "powerscale.configuration.expression": "Expression",
   "powerscale.configuration.hostile_difficulty": "Hostile Mob Difficulty",
   "powerscale.configuration.initial": "Initial Value",
+  "powerscale.configuration.item": "Item",
   "powerscale.configuration.local_difficulty": "Local Difficulty",
   "powerscale.configuration.max": "Maximum Value",
   "powerscale.configuration.max_health": "Max Health",
@@ -21,5 +29,10 @@
   "powerscale.configuration.player_difficulty": "Player Difficulty",
   "powerscale.configuration.quick_toggles": "Quick Toggles",
   "powerscale.configuration.scaling_attributes": "Scaling Attributes",
-  "powerscale.level": "Level: %d"
+  "powerscale.configuration.simple_attribute_boosters": "Simple Attribute Boosters",
+  "powerscale.difficulty": "Level: %d",
+  "powerscale.level": "Level: %d",
+  "scaling_attribute.powerscale.attack_damage": "Attack Damage",
+  "scaling_attribute.powerscale.max_health": "Max Health",
+  "scaling_attribute.powerscale.movement_speed": "Movement Speed"
 }

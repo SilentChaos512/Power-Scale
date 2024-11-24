@@ -15,9 +15,9 @@
     },
     "heart_crystal_use": {
         "category": "player",
-        "subtitle": "powerscale.subtitle.heart_crystal_use",
+        "subtitle": "powerscale.subtitle.crystal_use",
         "sounds": [
-            "powerscale:heart_crystal_use"
+            "powerscale:crystal_use"
         ]
     },
     "player_died": {

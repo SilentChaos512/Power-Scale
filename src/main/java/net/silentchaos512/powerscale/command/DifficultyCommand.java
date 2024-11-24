@@ -19,6 +19,7 @@ public class DifficultyCommand extends CommandBase {
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         dispatcher.register(
                 Commands.literal("ps_difficulty")
+                        .requires(commandSourceStack -> commandSourceStack.hasPermission(2))
                         .then(
                                 Commands.literal("get")
                                         .then(

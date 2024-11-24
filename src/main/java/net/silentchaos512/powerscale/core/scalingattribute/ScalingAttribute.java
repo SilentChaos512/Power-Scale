@@ -6,10 +6,12 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.silentchaos512.powerscale.setup.PsRegistries;
 
 public record ScalingAttribute(
         Holder<Attribute> attribute,
@@ -36,5 +38,10 @@ public record ScalingAttribute(
                 .with("base_value", mob.getAttributeBaseValue(this.attribute))
                 .with("level", level)
                 .evaluateDouble(0.0, null);
+    }
+
+    public Component getName() {
+        var id = PsRegistries.SCALING_ATTRIBUTE.getKey(this);
+        return Component.translatable("scaling_attribute." + id.getNamespace() + "." + id.getPath());
     }
 }
