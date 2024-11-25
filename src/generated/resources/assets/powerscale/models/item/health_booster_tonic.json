@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "powerscale:item/speed_booster_potion"
+    "layer0": "powerscale:item/health_booster_tonic"
   }
 }

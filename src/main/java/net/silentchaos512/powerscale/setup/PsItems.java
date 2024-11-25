@@ -9,6 +9,7 @@ import net.silentchaos512.powerscale.PowerScale;
 import net.silentchaos512.powerscale.component.AttributeMutator;
 import net.silentchaos512.powerscale.core.resources.ScalingAttributeManager;
 import net.silentchaos512.powerscale.item.AttributeMutatorItem;
+import net.silentchaos512.powerscale.item.FlaskItem;
 
 import java.util.function.Supplier;
 
@@ -40,8 +41,17 @@ public class PsItems {
             )
     );
 
-    public static final DeferredItem<AttributeMutatorItem> HEALTH_BOOSTER_POTION = ITEMS.register(
-            "health_booster_potion",
+    public static final DeferredItem<FlaskItem> FLASK = ITEMS.register(
+            "flask",
+            () -> new FlaskItem(new Item.Properties())
+    );
+    public static final DeferredItem<Item> WATER_FLASK = ITEMS.register(
+            "water_flask",
+            () -> new Item(new Item.Properties().stacksTo(1))
+    );
+
+    public static final DeferredItem<AttributeMutatorItem> HEALTH_BOOSTER_TONIC = ITEMS.register(
+            "health_booster_tonic",
             () -> new AttributeMutatorItem(
                     false,
                     PsItems::healthBoostModifier,
@@ -49,8 +59,8 @@ public class PsItems {
                             .stacksTo(1)
             )
     );
-    public static final DeferredItem<AttributeMutatorItem> POWER_BOOSTER_POTION = ITEMS.register(
-            "power_booster_potion",
+    public static final DeferredItem<AttributeMutatorItem> POWER_BOOSTER_TONIC = ITEMS.register(
+            "power_booster_tonic",
             () -> new AttributeMutatorItem(
                     false,
                     PsItems::powerBoostModifier,
@@ -58,8 +68,8 @@ public class PsItems {
                             .stacksTo(1)
             )
     );
-    public static final DeferredItem<AttributeMutatorItem> SPEED_BOOSTER_POTION = ITEMS.register(
-            "speed_booster_potion",
+    public static final DeferredItem<AttributeMutatorItem> SPEED_BOOSTER_TONIC = ITEMS.register(
+            "speed_booster_tonic",
             () -> new AttributeMutatorItem(
                     false,
                     PsItems::speedBoostModifier,
@@ -89,9 +99,9 @@ public class PsItems {
         );
     }
 
-    private static AttributeMutator simpleBoosterWrapper(ModConfigSpec.BooleanValue config, Supplier<AttributeMutator> supplier) {
-        if (config.get()) {
-            return supplier.get();
+    private static AttributeMutator simpleBoosterWrapper(ModConfigSpec.BooleanValue simpleBoosterItemsConfig, Supplier<AttributeMutator> defaultModifierSupplier) {
+        if (simpleBoosterItemsConfig.get()) {
+            return defaultModifierSupplier.get();
         }
         return null;
     }

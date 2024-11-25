@@ -17,6 +17,11 @@ public final class DataGenerators {
         var packOutput = generator.getPackOutput();
         var lookupProvider = event.getLookupProvider();
 
+        var blockTagsProvider = new ModBlockTagsProvider(packOutput, lookupProvider, existingFileHelper);
+        generator.addProvider(true, blockTagsProvider);
+        generator.addProvider(true, new ModItemTagsProvider(packOutput, lookupProvider, blockTagsProvider.contentsGetter(), existingFileHelper));
+        generator.addProvider(true, new ModRecipesProvider(packOutput, lookupProvider));
+
         generator.addProvider(true, new ScalingAttributesProvider(packOutput));
 
         generator.addProvider(true, new ModItemModelProvider(packOutput, existingFileHelper));
