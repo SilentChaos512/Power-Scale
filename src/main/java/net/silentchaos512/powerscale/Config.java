@@ -40,6 +40,7 @@ public class Config {
         public final ModConfigSpec.BooleanValue detailedLogging;
 
         public final ModConfigSpec.BooleanValue simpleAttributeBoosters;
+        public final ModConfigSpec.BooleanValue simpleDifficultyMutators;
 
         public final ModConfigSpec.DoubleValue difficultyPlayerInitial;
         public final ModConfigSpec.DoubleValue difficultyPlayerMax;
@@ -72,8 +73,11 @@ public class Config {
                     .define("detailed_logging", false);
 
             simpleAttributeBoosters = builder
-                    .comment("Allows the ingredients for attribute booster potions (crystals) to be used directly")
+                    .comment("Allows the ingredients for attribute booster tonics (crystals) to be used directly")
                     .define("item.simple_attribute_boosters", false);
+            simpleDifficultyMutators = builder
+                    .comment("Allows the ingredients for difficulty mutator brews (cursed/enchanted hearts) to be used directly")
+                    .define("item.simple_difficulty_mutators", false);
 
             final double minMaxDifficulty = 999_999;
             difficultyPlayerInitial = builder

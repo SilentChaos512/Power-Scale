@@ -9,8 +9,11 @@ import net.silentchaos512.powerscale.PowerScale;
 import net.silentchaos512.powerscale.component.AttributeMutator;
 import net.silentchaos512.powerscale.core.resources.ScalingAttributeManager;
 import net.silentchaos512.powerscale.item.AttributeMutatorItem;
+import net.silentchaos512.powerscale.item.DifficultyMutatorItem;
 import net.silentchaos512.powerscale.item.FlaskItem;
 
+import javax.annotation.Nullable;
+import java.util.Optional;
 import java.util.function.Supplier;
 
 public class PsItems {
@@ -37,6 +40,23 @@ public class PsItems {
             () -> new AttributeMutatorItem(
                     true,
                     () -> simpleBoosterWrapper(Config.COMMON.simpleAttributeBoosters, PsItems::speedBoostModifier),
+                    new Item.Properties()
+            )
+    );
+
+    public static final DeferredItem<DifficultyMutatorItem> CURSED_HEART = ITEMS.register(
+            "cursed_heart",
+            () -> new DifficultyMutatorItem(
+                    true,
+                    () -> simpleMutatorWrapper(Config.COMMON.simpleDifficultyMutators, PsItems::difficultyIncreaseModifier),
+                    new Item.Properties()
+            )
+    );
+    public static final DeferredItem<DifficultyMutatorItem> ENCHANTED_HEART = ITEMS.register(
+            "enchanted_heart",
+            () -> new DifficultyMutatorItem(
+                    true,
+                    () -> simpleMutatorWrapper(Config.COMMON.simpleDifficultyMutators, PsItems::difficultyDecreaseModifier),
                     new Item.Properties()
             )
     );
@@ -78,6 +98,26 @@ public class PsItems {
             )
     );
 
+    public static final DeferredItem<DifficultyMutatorItem> ARDUOUS_BREW = ITEMS.register(
+            "arduous_brew",
+            () -> new DifficultyMutatorItem(
+                    false,
+                    PsItems::difficultyIncreaseModifier,
+                    new Item.Properties()
+                            .stacksTo(1)
+            )
+    );
+
+    public static final DeferredItem<DifficultyMutatorItem> LANGUID_BREW = ITEMS.register(
+            "languid_brew",
+            () -> new DifficultyMutatorItem(
+                    false,
+                    PsItems::difficultyDecreaseModifier,
+                    new Item.Properties()
+                            .stacksTo(1)
+            )
+    );
+
     private static AttributeMutator healthBoostModifier() {
         return new AttributeMutator(
                 ScalingAttributeManager.getHolder(Const.MAX_HEALTH),
@@ -99,10 +139,26 @@ public class PsItems {
         );
     }
 
+    @Nullable
     private static AttributeMutator simpleBoosterWrapper(ModConfigSpec.BooleanValue simpleBoosterItemsConfig, Supplier<AttributeMutator> defaultModifierSupplier) {
         if (simpleBoosterItemsConfig.get()) {
             return defaultModifierSupplier.get();
         }
         return null;
+    }
+
+    private static Optional<Double> difficultyIncreaseModifier() {
+        return Optional.of(10.0);
+    }
+
+    private static Optional<Double> difficultyDecreaseModifier() {
+        return Optional.of(-10.0);
+    }
+
+    private static Optional<Double> simpleMutatorWrapper(ModConfigSpec.BooleanValue simpleDifficultyMutatorsConfig, Supplier<Optional<Double>> defaultModifierSupplier) {
+        if (simpleDifficultyMutatorsConfig.get()) {
+            return defaultModifierSupplier.get();
+        }
+        return Optional.empty();
     }
 }

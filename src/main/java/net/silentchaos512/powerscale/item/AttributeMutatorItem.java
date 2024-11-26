@@ -14,6 +14,7 @@ import net.silentchaos512.powerscale.core.scalingattribute.ScalingAttribute;
 import net.silentchaos512.powerscale.core.scalingattribute.ScalingAttributeHelper;
 import net.silentchaos512.powerscale.setup.PsAttachmentTypes;
 import net.silentchaos512.powerscale.setup.PsDataComponents;
+import net.silentchaos512.powerscale.setup.PsItems;
 import net.silentchaos512.powerscale.setup.PsSounds;
 
 import javax.annotation.Nullable;
@@ -76,7 +77,7 @@ public class AttributeMutatorItem extends Item {
                 stack.consume(1, entity);
                 return stack;
             }
-            return new ItemStack(Items.GLASS_BOTTLE);
+            return new ItemStack(PsItems.FLASK.get());
         }
 
         return stack;
