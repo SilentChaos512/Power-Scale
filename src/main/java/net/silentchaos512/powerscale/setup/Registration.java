@@ -8,6 +8,8 @@ public class Registration {
         PsCreativeTabs.CREATIVE_TABS.register(modEventBus);
         PsDataComponents.DATA_COMPONENTS.register(modEventBus);
         PsItems.ITEMS.register(modEventBus);
+        PsLoot.LOOT_CONDITION_TYPES.register(modEventBus);
+        PsLoot.LOOT_MODIFIERS.register(modEventBus);
         PsSounds.SOUND_EVENTS.register(modEventBus);
     }
 }

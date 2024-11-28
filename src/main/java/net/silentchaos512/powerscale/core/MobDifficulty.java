@@ -38,6 +38,8 @@ public class MobDifficulty {
     @SubscribeEvent
     public static void onEntityJoinLevel(EntityJoinLevelEvent event) {
         if (event.getEntity() instanceof AbstractArrow arrow) {
+            // FIXME: Add a ranged damage attribute?
+            // FIXME: Move to a different class, since we will also modify player arrow damage?
             var owner = arrow.getOwner();
             if (owner instanceof Mob && owner.hasData(PsAttachmentTypes.LEVEL)) {
                 int level = owner.getData(PsAttachmentTypes.LEVEL);

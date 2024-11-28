@@ -1,0 +1,41 @@
+{
+  "type": "minecraft:entity",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:killed_by_player"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "powerscale:heart_crystal",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "powerscale:power_crystal",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "powerscale:archer_crystal",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "powerscale:wing_crystal",
+          "weight": 2
+        }
+      ],
+      "rolls": {
+        "type": "minecraft:uniform",
+        "max": 6.0,
+        "min": 4.0
+      }
+    }
+  ],
+  "random_sequence": "powerscale:bonus_drops/boss"
+}

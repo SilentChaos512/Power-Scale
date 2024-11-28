@@ -1,10 +1,15 @@
 package net.silentchaos512.powerscale.core;
 
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.storage.loot.LootTable;
 import net.silentchaos512.powerscale.Config;
+import net.silentchaos512.powerscale.PowerScale;
 
+import java.util.Locale;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
@@ -38,6 +43,7 @@ public enum EntityGroups implements Predicate<Entity> {
     private final Predicate<Entity> predicate;
     private final Supplier<Double> minDifficulty;
     private final Supplier<Double> maxDifficulty;
+    private final ResourceKey<LootTable> lootTable;
 
     EntityGroups(
             Predicate<Entity> predicate,
@@ -47,6 +53,7 @@ public enum EntityGroups implements Predicate<Entity> {
         this.predicate = predicate;
         this.minDifficulty = minDifficulty;
         this.maxDifficulty = maxDifficulty;
+        this.lootTable = ResourceKey.create(Registries.LOOT_TABLE, PowerScale.getId("bonus_drops/" + this.getName()));
     }
 
     public static EntityGroups from(Entity entity) {
@@ -59,12 +66,20 @@ public enum EntityGroups implements Predicate<Entity> {
         return NONE;
     }
 
+    public String getName() {
+        return name().toLowerCase(Locale.ROOT);
+    }
+
     public double minDifficulty() {
         return this.minDifficulty.get();
     }
 
     public double maxDifficulty() {
         return this.maxDifficulty.get();
+    }
+
+    public ResourceKey<LootTable> getLootTable() {
+        return lootTable;
     }
 
     @Override

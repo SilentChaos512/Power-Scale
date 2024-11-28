@@ -30,6 +30,12 @@ public class PsAttachmentTypes {
                     .build()
     );
 
+    public static final Supplier<AttachmentType<Integer>> BLIGHT_TIER = ATTACHMENT_TYPES.register(
+            "blight_tier", () -> AttachmentType.builder(() -> 0)
+                    .serialize(Codec.INT)
+                    .build()
+    );
+
     // assign to players, calculated base on the sp value
     // maybe could assign to mobs? but difficulty is probably enough
     public static final Supplier<AttachmentType<Integer>> LEVEL = ATTACHMENT_TYPES.register(

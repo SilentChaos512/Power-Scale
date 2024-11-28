@@ -35,6 +35,12 @@ public class PsItems {
                     new Item.Properties()
             )
     );
+    public static final DeferredItem<Item> ARCHER_CRYSTAL = ITEMS.register(
+            "archer_crystal",
+            () -> new Item(
+                    new Item.Properties()
+            )
+    );
     public static final DeferredItem<AttributeMutatorItem> WING_CRYSTAL = ITEMS.register(
             "wing_crystal",
             () -> new AttributeMutatorItem(
