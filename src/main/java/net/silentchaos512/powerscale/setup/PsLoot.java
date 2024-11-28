@@ -13,9 +13,9 @@ import net.silentchaos512.powerscale.loot.condition.MobProperties;
 import java.util.function.Supplier;
 
 public class PsLoot {
-    public static final DeferredRegister<LootItemConditionType> LOOT_CONDITION_TYPES =
+    static final DeferredRegister<LootItemConditionType> LOOT_CONDITION_TYPES =
             DeferredRegister.create(Registries.LOOT_CONDITION_TYPE, PowerScale.MOD_ID);
-    public static final DeferredRegister<MapCodec<? extends IGlobalLootModifier>> LOOT_MODIFIERS =
+    static final DeferredRegister<MapCodec<? extends IGlobalLootModifier>> LOOT_MODIFIERS =
             DeferredRegister.create(NeoForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, PowerScale.MOD_ID);
 
     public static final Supplier<LootItemConditionType> MOB_PROPERTIES = LOOT_CONDITION_TYPES.register(

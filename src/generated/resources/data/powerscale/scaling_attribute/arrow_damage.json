@@ -1,0 +1,14 @@
+{
+  "attribute": "powerscale:arrow_damage",
+  "mob_scaling": {
+    "boss_mobs": "$scaling_attributes.arrow_damage.mob_scaling.boss",
+    "hostile_mobs": "$scaling_attributes.arrow_damage.mob_scaling.hostile",
+    "peaceful_mobs": "$scaling_attributes.arrow_damage.mob_scaling.peaceful"
+  },
+  "player_mutators": {
+    "on_player_death": "$scaling_attributes.arrow_damage.mutator.player_dies",
+    "on_player_kill_boss": "$scaling_attributes.arrow_damage.mutator.player_kills_boss",
+    "on_player_kill_mob": "$scaling_attributes.arrow_damage.mutator.player_kills_mob",
+    "on_player_sleep": "$scaling_attributes.arrow_damage.mutator.player_sleeps"
+  }
+}

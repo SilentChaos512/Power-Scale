@@ -58,6 +58,7 @@ public class Config {
         public final ConfiguredExpression localDifficulty;
         public final ConfiguredExpression playerLevelCurve;
 
+        public final ScalingAttributeConfigSet defaultScalingAttributeArrowDamage;
         public final ScalingAttributeConfigSet defaultScalingAttributeAttackDamage;
         public final ScalingAttributeConfigSet defaultScalingAttributeMaxHealth;
         public final ScalingAttributeConfigSet defaultScalingAttributeMovementSpeed;
@@ -137,6 +138,17 @@ public class Config {
                     "(EvalEx) The expression that computes the SP required to reach a given level"
             );
 
+            defaultScalingAttributeArrowDamage = new ScalingAttributeConfigSet(
+                    builder,
+                    "scaling_attributes.arrow_damage",
+                    "0.1 * (level - 1)",
+                    "0.0",
+                    "0.1 * (level - 1)",
+                    "value",
+                    "value",
+                    "value",
+                    "value"
+            );
             defaultScalingAttributeAttackDamage = new ScalingAttributeConfigSet(
                     builder,
                     "scaling_attributes.attack_damage",

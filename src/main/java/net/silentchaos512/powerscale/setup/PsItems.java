@@ -35,9 +35,11 @@ public class PsItems {
                     new Item.Properties()
             )
     );
-    public static final DeferredItem<Item> ARCHER_CRYSTAL = ITEMS.register(
+    public static final DeferredItem<AttributeMutatorItem> ARCHER_CRYSTAL = ITEMS.register(
             "archer_crystal",
-            () -> new Item(
+            () -> new AttributeMutatorItem(
+                    true,
+                    () -> simpleBoosterWrapper(Config.COMMON.simpleAttributeBoosters, PsItems::arrowPowerBoostModifier),
                     new Item.Properties()
             )
     );
@@ -94,6 +96,15 @@ public class PsItems {
                             .stacksTo(1)
             )
     );
+    public static final DeferredItem<AttributeMutatorItem> ARROW_POWER_BOOSTER_TONIC = ITEMS.register(
+            "arrow_power_booster_tonic",
+            () -> new AttributeMutatorItem(
+                    false,
+                    PsItems::arrowPowerBoostModifier,
+                    new Item.Properties()
+                            .stacksTo(1)
+            )
+    );
     public static final DeferredItem<AttributeMutatorItem> SPEED_BOOSTER_TONIC = ITEMS.register(
             "speed_booster_tonic",
             () -> new AttributeMutatorItem(
@@ -135,6 +146,13 @@ public class PsItems {
         return new AttributeMutator(
                 ScalingAttributeManager.getHolder(Const.ATTACK_DAMAGE),
                 0.5
+        );
+    }
+
+    private static AttributeMutator arrowPowerBoostModifier() {
+        return new AttributeMutator(
+                ScalingAttributeManager.getHolder(Const.ARROW_DAMAGE),
+                0.25
         );
     }
 

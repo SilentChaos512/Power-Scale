@@ -22,7 +22,7 @@
         {
           "type": "minecraft:item",
           "name": "powerscale:heart_crystal",
-          "weight": 12
+          "weight": 16
         },
         {
           "type": "minecraft:item",
@@ -32,7 +32,7 @@
         {
           "type": "minecraft:item",
           "name": "powerscale:archer_crystal",
-          "weight": 3
+          "weight": 2
         },
         {
           "type": "minecraft:item",
@@ -90,7 +90,7 @@
         {
           "type": "minecraft:item",
           "name": "powerscale:heart_crystal",
-          "weight": 10
+          "weight": 15
         },
         {
           "type": "minecraft:item",
@@ -100,7 +100,7 @@
         {
           "type": "minecraft:item",
           "name": "powerscale:archer_crystal",
-          "weight": 4
+          "weight": 3
         },
         {
           "type": "minecraft:item",

@@ -37,7 +37,7 @@ public class EntityLootTables implements LootTableSubProvider {
                                         .when(LootItemKilledByPlayerCondition.killedByPlayer())
                                         .add(
                                                 LootItem.lootTableItem(PsItems.HEART_CRYSTAL)
-                                                        .setWeight(12)
+                                                        .setWeight(16)
                                         )
                                         .add(
                                                 LootItem.lootTableItem(PsItems.POWER_CRYSTAL)
@@ -45,7 +45,7 @@ public class EntityLootTables implements LootTableSubProvider {
                                         )
                                         .add(
                                                 LootItem.lootTableItem(PsItems.ARCHER_CRYSTAL)
-                                                        .setWeight(3)
+                                                        .setWeight(2)
                                         )
                                         .add(
                                                 LootItem.lootTableItem(PsItems.WING_CRYSTAL)
@@ -79,7 +79,7 @@ public class EntityLootTables implements LootTableSubProvider {
                                         ))
                                         .add(
                                                 LootItem.lootTableItem(PsItems.HEART_CRYSTAL)
-                                                        .setWeight(10)
+                                                        .setWeight(15)
                                         )
                                         .add(
                                                 LootItem.lootTableItem(PsItems.POWER_CRYSTAL)
@@ -87,7 +87,7 @@ public class EntityLootTables implements LootTableSubProvider {
                                         )
                                         .add(
                                                 LootItem.lootTableItem(PsItems.ARCHER_CRYSTAL)
-                                                        .setWeight(4)
+                                                        .setWeight(3)
                                         )
                                         .add(
                                                 LootItem.lootTableItem(PsItems.WING_CRYSTAL)
@@ -120,7 +120,7 @@ public class EntityLootTables implements LootTableSubProvider {
                                         .when(LootItemKilledByPlayerCondition.killedByPlayer())
                                         .add(
                                                 LootItem.lootTableItem(PsItems.HEART_CRYSTAL)
-                                                        .setWeight(10)
+                                                        .setWeight(13)
                                         )
                                         .add(
                                                 LootItem.lootTableItem(PsItems.POWER_CRYSTAL)
@@ -128,7 +128,7 @@ public class EntityLootTables implements LootTableSubProvider {
                                         )
                                         .add(
                                                 LootItem.lootTableItem(PsItems.ARCHER_CRYSTAL)
-                                                        .setWeight(4)
+                                                        .setWeight(3)
                                         )
                                         .add(
                                                 LootItem.lootTableItem(PsItems.WING_CRYSTAL)

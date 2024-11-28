@@ -5,11 +5,9 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.living.FinalizeSpawnEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.silentchaos512.powerscale.Config;
@@ -33,21 +31,6 @@ public class MobDifficulty {
 
         final var localDifficulty = DifficultyUtil.getLocalDifficulty(mob.level(), mob.getOnPos());
         setDifficultyAndAttributes(mob, localDifficulty);
-    }
-
-    @SubscribeEvent
-    public static void onEntityJoinLevel(EntityJoinLevelEvent event) {
-        if (event.getEntity() instanceof AbstractArrow arrow) {
-            // FIXME: Add a ranged damage attribute?
-            // FIXME: Move to a different class, since we will also modify player arrow damage?
-            var owner = arrow.getOwner();
-            if (owner instanceof Mob && owner.hasData(PsAttachmentTypes.LEVEL)) {
-                int level = owner.getData(PsAttachmentTypes.LEVEL);
-                var extraDamage = 0.1 * level;
-                arrow.setBaseDamage(arrow.getBaseDamage() + extraDamage);
-                PowerScale.LOGGER.info("set arrow damage to {}", arrow.getBaseDamage());
-            }
-        }
     }
 
     public static void setDifficultyAndAttributes(Mob mob, double difficulty) {
