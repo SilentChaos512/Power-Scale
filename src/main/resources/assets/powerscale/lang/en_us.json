@@ -1,5 +1,7 @@
 {
+  "block.powerscale.alchemy_set": "Alchemy Set",
   "config.jade.plugin_powerscale.mob": "Power Scale: Mob",
+  "container.powerscale.alchemy_set": "Alchemy Set",
   "item.powerscale.archer_crystal": "Archer Crystal",
   "item.powerscale.arduous_brew": "Arduous Brew",
   "item.powerscale.arrow_power_booster_tonic": "Arrow Power Booster Tonic",

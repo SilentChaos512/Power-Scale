@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "facing=east,has_flask=false": {
+      "model": "powerscale:block/alchemy_set",
+      "y": 90
+    },
+    "facing=east,has_flask=true": {
+      "model": "powerscale:block/alchemy_set_flask",
+      "y": 90
+    },
+    "facing=north,has_flask=false": {
+      "model": "powerscale:block/alchemy_set"
+    },
+    "facing=north,has_flask=true": {
+      "model": "powerscale:block/alchemy_set_flask"
+    },
+    "facing=south,has_flask=false": {
+      "model": "powerscale:block/alchemy_set",
+      "y": 180
+    },
+    "facing=south,has_flask=true": {
+      "model": "powerscale:block/alchemy_set_flask",
+      "y": 180
+    },
+    "facing=west,has_flask=false": {
+      "model": "powerscale:block/alchemy_set",
+      "y": 270
+    },
+    "facing=west,has_flask=true": {
+      "model": "powerscale:block/alchemy_set_flask",
+      "y": 270
+    }
+  }
+}

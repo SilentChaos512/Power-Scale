@@ -7,6 +7,7 @@ import net.silentchaos512.powerscale.PowerScale;
 
 public class PsTags {
     public static final class Items {
+        public static final TagKey<Item> ALCHEMY_FUEL = mod("alchemy_fuel");
         public static final TagKey<Item> FLASK_GEMS = mod("flask_gems");
 
         private static TagKey<Item> mod(String path) {
