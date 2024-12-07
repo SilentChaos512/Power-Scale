@@ -2,7 +2,7 @@
   "block.powerscale.alchemy_set": "Alchemy Set",
   "config.jade.plugin_powerscale.mob": "Power Scale: Mob",
   "container.powerscale.alchemy_set": "Alchemy Set",
-  "gui.powerscale.category.alchemy": "Alchemy Brewing",
+  "emi.category.powerscale.alchemy": "Alchemy Brewing",
   "item.powerscale.alchemy_powder": "Alchemy Powder",
   "item.powerscale.archer_crystal": "Archer Crystal",
   "item.powerscale.arduous_brew": "Arduous Brew",
@@ -23,6 +23,7 @@
   "item.powerscale.water_flask": "Water Flask",
   "item.powerscale.wing_crystal": "Wing Crystal",
   "itemGroup.power_scale": "Power Scale",
+  "jei.category.powerscale.alchemy": "Alchemy Brewing",
   "network.powerscale.failure": "Network Failure (Power Scale)",
   "powerscale.configuration.arrow_damage": "Arrow Damage",
   "powerscale.configuration.attack_damage": "Attack Damage",
@@ -60,5 +61,8 @@
   "scaling_attribute.powerscale.arrow_damage": "Arrow Damage",
   "scaling_attribute.powerscale.attack_damage": "Attack Damage",
   "scaling_attribute.powerscale.max_health": "Max Health",
-  "scaling_attribute.powerscale.movement_speed": "Movement Speed"
+  "scaling_attribute.powerscale.movement_speed": "Movement Speed",
+  "tag.item.powerscale.alchemy_brews": "Alchemy Brews & Tonics",
+  "tag.item.powerscale.alchemy_fuels": "Alchemy Fuels",
+  "tag.item.powerscale.flask_gems": "Flask Gems"
 }

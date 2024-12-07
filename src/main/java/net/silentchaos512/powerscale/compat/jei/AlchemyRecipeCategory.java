@@ -31,7 +31,7 @@ public class AlchemyRecipeCategory extends AbstractRecipeCategory<AlchemyRecipe>
     public AlchemyRecipeCategory(IGuiHelper guiHelper) {
         super(
                 PowerScaleJeiPlugin.ALCHEMY_RECIPE_TYPE,
-                Component.translatable("gui.powerscale.category.alchemy"),
+                Component.translatable("jei.category.powerscale.alchemy"),
                 guiHelper.createDrawableItemLike(PsBlocks.ALCHEMY_SET),
                 114,
                 61
