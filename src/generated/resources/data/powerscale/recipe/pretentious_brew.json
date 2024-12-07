@@ -1,0 +1,13 @@
+{
+  "type": "powerscale:alchemy",
+  "flask": {
+    "item": "powerscale:water_flask"
+  },
+  "ingredient": {
+    "item": "minecraft:chorus_fruit"
+  },
+  "result": {
+    "count": 1,
+    "id": "powerscale:pretentious_brew"
+  }
+}

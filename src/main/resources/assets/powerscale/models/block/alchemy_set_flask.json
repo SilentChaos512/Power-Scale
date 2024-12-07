@@ -1,6 +1,7 @@
 {
 	"credit": "Made with Blockbench",
 	"parent": "block/block",
+	"render_type": "cutout",
 	"textures": {
 		"0": "powerscale:block/alchemy_set",
 		"particle": "powerscale:block/alchemy_set"

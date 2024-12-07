@@ -9,6 +9,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
@@ -22,6 +23,8 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.silentchaos512.powerscale.setup.PsBlockEntityTypes;
 
 import javax.annotation.Nullable;
@@ -30,6 +33,7 @@ public class AlchemySetBlock extends BaseEntityBlock {
     public static final MapCodec<AlchemySetBlock> CODEC = simpleCodec(AlchemySetBlock::new);
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
     public static final BooleanProperty HAS_FLASK = BooleanProperty.create("has_flask");
+    private static final VoxelShape SHAPE = Block.box(2, 0, 2, 14, 8, 14);
 
     public AlchemySetBlock(Properties pProperties) {
         super(pProperties);
@@ -86,6 +90,11 @@ public class AlchemySetBlock extends BaseEntityBlock {
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         Direction facing = context.getHorizontalDirection().getOpposite();
         return defaultBlockState().setValue(FACING, facing);
+    }
+
+    @Override
+    protected VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
+        return SHAPE;
     }
 
     @Nullable

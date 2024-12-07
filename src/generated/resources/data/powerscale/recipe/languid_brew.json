@@ -1,0 +1,13 @@
+{
+  "type": "powerscale:alchemy",
+  "flask": {
+    "item": "powerscale:mellow_brew"
+  },
+  "ingredient": {
+    "item": "powerscale:enchanted_heart"
+  },
+  "result": {
+    "count": 1,
+    "id": "powerscale:languid_brew"
+  }
+}

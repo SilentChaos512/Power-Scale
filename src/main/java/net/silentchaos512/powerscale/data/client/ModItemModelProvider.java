@@ -18,8 +18,11 @@ public class ModItemModelProvider extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
+        withExistingParent("alchemy_set", modLoc("block/alchemy_set"));
+
         var itemGenerated = getExistingFile(ResourceLocation.withDefaultNamespace("item/generated"));
 
+        builder(PsItems.ALCHEMY_POWDER, itemGenerated);
         builder(PsItems.HEART_CRYSTAL, itemGenerated);
         builder(PsItems.POWER_CRYSTAL, itemGenerated);
         builder(PsItems.ARCHER_CRYSTAL, itemGenerated);
@@ -28,6 +31,9 @@ public class ModItemModelProvider extends ItemModelProvider {
         builder(PsItems.ENCHANTED_HEART, itemGenerated);
         builder(PsItems.FLASK, itemGenerated);
         builder(PsItems.WATER_FLASK, itemGenerated);
+        builder(PsItems.MELLOW_BREW, itemGenerated);
+        builder(PsItems.TORPID_BREW, itemGenerated);
+        builder(PsItems.PRETENTIOUS_BREW, itemGenerated);
         builder(PsItems.HEALTH_BOOSTER_TONIC, itemGenerated);
         builder(PsItems.POWER_BOOSTER_TONIC, itemGenerated);
         builder(PsItems.ARROW_POWER_BOOSTER_TONIC, itemGenerated);

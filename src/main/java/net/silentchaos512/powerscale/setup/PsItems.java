@@ -1,7 +1,10 @@
 package net.silentchaos512.powerscale.setup;
 
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.ModConfigSpec;
+import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.silentchaos512.powerscale.Config;
@@ -18,6 +21,15 @@ import java.util.function.Supplier;
 
 public class PsItems {
     static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(PowerScale.MOD_ID);
+
+    static {
+        ITEMS.register("alchemy_set", simpleBlockItem(PsBlocks.ALCHEMY_SET));
+    }
+
+    public static final DeferredItem<Item> ALCHEMY_POWDER = ITEMS.register(
+            "alchemy_powder",
+            () -> new Item(new Item.Properties())
+    );
 
     public static final DeferredItem<AttributeMutatorItem> HEART_CRYSTAL = ITEMS.register(
             "heart_crystal",
@@ -73,10 +85,10 @@ public class PsItems {
             "flask",
             () -> new FlaskItem(new Item.Properties())
     );
-    public static final DeferredItem<Item> WATER_FLASK = ITEMS.register(
-            "water_flask",
-            () -> new Item(new Item.Properties().stacksTo(1))
-    );
+    public static final DeferredItem<Item> WATER_FLASK = registerBasicBrew("water_flask");
+    public static final DeferredItem<Item> MELLOW_BREW = registerBasicBrew("mellow_brew");
+    public static final DeferredItem<Item> TORPID_BREW = registerBasicBrew("torpid_brew");
+    public static final DeferredItem<Item> PRETENTIOUS_BREW = registerBasicBrew("pretentious_brew");
 
     public static final DeferredItem<AttributeMutatorItem> HEALTH_BOOSTER_TONIC = ITEMS.register(
             "health_booster_tonic",
@@ -184,5 +196,16 @@ public class PsItems {
             return defaultModifierSupplier.get();
         }
         return Optional.empty();
+    }
+
+    private static DeferredItem<Item> registerBasicBrew(String name) {
+        return ITEMS.register(
+                name,
+                () -> new Item(new Item.Properties().stacksTo(1))
+        );
+    }
+
+    private static <T extends Block> Supplier<BlockItem> simpleBlockItem(DeferredBlock<T> block) {
+        return () -> new BlockItem(block.get(), new Item.Properties());
     }
 }

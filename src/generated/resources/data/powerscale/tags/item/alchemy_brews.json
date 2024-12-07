@@ -1,0 +1,14 @@
+{
+  "values": [
+    "powerscale:health_booster_tonic",
+    "powerscale:power_booster_tonic",
+    "powerscale:arrow_power_booster_tonic",
+    "powerscale:speed_booster_tonic",
+    "powerscale:arduous_brew",
+    "powerscale:languid_brew",
+    "powerscale:mellow_brew",
+    "powerscale:torpid_brew",
+    "powerscale:pretentious_brew",
+    "powerscale:water_flask"
+  ]
+}

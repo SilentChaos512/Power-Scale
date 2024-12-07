@@ -1,0 +1,13 @@
+{
+  "type": "powerscale:alchemy",
+  "flask": {
+    "item": "powerscale:torpid_brew"
+  },
+  "ingredient": {
+    "item": "powerscale:power_crystal"
+  },
+  "result": {
+    "count": 1,
+    "id": "powerscale:power_booster_tonic"
+  }
+}

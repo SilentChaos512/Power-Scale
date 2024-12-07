@@ -1,6 +1,7 @@
 {
 	"credit": "Made with Blockbench",
 	"parent": "block/block",
+	"render_type": "cutout",
 	"textures": {
 		"0": "powerscale:block/alchemy_set",
 		"particle": "powerscale:block/alchemy_set"
@@ -19,34 +20,6 @@
 				"west": {"uv": [0, 0, 12, 2], "texture": "#missing"},
 				"up": {"uv": [0, 0, 12, 12], "texture": "#missing"},
 				"down": {"uv": [0, 0, 12, 12], "texture": "#missing"}
-			}
-		},
-		{
-			"name": "face1",
-			"from": [5.5, 2, 6],
-			"to": [10.5, 10, 6],
-			"rotation": {"angle": 0, "axis": "y", "origin": [6, 2, 4]},
-			"faces": {
-				"north": {"uv": [0, 6, 5, 14], "texture": "#0"},
-				"east": {"uv": [0, 0, 0, 8], "texture": "#0"},
-				"south": {"uv": [0, 6, 5, 14], "texture": "#0"},
-				"west": {"uv": [0, 0, 0, 8], "texture": "#0"},
-				"up": {"uv": [0, 0, 5, 0], "texture": "#0"},
-				"down": {"uv": [0, 0, 5, 0], "texture": "#0"}
-			}
-		},
-		{
-			"name": "face2",
-			"from": [8, 2, 3.5],
-			"to": [8, 10, 8.5],
-			"rotation": {"angle": 0, "axis": "y", "origin": [6, 2, 8]},
-			"faces": {
-				"north": {"uv": [0, 0, 0, 8], "texture": "#0"},
-				"east": {"uv": [0, 6, 5, 14], "texture": "#0"},
-				"south": {"uv": [0, 0, 0, 8], "texture": "#0"},
-				"west": {"uv": [0, 6, 5, 14], "texture": "#0"},
-				"up": {"uv": [0, 0, 5, 0], "rotation": 270, "texture": "#0"},
-				"down": {"uv": [0, 0, 5, 0], "rotation": 90, "texture": "#0"}
 			}
 		},
 		{

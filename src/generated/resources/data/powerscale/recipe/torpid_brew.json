@@ -1,0 +1,13 @@
+{
+  "type": "powerscale:alchemy",
+  "flask": {
+    "item": "powerscale:water_flask"
+  },
+  "ingredient": {
+    "item": "minecraft:soul_sand"
+  },
+  "result": {
+    "count": 1,
+    "id": "powerscale:torpid_brew"
+  }
+}
