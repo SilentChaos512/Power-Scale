@@ -13,17 +13,11 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.silentchaos512.powerscale.setup.PsCrafting;
 
-public class AlchemyRecipe implements Recipe<AlchemyRecipeInput> {
-    private final Ingredient flask;
-    private final Ingredient ingredient;
-    private final ItemStack result;
-
-    public AlchemyRecipe(Ingredient flask, Ingredient ingredient, ItemStack result) {
-        this.flask = flask;
-        this.ingredient = ingredient;
-        this.result = result;
-    }
-
+public record AlchemyRecipe(
+        Ingredient flask,
+        Ingredient ingredient,
+        ItemStack result
+) implements Recipe<AlchemyRecipeInput> {
     @Override
     public boolean matches(AlchemyRecipeInput input, Level level) {
         return this.flask.test(input.flask()) && this.ingredient.test(input.ingredient());
