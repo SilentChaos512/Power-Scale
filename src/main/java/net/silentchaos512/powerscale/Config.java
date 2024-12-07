@@ -55,7 +55,12 @@ public class Config {
         public final ModConfigSpec.DoubleValue difficultyLocalMin;
 
         public final ConfiguredExpression difficultyMutatorPerSecond;
-        public final ConfiguredExpression localDifficulty;
+        public final ConfiguredExpression localDifficultyOverride;
+        public ModConfigSpec.BooleanValue localDifficultyUseOverride;
+        public final ConfiguredExpression localDifficultyFromPlayers;
+        public final ConfiguredExpression localDifficultyFromLocation;
+        public final ConfiguredExpression localDifficultyLunarMultipliers;
+        public final ConfiguredExpression localDifficultyGroupBonus;
         public final ConfiguredExpression playerLevelCurve;
 
         public final ScalingAttributeConfigSet defaultScalingAttributeArrowDamage;
@@ -125,12 +130,42 @@ public class Config {
                     "difficulty + 0.0011575",
                     "(EvalEx) The expression that modifies a player's difficulty every second"
             );
-            localDifficulty = expressionConfig(
+            localDifficultyFromPlayers = expressionConfig(
                     builder,
-                    "difficulty.local_difficulty.expression",
-                    "(WEIGHTED_AVERAGE_PLAYER_DIFFICULTY(256) + 0.0025 * DISTANCE_FROM_SPAWN() + 0.25 * DEPTH_BELOW(64)) * (1 + 0.05 * (LOCAL_PLAYER_COUNT(128) - 1))",
-                    "(EvalEx) The expression that calculates local (mob) difficulty"
+                    "difficulty.local_difficulty.parts.from_players",
+                    "WEIGHTED_AVERAGE_PLAYER_DIFFICULTY(256)"
             );
+            localDifficultyFromLocation = expressionConfig(
+                    builder,
+                    "difficulty.local_difficulty.parts.from_distance",
+                    "0.0025 * DISTANCE_FROM_SPAWN() + 0.25 * DEPTH_BELOW(64)"
+            );
+            localDifficultyLunarMultipliers = expressionConfig(
+                    builder,
+                    "difficulty.local_difficulty.parts.lunar_multipliers",
+                    "LUNAR_CYCLES(1.1, 1.075, 1.05, 1.0, 0.95, 1.0, 1.05, 1.075)"
+            );
+            localDifficultyGroupBonus = expressionConfig(
+                    builder,
+                    "difficulty.local_difficulty.parts.group_bonus",
+                    "1 + 0.05 * (LOCAL_PLAYER_COUNT(128) - 1)"
+            );
+            localDifficultyUseOverride = builder
+                    .comment("If enabled, local difficulty will be calculated using the override expression. Otherwise, difficulty is calculated using the expressions under \"parts\", with each part being added/multiplied together in a specific order.",
+                            "Use the override expression only if you need very fine control over how difficulty is calculated.")
+                    .define("difficulty.local_difficulty.use_override", false);
+            localDifficultyOverride = expressionConfig(
+                    builder,
+                    "difficulty.local_difficulty.override_expression",
+                    "(" + localDifficultyFromPlayers.getConfigDefault()
+                            + " + " + localDifficultyFromLocation.getConfigDefault()
+                            + ") * " + localDifficultyLunarMultipliers.getConfigDefault()
+                            + " * (" + localDifficultyGroupBonus.getConfigDefault()
+                            + ")",
+                    "(EvalEx) The expression that calculates local (mob) difficulty.",
+                    "Only used when \"use_override\" is set to true. Otherwise, the expressions under \"parts\" are used instead."
+            );
+
             playerLevelCurve = expressionConfig(
                     builder,
                     "player.levelCurve",

@@ -57,6 +57,10 @@ public class ConfiguredExpression implements ExpressionExtension<ConfiguredExpre
         return this.cachedExpression;
     }
 
+    public String getConfigDefault() {
+        return this.configValue.getDefault();
+    }
+
     @Override
     public void checkExpressionNotNull() {
         if (cachedExpression == null) {
