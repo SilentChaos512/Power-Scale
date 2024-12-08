@@ -1,11 +1,11 @@
 # Silent's Power Scale
 
-TODO 
+A successor to Scaling Health. Adds a new difficulty system. Both mobs and players can gain attribute bonuses, such as extra health.
 
 ## Downloads and More Information
 
-- [Curseforge](https://minecraft.curseforge.com/projects/power-scale)
-- [Modrinth](https://modrinth.com/mod/power-scale)
+- [Curseforge](https://minecraft.curseforge.com/projects/silents-power-scale)
+- [Modrinth](https://modrinth.com/mod/silents-power-scale)
 
 If you downloaded the mod from somewhere other than Curseforge or Modrinth (or as part of a modpack in some cases), I cannot make any guarantees about the file or its contents, as it may have been uploaded without my permission.
 
