@@ -118,6 +118,7 @@ public interface ExpressionExtension<T extends ExpressionExtension<T>> {
     default T withPlayer(Player player) {
         return with("difficulty", player.getData(PsAttachmentTypes.DIFFICULTY))
                 .with("level", player.getData(PsAttachmentTypes.LEVEL))
-                .with("sp", player.getData(PsAttachmentTypes.SP));
+                .with("sp", player.getData(PsAttachmentTypes.SP))
+                .with("player", player);
     }
 }

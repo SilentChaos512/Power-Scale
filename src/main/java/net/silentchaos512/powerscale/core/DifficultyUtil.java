@@ -1,6 +1,5 @@
 package net.silentchaos512.powerscale.core;
 
-import com.ezylang.evalex.config.ExpressionConfiguration;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Mob;
@@ -10,27 +9,9 @@ import net.minecraft.world.phys.Vec3;
 import net.silentchaos512.lib.util.MathUtils;
 import net.silentchaos512.powerscale.Config;
 import net.silentchaos512.powerscale.config.ConfiguredExpression;
-import net.silentchaos512.powerscale.evalex.function.*;
 import net.silentchaos512.powerscale.setup.PsAttachmentTypes;
 
-import java.util.Map;
-
 public class DifficultyUtil {
-    public static ExpressionConfiguration getDefaultExpressionConfiguration() {
-        return ExpressionConfiguration.builder()
-                .binaryAllowed(true)
-                .build()
-                .withAdditionalFunctions(
-                        Map.entry("WEIGHTED_AVERAGE_PLAYER_DIFFICULTY", new WeightedPlayerDifficultyFunction()),
-                        Map.entry("DISTANCE_FROM_SPAWN", new HorizontalDistanceFunction.FromSpawn()),
-                        Map.entry("DISTANCE_FROM_ORIGIN", new HorizontalDistanceFunction.FromOrigin()),
-                        Map.entry("DEPTH_BELOW", new DepthBelowFunction()),
-                        Map.entry("LOCAL_PLAYER_COUNT", new LocalPlayerCountFunction()),
-                        Map.entry("REDUCED_SCALING", new ReducedScalingFunction()),
-                        Map.entry("LUNAR_CYCLES", new LunarCycleFunction())
-                );
-    }
-
     public static double getLocalDifficulty(Level level, Vec3 pos) {
         return getLocalDifficulty(level, new BlockPos((int) pos.x, (int) pos.y, (int) pos.z));
     }

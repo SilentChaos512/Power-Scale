@@ -1,12 +1,13 @@
 package net.silentchaos512.powerscale.config;
 
 import com.ezylang.evalex.Expression;
+import com.ezylang.evalex.config.ExpressionConfiguration;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.neoforge.common.ModConfigSpec;
-import net.silentchaos512.powerscale.core.DifficultyUtil;
 import net.silentchaos512.powerscale.evalex.ExpressionExtension;
+import net.silentchaos512.powerscale.evalex.function.*;
 
 import javax.annotation.Nullable;
 import java.util.*;
@@ -21,6 +22,22 @@ public class ConfiguredExpression implements ExpressionExtension<ConfiguredExpre
     public ConfiguredExpression(ModConfigSpec.ConfigValue<String> configValue) {
         this.configValue = configValue;
         CONFIG_LIST.put(this.getDescription(), this);
+    }
+
+    public static ExpressionConfiguration getDefaultExpressionConfiguration() {
+        return ExpressionConfiguration.builder()
+                .binaryAllowed(true)
+                .build()
+                .withAdditionalFunctions(
+                        Map.entry("WEIGHTED_AVERAGE_PLAYER_DIFFICULTY", new WeightedPlayerDifficultyFunction()),
+                        Map.entry("DISTANCE_FROM_SPAWN", new HorizontalDistanceFunction.FromSpawn()),
+                        Map.entry("DISTANCE_FROM_ORIGIN", new HorizontalDistanceFunction.FromOrigin()),
+                        Map.entry("DEPTH_BELOW", new DepthBelowFunction()),
+                        Map.entry("LOCAL_PLAYER_COUNT", new LocalPlayerCountFunction()),
+                        Map.entry("REDUCED_SCALING", new ReducedScalingFunction()),
+                        Map.entry("LUNAR_CYCLES", new LunarCycleFunction()),
+                        Map.entry("IDLE_MULTIPLIER", new IdleMultiplierFunction())
+                );
     }
 
     @Nullable
@@ -39,7 +56,7 @@ public class ConfiguredExpression implements ExpressionExtension<ConfiguredExpre
     }
 
     private static void reloadConfiguredExpressions() {
-        var configuration = DifficultyUtil.getDefaultExpressionConfiguration();
+        var configuration = getDefaultExpressionConfiguration();
 
         for (var configuredExpression : CONFIG_LIST.values()) {
             var expressionString = configuredExpression.configValue.get();

@@ -42,6 +42,8 @@ public class Config {
         public final ModConfigSpec.BooleanValue simpleAttributeBoosters;
         public final ModConfigSpec.BooleanValue simpleDifficultyMutators;
 
+        public final ModConfigSpec.IntValue playerTimeUntilIdle;
+        public final ModConfigSpec.BooleanValue sendIdleNotification;
         public final ModConfigSpec.DoubleValue difficultyPlayerInitial;
         public final ModConfigSpec.DoubleValue difficultyPlayerMax;
         public final ModConfigSpec.DoubleValue difficultyPlayerMin;
@@ -124,10 +126,17 @@ public class Config {
                     .comment("The lowest difficulty that can be computed and applied to a mob")
                     .defineInRange("difficulty.local_difficulty.min", 0, -minMaxDifficulty, minMaxDifficulty);
 
+            playerTimeUntilIdle = builder
+                    .comment("The time (in seconds) until a player is considered idle, which affects the per second difficulty mutator.",
+                            "Set to 0 to disable idling.")
+                    .defineInRange("difficulty.player.time_until_idle", 120, 0, Integer.MAX_VALUE);
+            sendIdleNotification = builder
+                    .comment("Notify a player when they become idle")
+                    .define("difficulty.player.send_idle_notification", true);
             difficultyMutatorPerSecond = expressionConfig(
                     builder,
                     "difficulty.player_difficulty.mutator.per_second",
-                    "difficulty + 0.0011575",
+                    "difficulty + 0.0011575 * IDLE_MULTIPLIER(0.5)",
                     "(EvalEx) The expression that modifies a player's difficulty every second"
             );
             localDifficultyFromPlayers = expressionConfig(

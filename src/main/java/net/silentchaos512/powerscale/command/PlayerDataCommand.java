@@ -47,7 +47,7 @@ public final class PlayerDataCommand extends CommandBase {
     }
 
     private static void sendPlayerInfo(CommandSourceStack source, ServerPlayer player) {
-        sendHeaderLine(source, player.getName().getString() + "'s SAD Data");
+        sendHeaderLine(source, player.getName().getString() + "'s Power Scale Data");
         sendInfoLine(source, "Difficulty", "%.3f", player.getData(PsAttachmentTypes.DIFFICULTY));
         sendInfoLine(source, "Local Difficulty", "%.3f", DifficultyUtil.getLocalDifficulty(player.level(), player.getOnPos()));
         sendInfoLine(source, "Level", "%d", player.getData(PsAttachmentTypes.LEVEL));

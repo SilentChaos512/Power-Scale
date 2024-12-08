@@ -2,6 +2,7 @@ package net.silentchaos512.powerscale.setup;
 
 import com.google.common.collect.ImmutableMap;
 import com.mojang.serialization.Codec;
+import net.minecraft.core.BlockPos;
 import net.minecraft.util.ExtraCodecs;
 import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -23,10 +24,6 @@ public class PsAttachmentTypes {
             "difficulty", () -> AttachmentType.builder(Config.COMMON.difficultyPlayerInitial)
                     .serialize(Codec.DOUBLE)
                     .copyOnDeath()
-                    .copyHandler((attachment, holder, provider) -> {
-                        PowerScale.LOGGER.info("!copy difficulty");
-                        return attachment;
-                    })
                     .build()
     );
 
@@ -37,15 +34,11 @@ public class PsAttachmentTypes {
     );
 
     // assign to players, calculated base on the sp value
-    // maybe could assign to mobs? but difficulty is probably enough
+    // assign to mobs, calculated based on difficulty
     public static final Supplier<AttachmentType<Integer>> LEVEL = ATTACHMENT_TYPES.register(
             "level", () -> AttachmentType.builder(() -> 1)
                     .serialize(ExtraCodecs.POSITIVE_INT)
                     .copyOnDeath()
-                    .copyHandler((attachment, holder, provider) -> {
-                        PowerScale.LOGGER.info("!copy level");
-                        return attachment;
-                    })
                     .build()
     );
 
@@ -54,10 +47,6 @@ public class PsAttachmentTypes {
             "sp", () -> AttachmentType.builder(() -> 0)
                     .serialize(Codec.INT)
                     .copyOnDeath()
-                    .copyHandler((attachment, holder, provider) -> {
-                        PowerScale.LOGGER.info("!copy sp");
-                        return attachment;
-                    })
                     .build()
     );
 
@@ -69,6 +58,27 @@ public class PsAttachmentTypes {
                                     Codec.DOUBLE
                             )
                     )
+                    .copyOnDeath()
+                    .build()
+    );
+
+    public static final Supplier<AttachmentType<BlockPos>> LAST_POS = ATTACHMENT_TYPES.register(
+            "last_pos", () -> AttachmentType.builder(() -> BlockPos.ZERO)
+                    .serialize(BlockPos.CODEC)
+                    .copyOnDeath()
+                    .build()
+    );
+
+    public static final Supplier<AttachmentType<Integer>> IDLE_TIME = ATTACHMENT_TYPES.register(
+            "idle_time", () -> AttachmentType.builder(() -> 0)
+                    .serialize(Codec.INT)
+                    .copyOnDeath()
+                    .build()
+    );
+
+    public static final Supplier<AttachmentType<Boolean>> IDLE = ATTACHMENT_TYPES.register(
+            "idle", () -> AttachmentType.builder(() -> false)
+                    .serialize(Codec.BOOL)
                     .copyOnDeath()
                     .build()
     );
