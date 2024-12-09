@@ -33,12 +33,12 @@ repositories {
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 
 configurations {
-    libraries {}
-    implementation.extendsFrom libraries
+    extraLibs {}
+    implementation.extendsFrom extraLibs
 }
 
 dependencies {
-    libraries 'com.ezylang:EvalEx:3.4.0'
+    extraLibs 'com.ezylang:EvalEx:3.4.0'
 }
 
 runs {
@@ -63,7 +63,7 @@ runs {
         // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
         systemProperty 'forge.enabledGameTestNamespaces', project.mod_id
         dependencies {
-            runtime project.configurations.libraries
+            runtime project.configurations.extraLibs
         }
     }
 
@@ -71,7 +71,7 @@ runs {
         systemProperty 'forge.enabledGameTestNamespaces', project.mod_id
 //        programArgument '--nogui'
         dependencies {
-            runtime project.configurations.libraries
+            runtime project.configurations.extraLibs
         }
     }
 
@@ -90,7 +90,7 @@ runs {
         programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
 
         dependencies {
-            runtime project.configurations.libraries
+            runtime project.configurations.extraLibs
         }
     }
 }
@@ -210,6 +210,12 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
 artifacts {
     archives sourcesJar
     archives javadocJar
+}
+
+jar {
+    from {
+        configurations.extraLibs.collect { it.isDirectory() ? it : zipTree(it) }
+    }
 }
 
 if (project.hasProperty('curseforge.apiKey')) {
