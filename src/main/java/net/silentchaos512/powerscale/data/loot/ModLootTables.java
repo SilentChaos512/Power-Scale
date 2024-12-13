@@ -27,6 +27,7 @@ public class ModLootTables extends LootTableProvider {
     @Override
     public List<SubProviderEntry> getTables() {
         return List.of(
+                new SubProviderEntry(BlockLootTables::new, LootContextParamSets.BLOCK),
                 new SubProviderEntry(EntityLootTables::new, LootContextParamSets.ENTITY)
         );
     }
