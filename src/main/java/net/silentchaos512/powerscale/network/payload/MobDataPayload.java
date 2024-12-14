@@ -11,7 +11,8 @@ import net.silentchaos512.powerscale.setup.PsAttachmentTypes;
 public record MobDataPayload(
         int entityId,
         float difficulty,
-        int level
+        int level,
+        int blightTier
 ) implements CustomPacketPayload {
     public static final Type<MobDataPayload> TYPE = new Type<>(PowerScale.getId("mob_data"));
 
@@ -19,6 +20,7 @@ public record MobDataPayload(
             ByteBufCodecs.VAR_INT, d -> d.entityId,
             ByteBufCodecs.FLOAT, d -> d.difficulty,
             ByteBufCodecs.VAR_INT, d -> d.level,
+            ByteBufCodecs.VAR_INT, d -> d.blightTier,
             MobDataPayload::new
     );
 
@@ -26,7 +28,8 @@ public record MobDataPayload(
         this(
                 mob.getId(),
                 mob.getData(PsAttachmentTypes.DIFFICULTY).floatValue(),
-                mob.getData(PsAttachmentTypes.LEVEL)
+                mob.getData(PsAttachmentTypes.LEVEL),
+                mob.getData(PsAttachmentTypes.BLIGHT_TIER)
         );
     }
 

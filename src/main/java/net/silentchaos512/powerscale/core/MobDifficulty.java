@@ -37,6 +37,8 @@ public class MobDifficulty {
         final var mobDifficulty = DifficultyUtil.setDifficultyClamped(mob, difficulty);
         var level = (int) mobDifficulty + 1;
         mob.setData(PsAttachmentTypes.LEVEL, level);
+        // TEST
+//        mob.setData(PsAttachmentTypes.BLIGHT_TIER, 1);
 
         if (PowerScale.detailedLogging()) {
             PowerScale.LOGGER.info("Setting {} to difficulty {} and level {}", mob.getName().getString(), mobDifficulty, level);
@@ -85,5 +87,6 @@ public class MobDifficulty {
     public static void onClientSync(Entity entity, MobDataPayload data) {
         entity.setData(PsAttachmentTypes.DIFFICULTY, (double) data.difficulty());
         entity.setData(PsAttachmentTypes.LEVEL, data.level());
+        entity.setData(PsAttachmentTypes.BLIGHT_TIER, data.blightTier());
     }
 }

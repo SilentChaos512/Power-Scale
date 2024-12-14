@@ -12,7 +12,7 @@ import net.silentchaos512.powerscale.network.payload.SyncScalingAttributesPayloa
 public class PsNetwork {
     @SubscribeEvent
     public static void register(RegisterPayloadHandlersEvent event) {
-        final var registrar = event.registrar("1.0");
+        final var registrar = event.registrar("1.1");
         // Server to Client
         registrar.playToClient(
                 SyncScalingAttributesPayload.TYPE,
