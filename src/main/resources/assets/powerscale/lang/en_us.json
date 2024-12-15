@@ -1,6 +1,7 @@
 {
   "block.powerscale.alchemy_set": "Alchemy Set",
-  "config.jade.plugin_powerscale.mob": "Power Scale: Mob",
+  "config.jade.plugin_powerscale.alchemy_set": "Alchemy Set",
+  "config.jade.plugin_powerscale.mob": "Mob Data",
   "container.powerscale.alchemy_set": "Alchemy Set",
   "emi.category.powerscale.alchemy": "Alchemy Brewing",
   "item.powerscale.alchemy_powder": "Alchemy Powder",
@@ -24,6 +25,7 @@
   "item.powerscale.wing_crystal": "Wing Crystal",
   "itemGroup.power_scale": "Power Scale",
   "jei.category.powerscale.alchemy": "Alchemy Brewing",
+  "narration.powerscale.alchemy_set.fuel": "Fuel: %s",
   "network.powerscale.failure": "Network Failure (Power Scale)",
   "powerscale.configuration.arrow_damage": "Arrow Damage",
   "powerscale.configuration.attack_damage": "Attack Damage",

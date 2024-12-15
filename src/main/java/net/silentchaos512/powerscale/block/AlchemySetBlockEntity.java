@@ -70,6 +70,14 @@ public class AlchemySetBlockEntity extends BaseContainerBlockEntity {
         this.quickCheck = RecipeManager.createCheck(PsCrafting.ALCHEMY_TYPE.get());
     }
 
+    public int getFuel() {
+        return fuel;
+    }
+
+    public int getBrewTime() {
+        return brewTime;
+    }
+
     public static void serverTick(Level level, BlockPos pos, BlockState state, AlchemySetBlockEntity blockEntity) {
         var fuelStack = blockEntity.items.get(FUEL_SLOT);
         if (blockEntity.fuel <= 0 && fuelStack.is(PsTags.Items.ALCHEMY_FUELS)) {

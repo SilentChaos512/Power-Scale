@@ -6,8 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.21.1-Unreleased]
 ### Added
 - Code to render blight fires (blights are still not truly in the mod yet...)
+- Players will be notified (by default) when their attributes change (this can be configured per mutator category)
+- Jade plugin for alchemy set
 ### Fixed
 - Players not having attribute bonuses reapplied after dying
+- Attribute mutator configs now function
 
 ## [1.21.1-0.1.2] - 2024-12-12
 ### Changed
