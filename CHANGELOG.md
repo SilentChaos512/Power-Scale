@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Code to render blight fires (blights are still not truly in the mod yet...)
 - Players will be notified (by default) when their attributes change (this can be configured per mutator category)
+- Flasks can now be filled from a cauldron, in addition to water source blocks (like bottles)
 - Jade plugin for alchemy set
 ### Fixed
 - Players not having attribute bonuses reapplied after dying

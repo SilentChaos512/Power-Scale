@@ -6,13 +6,17 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.LayeredCauldronBlock;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -46,6 +50,28 @@ public class FlaskItem extends Item {
             }
         }
         return InteractionResultHolder.pass(stack);
+    }
+
+    @Override
+    public InteractionResult useOn(UseOnContext context) {
+        var level = context.getLevel();
+        var state = level.getBlockState(context.getClickedPos());
+        var player = context.getPlayer();
+
+        // Handles filling flasks from water cauldrons
+        if (player != null && state.getBlock() == Blocks.WATER_CAULDRON && state.getValue(LayeredCauldronBlock.LEVEL) > 0) {
+            level.playSound(
+                    player, player.getX(), player.getY(), player.getZ(), SoundEvents.BOTTLE_FILL, SoundSource.NEUTRAL, 1.0F, 1.0F
+            );
+            LayeredCauldronBlock.lowerFillLevel(state, level, context.getClickedPos());
+            var stack = player.getItemInHand(context.getHand());
+            return InteractionResultHolder.sidedSuccess(
+                    turnFlaskIntoItem(stack, player, PsItems.WATER_FLASK),
+                    level.isClientSide()
+            ).getResult();
+        }
+
+        return super.useOn(context);
     }
 
     private ItemStack turnFlaskIntoItem(ItemStack flaskStack, Player player, DeferredItem<Item> filledItem) {
