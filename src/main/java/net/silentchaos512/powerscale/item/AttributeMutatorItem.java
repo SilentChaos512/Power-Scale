@@ -71,7 +71,7 @@ public class AttributeMutatorItem extends Item {
         if (mutator == null) return stack;
 
         if (canChangeAttribute(entity, mutator)) {
-            boostAttribute(entity, mutator);
+            boostAttribute(level, entity, mutator);
             playEffects(level, entity);
             if (this.quickUse) {
                 stack.consume(1, entity);
@@ -106,7 +106,7 @@ public class AttributeMutatorItem extends Item {
         // TODO: Particles
     }
 
-    private static void boostAttribute(LivingEntity entity, AttributeMutator mutator) {
+    private static void boostAttribute(Level level, LivingEntity entity, AttributeMutator mutator) {
         Map<DataHolder<ScalingAttribute>, Double> immutableMap = entity.getData(PsAttachmentTypes.BOOSTED_ATTRIBUTES);
         var copiedMap = new HashMap<>(immutableMap);
         var currentBoost = copiedMap.getOrDefault(mutator.attribute(), 0.0);
@@ -114,5 +114,8 @@ public class AttributeMutatorItem extends Item {
         copiedMap.put(mutator.attribute(), newBoost);
         entity.setData(PsAttachmentTypes.BOOSTED_ATTRIBUTES, copiedMap);
         ScalingAttributeHelper.applyBoostedAttributes(entity);
+        if (!level.isClientSide) {
+            ScalingAttributeHelper.notifyOfAttributeChange(entity, mutator.attribute(), currentBoost, newBoost);
+        }
     }
 }
