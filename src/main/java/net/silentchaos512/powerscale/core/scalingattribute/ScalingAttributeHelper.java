@@ -8,6 +8,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.silentchaos512.lib.util.MathUtils;
+import net.silentchaos512.powerscale.Config;
 import net.silentchaos512.powerscale.PowerScale;
 import net.silentchaos512.powerscale.core.resources.DataHolder;
 import net.silentchaos512.powerscale.evalex.ExpressionExtension;
@@ -40,17 +41,16 @@ public class ScalingAttributeHelper {
     }
 
     public static void modifyBoostsOnDeath(Player player) {
-        modifyBoosts(player, sa -> sa.playerMutators().onDeath());
+        modifyBoosts(player, sa -> sa.playerMutators().onDeath(), Config.COMMON.notifyOfAttributeChangesOnDeath.get());
     }
 
     public static void modifyBoostsOnSleep(Player player) {
-        modifyBoosts(player, sa -> sa.playerMutators().onSleep());
+        modifyBoosts(player, sa -> sa.playerMutators().onSleep(), Config.COMMON.notifyOfAttributeChangesOnSleep.get());
     }
 
-    public static void modifyBoosts(Player player, Function<ScalingAttribute, ExpressionExtension<?>> mutator) {
+    public static void modifyBoosts(Player player, Function<ScalingAttribute, ExpressionExtension<?>> mutator, boolean sendNotifications) {
         Map<DataHolder<ScalingAttribute>, Double> immutableMap = player.getData(PsAttachmentTypes.BOOSTED_ATTRIBUTES);
         Map<DataHolder<ScalingAttribute>, Double> newMap = new HashMap<>();
-        // TODO: Notify the player of changes?
         immutableMap.forEach((attribute, amount) -> {
             var mutatorExpression = mutator.apply(attribute.get());
             var newAmount = mutatorExpression
@@ -58,7 +58,9 @@ public class ScalingAttributeHelper {
                     .with("value", amount)
                     .evaluateDouble(0.0, player);
             newMap.put(attribute, newAmount);
-            notifyOfAttributeChange(player, attribute, amount, newAmount);
+            if (sendNotifications) {
+                notifyOfAttributeChange(player, attribute, amount, newAmount);
+            }
         });
         player.setData(PsAttachmentTypes.BOOSTED_ATTRIBUTES, ImmutableMap.copyOf(newMap));
         applyBoostedAttributes(player);

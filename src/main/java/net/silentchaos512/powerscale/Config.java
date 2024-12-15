@@ -56,6 +56,11 @@ public class Config {
         public final ModConfigSpec.DoubleValue difficultyLocalMax;
         public final ModConfigSpec.DoubleValue difficultyLocalMin;
 
+        public final ModConfigSpec.BooleanValue notifyOfAttributeChangesOnDeath;
+        public final ModConfigSpec.BooleanValue notifyOfAttributeChangesOnSleep;
+        public final ModConfigSpec.BooleanValue notifyOfAttributeChangesOnMobKill;
+        public final ModConfigSpec.BooleanValue notifyOfAttributeChangesOnBossKill;
+
         public final ConfiguredExpression difficultyMutatorPerSecond;
         public final ConfiguredExpression localDifficultyOverride;
         public ModConfigSpec.BooleanValue localDifficultyUseOverride;
@@ -125,6 +130,19 @@ public class Config {
             difficultyLocalMin = builder
                     .comment("The lowest difficulty that can be computed and applied to a mob")
                     .defineInRange("difficulty.local_difficulty.min", 0, -minMaxDifficulty, minMaxDifficulty);
+
+            notifyOfAttributeChangesOnDeath = builder
+                    .comment("Send a message to players if their attributes change after dying")
+                    .define("notifications.attribute_changes.on_death", true);
+            notifyOfAttributeChangesOnSleep = builder
+                    .comment("Send a message to players if their attributes change after sleeping")
+                    .define("notifications.attribute_changes.on_sleep", true);
+            notifyOfAttributeChangesOnMobKill = builder
+                    .comment("Send a message to players if their attributes change after killing a non-boss mob")
+                    .define("notifications.attribute_changes.on_mob_kill", true);
+            notifyOfAttributeChangesOnBossKill = builder
+                    .comment("Send a message to players if their attributes change after killing a boss")
+                    .define("notifications.attribute_changes.on_boss_kill", true);
 
             playerTimeUntilIdle = builder
                     .comment("The time (in seconds) until a player is considered idle, which affects the per second difficulty mutator.",

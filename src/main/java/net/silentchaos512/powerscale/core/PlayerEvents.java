@@ -6,6 +6,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerWakeUpEvent;
+import net.silentchaos512.powerscale.Config;
 import net.silentchaos512.powerscale.PowerScale;
 import net.silentchaos512.powerscale.core.scalingattribute.ScalingAttributeHelper;
 
@@ -28,9 +29,17 @@ public class PlayerEvents {
             var killedEntity = event.getEntity();
             var isBoss = EntityGroups.BOSS.test(killedEntity);
             if (isBoss) {
-                ScalingAttributeHelper.modifyBoosts(player, sa -> sa.playerMutators().onBossKill());
+                ScalingAttributeHelper.modifyBoosts(
+                        player,
+                        sa -> sa.playerMutators().onBossKill(),
+                        Config.COMMON.notifyOfAttributeChangesOnBossKill.get()
+                );
             } else {
-                ScalingAttributeHelper.modifyBoosts(player, sa -> sa.playerMutators().onMobKill());
+                ScalingAttributeHelper.modifyBoosts(
+                        player,
+                        sa -> sa.playerMutators().onMobKill(),
+                        Config.COMMON.notifyOfAttributeChangesOnMobKill.get()
+                );
             }
         }
     }
