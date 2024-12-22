@@ -293,15 +293,5 @@ public class Config {
     @SubscribeEvent
     static void onReload(final ModConfigEvent.Reloading event) {
         PowerScale.LOGGER.info("Config reloading :)");
-
-        // TEST
-        PowerScale.LOGGER.info("Level Curve Test");
-        for (int i = 1; i <= 10; ++i) {
-            try {
-                PowerScale.LOGGER.info("{}: {}", i, COMMON.playerLevelCurve.with("level", i).evaluate().getNumberValue().intValue());
-            } catch (EvaluationException | ParseException e) {
-                throw new RuntimeException(e);
-            }
-        }
     }
 }
