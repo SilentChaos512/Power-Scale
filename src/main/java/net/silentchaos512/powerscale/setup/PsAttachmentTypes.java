@@ -82,4 +82,11 @@ public class PsAttachmentTypes {
                     .copyOnDeath()
                     .build()
     );
+
+    public static final Supplier<AttachmentType<Integer>> CRYSTAL_DROP_COOLDOWN = ATTACHMENT_TYPES.register(
+            "crystal_drop_cooldown", () -> AttachmentType.builder(() -> 0)
+                    .serialize(Codec.INT)
+                    .copyOnDeath()
+                    .build()
+    );
 }

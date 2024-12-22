@@ -7,9 +7,10 @@ import net.neoforged.neoforge.common.loot.IGlobalLootModifier;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import net.silentchaos512.powerscale.PowerScale;
-import net.silentchaos512.powerscale.loot.BonusDropsLootModifier;
 import net.silentchaos512.powerscale.loot.condition.CrystalDropChanceConfig;
+import net.silentchaos512.powerscale.loot.condition.CrystalDropWithCooldown;
 import net.silentchaos512.powerscale.loot.condition.MobProperties;
+import net.silentchaos512.powerscale.loot.modifier.BonusDropsLootModifier;
 
 import java.util.function.Supplier;
 
@@ -24,6 +25,10 @@ public class PsLoot {
     public static final Supplier<LootItemConditionType> CRYSTAL_DROP_CHANCE_CONFIG = LOOT_CONDITION_TYPES.register(
             "crystal_drop_chance_config",
             () -> new LootItemConditionType(CrystalDropChanceConfig.CODEC)
+    );
+    public static final Supplier<LootItemConditionType> CRYSTAL_DROP_WITH_COOLDOWN = LOOT_CONDITION_TYPES.register(
+            "crystal_drop_with_cooldown",
+            () -> new LootItemConditionType(CrystalDropWithCooldown.CODEC)
     );
     public static final Supplier<LootItemConditionType> MOB_PROPERTIES = LOOT_CONDITION_TYPES.register(
             "mob_properties",

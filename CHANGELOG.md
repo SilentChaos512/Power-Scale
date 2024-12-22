@@ -3,9 +3,10 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.21.1-0.1.4]
+## [1.21.1-0.1.4] - 2024-12-22
 ### Added
-- Two config options to set a drop chance for crystals from hostile mobs, including a base chance and looting bonus. While this is far from a total substitute for editing the loot table with a data pack, it does allow for some quick and easy customization.
+- Two config options to set a **drop chance for crystals** from hostile mobs, including a base chance and looting bonus. While this is far from a total substitute for editing the loot table with a data pack, it does allow for some quick and easy customization.
+- A config option to set a **cooldown time for crystal drops**. Whenever a crystal drops, a cooldown timer is attached to the player. Random crystal drops are blocked while the cooldown timer is active, but guaranteed drops (like those from bosses) are still possible.
 - New `custom` list to `mob_scaling` object in scaling attributes, which allows a scaling expression to be set for mobs in a given tag. Only a single tag is accepted currently; no entity IDs. See the new "Example" data pack under `optional_data_packs` on GitHub for a full example file.
     ```
     "custom": [

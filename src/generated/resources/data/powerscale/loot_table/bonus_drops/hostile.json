@@ -9,6 +9,9 @@
           "enchantment": "minecraft:looting"
         },
         {
+          "condition": "powerscale:crystal_drop_with_cooldown"
+        },
+        {
           "condition": "minecraft:killed_by_player"
         }
       ],

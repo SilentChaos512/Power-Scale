@@ -1,4 +1,4 @@
-package net.silentchaos512.powerscale.loot;
+package net.silentchaos512.powerscale.loot.modifier;
 
 import com.google.common.base.Suppliers;
 import com.mojang.serialization.MapCodec;

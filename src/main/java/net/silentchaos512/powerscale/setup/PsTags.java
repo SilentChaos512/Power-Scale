@@ -9,6 +9,7 @@ public class PsTags {
     public static final class Items {
         public static final TagKey<Item> ALCHEMY_BREWS = mod("alchemy_brews");
         public static final TagKey<Item> ALCHEMY_FUELS = mod("alchemy_fuels");
+        public static final TagKey<Item> CRYSTALS = mod("crystals");
         public static final TagKey<Item> FLASK_GEMS = mod("flask_gems");
 
         private static TagKey<Item> mod(String path) {

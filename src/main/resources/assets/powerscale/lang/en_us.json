@@ -33,6 +33,7 @@
   "powerscale.configuration.base": "Base",
   "powerscale.configuration.boss": "Boss Mobs",
   "powerscale.configuration.boss_difficulty": "Boss Mob Difficulty",
+  "powerscale.configuration.cooldown_time": "Cooldown Time",
   "powerscale.configuration.crystal_drops": "Crystal Drops",
   "powerscale.configuration.detailed_logging": "Detailed Logging",
   "powerscale.configuration.difficulty": "Difficulty",

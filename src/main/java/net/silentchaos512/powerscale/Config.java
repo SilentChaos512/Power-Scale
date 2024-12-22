@@ -1,7 +1,5 @@
 package net.silentchaos512.powerscale;
 
-import com.ezylang.evalex.EvaluationException;
-import com.ezylang.evalex.parser.ParseException;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.config.ModConfigEvent;
@@ -43,6 +41,7 @@ public class Config {
         public final ModConfigSpec.BooleanValue simpleDifficultyMutators;
         public final ModConfigSpec.DoubleValue crystalDropChance;
         public final ModConfigSpec.DoubleValue crystalDropChanceLootingBonus;
+        public final ModConfigSpec.DoubleValue crystalDropCooldown;
 
         public final ModConfigSpec.IntValue playerTimeUntilIdle;
         public final ModConfigSpec.BooleanValue sendIdleNotification;
@@ -101,6 +100,10 @@ public class Config {
                     .comment("The bonus per level of looting that the base chance is increased for crystal drops.",
                             "If you want to customize drops beyond this, you must use a data pack to override the loot tables!")
                     .defineInRange("item.crystal_drops.hostile_chance.looting_bonus", 0.005, 0.0, 1.0);
+            crystalDropCooldown = builder
+                    .comment("The amount of time (in minutes) after getting a random crystal drop before another can be found.",
+                            "This does not affect guaranteed crystal drops, like those from blights and bosses.")
+                    .defineInRange("item.crystal_drops.cooldown_time", 10.0, 0.0, 1440.0);
 
             final double minMaxDifficulty = 999_999;
             difficultyPlayerInitial = builder

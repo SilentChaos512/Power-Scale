@@ -34,6 +34,12 @@ public class ModItemTagsProvider extends ItemTagsProvider {
         tag(PsTags.Items.ALCHEMY_FUELS)
                 .add(PsItems.ALCHEMY_POWDER.get());
 
+        tag(PsTags.Items.CRYSTALS)
+                .add(PsItems.HEART_CRYSTAL.get())
+                .add(PsItems.POWER_CRYSTAL.get())
+                .add(PsItems.ARCHER_CRYSTAL.get())
+                .add(PsItems.WING_CRYSTAL.get());
+
         tag(PsTags.Items.FLASK_GEMS)
                 .addTag(Tags.Items.GEMS_AMETHYST)
                 .addTag(Tags.Items.GEMS_EMERALD)

@@ -9,7 +9,7 @@ import net.silentchaos512.powerscale.PowerScale;
 import net.silentchaos512.powerscale.data.client.ModItemModelProvider;
 import net.silentchaos512.powerscale.data.crafting.ModRecipesProvider;
 import net.silentchaos512.powerscale.data.loot.ModLootTables;
-import net.silentchaos512.powerscale.loot.BonusDropsLootModifier;
+import net.silentchaos512.powerscale.loot.modifier.BonusDropsLootModifier;
 
 @EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD)
 public final class DataGenerators {
