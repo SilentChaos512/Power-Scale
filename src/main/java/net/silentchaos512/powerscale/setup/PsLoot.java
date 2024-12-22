@@ -8,6 +8,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import net.silentchaos512.powerscale.PowerScale;
 import net.silentchaos512.powerscale.loot.BonusDropsLootModifier;
+import net.silentchaos512.powerscale.loot.condition.CrystalDropChanceConfig;
 import net.silentchaos512.powerscale.loot.condition.MobProperties;
 
 import java.util.function.Supplier;
@@ -18,10 +19,18 @@ public class PsLoot {
     static final DeferredRegister<MapCodec<? extends IGlobalLootModifier>> LOOT_MODIFIERS =
             DeferredRegister.create(NeoForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, PowerScale.MOD_ID);
 
+    // Conditions
+
+    public static final Supplier<LootItemConditionType> CRYSTAL_DROP_CHANCE_CONFIG = LOOT_CONDITION_TYPES.register(
+            "crystal_drop_chance_config",
+            () -> new LootItemConditionType(CrystalDropChanceConfig.CODEC)
+    );
     public static final Supplier<LootItemConditionType> MOB_PROPERTIES = LOOT_CONDITION_TYPES.register(
             "mob_properties",
             () -> new LootItemConditionType(MobProperties.CODEC)
     );
+
+    // Global Modifiers
 
     public static final Supplier<MapCodec<BonusDropsLootModifier>> MOB_DROPS = LOOT_MODIFIERS.register(
             "bonus_drops",

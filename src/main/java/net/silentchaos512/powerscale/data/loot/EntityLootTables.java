@@ -12,6 +12,7 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemKilledByPlayerC
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceWithEnchantedBonusCondition;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import net.silentchaos512.powerscale.core.EntityGroups;
+import net.silentchaos512.powerscale.loot.condition.CrystalDropChanceConfig;
 import net.silentchaos512.powerscale.loot.condition.MobProperties;
 import net.silentchaos512.powerscale.setup.PsItems;
 
@@ -33,7 +34,7 @@ public class EntityLootTables implements LootTableSubProvider {
                         .withPool(
                                 // Always with random chance
                                 LootPool.lootPool()
-                                        .when(LootItemRandomChanceWithEnchantedBonusCondition.randomChanceAndLootingBoost(registries, 0.06f, 0.005f))
+                                        .when(CrystalDropChanceConfig.configWithLootingBonus(registries))
                                         .when(LootItemKilledByPlayerCondition.killedByPlayer())
                                         .add(
                                                 LootItem.lootTableItem(PsItems.HEART_CRYSTAL)

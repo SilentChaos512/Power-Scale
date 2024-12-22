@@ -41,6 +41,8 @@ public class Config {
 
         public final ModConfigSpec.BooleanValue simpleAttributeBoosters;
         public final ModConfigSpec.BooleanValue simpleDifficultyMutators;
+        public final ModConfigSpec.DoubleValue crystalDropChance;
+        public final ModConfigSpec.DoubleValue crystalDropChanceLootingBonus;
 
         public final ModConfigSpec.IntValue playerTimeUntilIdle;
         public final ModConfigSpec.BooleanValue sendIdleNotification;
@@ -91,6 +93,14 @@ public class Config {
             simpleDifficultyMutators = builder
                     .comment("Allows the ingredients for difficulty mutator brews (cursed/enchanted hearts) to be used directly")
                     .define("item.simple_difficulty_mutators", false);
+            crystalDropChance = builder
+                    .comment("The chance (out of 1.0, without looting) that a hostile mob will roll a drop from the random crystals loot pool.",
+                            "If you want to customize drops beyond this, you must use a data pack to override the loot tables!")
+                    .defineInRange("item.crystal_drops.hostile_chance.base", 0.06, 0.0, 1.0);
+            crystalDropChanceLootingBonus = builder
+                    .comment("The bonus per level of looting that the base chance is increased for crystal drops.",
+                            "If you want to customize drops beyond this, you must use a data pack to override the loot tables!")
+                    .defineInRange("item.crystal_drops.hostile_chance.looting_bonus", 0.005, 0.0, 1.0);
 
             final double minMaxDifficulty = 999_999;
             difficultyPlayerInitial = builder

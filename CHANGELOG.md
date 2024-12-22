@@ -5,6 +5,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.21.1-0.1.4]
 ### Added
+- Two config options to set a drop chance for crystals from hostile mobs, including a base chance and looting bonus. While this is far from a total substitute for editing the loot table with a data pack, it does allow for some quick and easy customization.
 - New `custom` list to `mob_scaling` object in scaling attributes, which allows a scaling expression to be set for mobs in a given tag. Only a single tag is accepted currently; no entity IDs. See the new "Example" data pack under `optional_data_packs` on GitHub for a full example file.
     ```
     "custom": [
