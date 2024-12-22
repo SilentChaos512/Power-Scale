@@ -1,0 +1,23 @@
+{
+  "attribute": "minecraft:generic.scale",
+  "mob_scaling": {
+    "__comment__": "Makes mobs grow in size (literally) for every 50 levels they gain. This is only meant to serve as an example and likely isn't practical for serious gameplay.",
+    "boss_mobs": "0.0",
+    "hostile_mobs": "base_value * 0.5 * FLOOR((level - 51) / 50)",
+    "peaceful_mobs": "base_value * 0.05 * FLOOR((level - 51) / 50)",
+    "custom": [
+      {
+        "__comment__": "Skeletons get to be even bigger! No reason, just an example.",
+        "entity_tag": "minecraft:skeletons",
+        "expression": "base_value * 0.5 * FLOOR((level - 26) / 25)"
+      }
+    ]
+  },
+  "player_mutators": {
+    "__comment__": "No changes made to players",
+    "on_player_death": "value",
+    "on_player_kill_boss": "value",
+    "on_player_kill_mob": "value",
+    "on_player_sleep": "value"
+  }
+}

@@ -3,6 +3,18 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.21.1-0.1.4]
+### Added
+- New `custom` list to `mob_scaling` object in scaling attributes, which allows a scaling expression to be set for mobs in a given tag. Only a single tag is accepted currently; no entity IDs. See the new "Example" data pack under `optional_data_packs` on GitHub for a full example file.
+    ```
+    "custom": [
+    {
+      "entity_tag": "minecraft:skeletons",
+      "expression": "base_value * 0.5 * FLOOR((level - 26) / 25)"
+      }
+    ]
+    ```
+
 ## [1.21.1-0.1.3] - 2024-12-15
 ### Added
 - Code to render blight fires (blights are still not truly in the mod yet...)
