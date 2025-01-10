@@ -4,7 +4,7 @@ A successor to Scaling Health. Adds a new difficulty system. Both mobs and playe
 
 ## Downloads and More Information
 
-- [Curseforge](https://minecraft.curseforge.com/projects/silents-power-scale)
+- [Curseforge](https://www.curseforge.com/minecraft/mc-mods/silents-power-scale)
 - [Modrinth](https://modrinth.com/mod/silents-power-scale)
 
 If you downloaded the mod from somewhere other than Curseforge or Modrinth (or as part of a modpack in some cases), I cannot make any guarantees about the file or its contents, as it may have been uploaded without my permission.
