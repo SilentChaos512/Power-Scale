@@ -7,8 +7,15 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.renderer.texture.TextureAtlas;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.resources.model.Material;
+import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.neoforged.api.distmarker.Dist;
@@ -36,9 +43,11 @@ public class BlightRenderHandler {
         var renderType = RENDER_TYPE_NORMAL;
 
         LivingEntity entity = event.getEntity();
-        var blightTier = entity.getData(PsAttachmentTypes.BLIGHT_TIER);
-        if (blightTier > 0 && entity instanceof Mob mob) {
-            renderBlightFire(renderType, mob, event.getPoseStack(), event.getMultiBufferSource(), event.getPackedLight());
+        var isBlight = entity.getData(PsAttachmentTypes.IS_BLIGHT);
+        if (isBlight && entity instanceof Mob mob) {
+//            renderBlightFire(renderType, mob, event.getPoseStack(), event.getMultiBufferSource(), event.getPackedLight());
+            var pQuaternion = Mth.rotationAroundAxis(Mth.Y_AXIS, Minecraft.getInstance().getEntityRenderDispatcher().cameraOrientation(), new Quaternionf());
+            renderFlame(event.getPoseStack(), event.getMultiBufferSource(), mob, pQuaternion);
         }
     }
 
@@ -100,5 +109,58 @@ public class BlightRenderHandler {
                 .setOverlay(OverlayTexture.NO_OVERLAY)
                 .setLight(pPackedLight)
                 .setNormal(pPose, 0.0F, 1.0F, 0.0F);
+    }
+
+    public static final Material FIRE_0 = new Material(TextureAtlas.LOCATION_BLOCKS, PowerScale.getId("entity/blight_fire_0"));
+    public static final Material FIRE_1 = new Material(TextureAtlas.LOCATION_BLOCKS, PowerScale.getId("entity/blight_fire_1"));
+
+    private static void renderFlame(PoseStack pPoseStack, MultiBufferSource pBuffer, Entity pEntity, Quaternionf pQuaternion) {
+        TextureAtlasSprite textureatlassprite = FIRE_0.sprite();
+        TextureAtlasSprite textureatlassprite1 = FIRE_1.sprite();
+        pPoseStack.pushPose();
+        float f = pEntity.getBbWidth() * 1.4F;
+        pPoseStack.scale(f, f, f);
+        float f1 = 0.5F;
+        float f2 = 0.0F;
+        float f3 = pEntity.getBbHeight() / f;
+        float f4 = 0.0F;
+        pPoseStack.mulPose(pQuaternion);
+        pPoseStack.translate(0.0F, 0.0F, 0.3F - (float)((int)f3) * 0.02F);
+        float f5 = 0.0F;
+        int i = 0;
+        VertexConsumer vertexconsumer = pBuffer.getBuffer(Sheets.cutoutBlockSheet());
+
+        for (PoseStack.Pose posestack$pose = pPoseStack.last(); f3 > 0.0F; i++) {
+            TextureAtlasSprite textureatlassprite2 = i % 2 == 0 ? textureatlassprite : textureatlassprite1;
+            float f6 = textureatlassprite2.getU0();
+            float f7 = textureatlassprite2.getV0();
+            float f8 = textureatlassprite2.getU1();
+            float f9 = textureatlassprite2.getV1();
+            if (i / 2 % 2 == 0) {
+                float f10 = f8;
+                f8 = f6;
+                f6 = f10;
+            }
+
+            fireVertex(posestack$pose, vertexconsumer, -f1 - 0.0F, 0.0F - f4, f5, f8, f9);
+            fireVertex(posestack$pose, vertexconsumer, f1 - 0.0F, 0.0F - f4, f5, f6, f9);
+            fireVertex(posestack$pose, vertexconsumer, f1 - 0.0F, 1.4F - f4, f5, f6, f7);
+            fireVertex(posestack$pose, vertexconsumer, -f1 - 0.0F, 1.4F - f4, f5, f8, f7);
+            f3 -= 0.45F;
+            f4 -= 0.45F;
+            f1 *= 0.9F;
+            f5 -= 0.03F;
+        }
+
+        pPoseStack.popPose();
+    }
+
+    private static void fireVertex(PoseStack.Pose pMatrixEntry, VertexConsumer pBuffer, float pX, float pY, float pZ, float pTexU, float pTexV) {
+        pBuffer.addVertex(pMatrixEntry, pX, pY, pZ)
+                .setColor(-1)
+                .setUv(pTexU, pTexV)
+                .setUv1(0, 10)
+                .setLight(240)
+                .setNormal(pMatrixEntry, 0.0F, 1.0F, 0.0F);
     }
 }

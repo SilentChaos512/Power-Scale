@@ -15,3 +15,7 @@ If you downloaded the mod from somewhere other than Curseforge or Modrinth (or a
 - [GitHub repository](https://github.com/SilentChaos512/Power-Scale) (source code)
 - [Issue Tracker on GitHub](https://github.com/SilentChaos512/Power-Scale/issues) (bug reports and feature requests)
 - [Discord Server](https://discord.gg/Adyk9zHnUn) (easiest way to get quick questions answered, do not use to report bugs)
+
+## Credits
+
+Silent's Power Scale using the [EvalEx](https://github.com/ezylang/EvalEx) library to make expression configs possible.

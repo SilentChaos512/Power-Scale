@@ -77,10 +77,8 @@
           "condition": "minecraft:killed_by_player"
         },
         {
-          "blight_tier": {
-            "min": 1.0
-          },
-          "condition": "powerscale:mob_properties"
+          "condition": "powerscale:mob_properties",
+          "is_blight": true
         }
       ],
       "entries": [

@@ -37,8 +37,8 @@ public class MobDifficulty {
         final var mobDifficulty = DifficultyUtil.setDifficultyClamped(mob, difficulty);
         var level = (int) mobDifficulty + 1;
         mob.setData(PsAttachmentTypes.LEVEL, level);
-        // TEST
-//        mob.setData(PsAttachmentTypes.BLIGHT_TIER, 1);
+
+        trySetBlight(mob, difficulty, level);
 
         if (PowerScale.detailedLogging()) {
             PowerScale.LOGGER.info("Setting {} to difficulty {} and level {}", mob.getName().getString(), mobDifficulty, level);
@@ -47,6 +47,18 @@ public class MobDifficulty {
         handleAttributeBoosts(mob, level);
 
         PacketDistributor.sendToAllPlayers(new MobDataPayload(mob));
+    }
+
+    private static void trySetBlight(Mob mob, double difficulty, int level) {
+        double chance = Config.COMMON.blightSpawnChance
+                .with("difficulty", difficulty)
+                .with("level", level)
+                .evaluateDouble(0.0, null);
+        if (mob.getRandom().nextDouble() < chance) {
+            // Mob becomes a blight!
+            PowerScale.LOGGER.debug("Setting mob as blight: {}", mob);
+            mob.setData(PsAttachmentTypes.IS_BLIGHT, true);
+        }
     }
 
     private static void handleAttributeBoosts(Mob mob, int level) {
@@ -87,6 +99,6 @@ public class MobDifficulty {
     public static void onClientSync(Entity entity, MobDataPayload data) {
         entity.setData(PsAttachmentTypes.DIFFICULTY, (double) data.difficulty());
         entity.setData(PsAttachmentTypes.LEVEL, data.level());
-        entity.setData(PsAttachmentTypes.BLIGHT_TIER, data.blightTier());
+        entity.setData(PsAttachmentTypes.IS_BLIGHT, data.isBlight());
     }
 }

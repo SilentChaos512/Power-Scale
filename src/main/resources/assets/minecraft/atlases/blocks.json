@@ -1,0 +1,12 @@
+{
+  "sources": [
+    {
+      "type": "minecraft:single",
+      "resource": "powerscale:entity/blight_fire_0"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "powerscale:entity/blight_fire_1"
+    }
+  ]
+}

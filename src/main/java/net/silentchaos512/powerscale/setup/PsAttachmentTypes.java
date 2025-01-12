@@ -27,9 +27,9 @@ public class PsAttachmentTypes {
                     .build()
     );
 
-    public static final Supplier<AttachmentType<Integer>> BLIGHT_TIER = ATTACHMENT_TYPES.register(
-            "blight_tier", () -> AttachmentType.builder(() -> 0)
-                    .serialize(Codec.INT)
+    public static final Supplier<AttachmentType<Boolean>> IS_BLIGHT = ATTACHMENT_TYPES.register(
+            "is_blight", () -> AttachmentType.builder(() -> false)
+                    .serialize(Codec.BOOL)
                     .build()
     );
 

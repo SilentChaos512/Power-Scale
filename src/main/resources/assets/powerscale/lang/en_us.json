@@ -79,6 +79,8 @@
   "powerscale.configuration.time_until_idle": "Time Until Idle",
   "powerscale.configuration.use_override": "Use Override",
   "powerscale.difficulty": "Difficulty: %d",
+  "powerscale.blight": "Blight",
+  "powerscale.blight.name": "Blight %s",
   "powerscale.level": "Level: %d",
   "powerscale.notifyAttributeChange": "Your %s has %s by %d",
   "powerscale.notifyAttributeChange.decreased": "decreased",

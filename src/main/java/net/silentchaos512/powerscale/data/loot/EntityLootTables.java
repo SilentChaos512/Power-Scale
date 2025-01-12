@@ -78,7 +78,7 @@ public class EntityLootTables implements LootTableSubProvider {
                                         .when(() -> new MobProperties(
                                                 Optional.empty(),
                                                 Optional.empty(),
-                                                Optional.of(IntRange.lowerBound(1))
+                                                Optional.of(true)
                                         ))
                                         .add(
                                                 LootItem.lootTableItem(PsItems.HEART_CRYSTAL)

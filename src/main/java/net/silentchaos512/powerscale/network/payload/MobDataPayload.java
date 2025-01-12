@@ -12,7 +12,7 @@ public record MobDataPayload(
         int entityId,
         float difficulty,
         int level,
-        int blightTier
+        boolean isBlight
 ) implements CustomPacketPayload {
     public static final Type<MobDataPayload> TYPE = new Type<>(PowerScale.getId("mob_data"));
 
@@ -20,7 +20,7 @@ public record MobDataPayload(
             ByteBufCodecs.VAR_INT, d -> d.entityId,
             ByteBufCodecs.FLOAT, d -> d.difficulty,
             ByteBufCodecs.VAR_INT, d -> d.level,
-            ByteBufCodecs.VAR_INT, d -> d.blightTier,
+            ByteBufCodecs.BOOL, d -> d.isBlight,
             MobDataPayload::new
     );
 
@@ -29,7 +29,7 @@ public record MobDataPayload(
                 mob.getId(),
                 mob.getData(PsAttachmentTypes.DIFFICULTY).floatValue(),
                 mob.getData(PsAttachmentTypes.LEVEL),
-                mob.getData(PsAttachmentTypes.BLIGHT_TIER)
+                mob.getData(PsAttachmentTypes.IS_BLIGHT)
         );
     }
 

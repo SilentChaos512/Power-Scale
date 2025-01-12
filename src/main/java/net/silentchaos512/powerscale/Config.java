@@ -6,6 +6,7 @@ import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.neoforge.common.ModConfigSpec;
 import net.silentchaos512.powerscale.config.ConfiguredExpression;
 import net.silentchaos512.powerscale.config.ScalingAttributeConfigSet;
+import org.checkerframework.common.value.qual.IntVal;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -63,6 +64,7 @@ public class Config {
         public final ModConfigSpec.BooleanValue notifyOfAttributeChangesOnBossKill;
 
         public final ConfiguredExpression difficultyMutatorPerSecond;
+        public final ConfiguredExpression blightSpawnChance;
         public final ConfiguredExpression localDifficultyOverride;
         public ModConfigSpec.BooleanValue localDifficultyUseOverride;
         public final ConfiguredExpression localDifficultyFromPlayers;
@@ -169,6 +171,13 @@ public class Config {
                     "difficulty.player_difficulty.mutator.per_second",
                     "difficulty + 0.0011575 * IDLE_MULTIPLIER(0.5)",
                     "(EvalEx) The expression that modifies a player's difficulty every second"
+            );
+            blightSpawnChance = expressionConfig(
+                    builder,
+                    "difficulty.blight.spawn_chance",
+                    "IF(level >= 30, 0.001 * level, 0)",
+                    "(EvalEx) The expression that determines the chance of a mob spawning as a blight.",
+                    "The default expression prevents blights from spawning if the mob has a power level less than 30."
             );
             localDifficultyFromPlayers = expressionConfig(
                     builder,

@@ -1,5 +1,6 @@
 package net.silentchaos512.powerscale.loot.condition;
 
+import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.world.level.storage.loot.IntRange;
@@ -15,13 +16,13 @@ import java.util.Optional;
 public record MobProperties(
         Optional<IntRange> level,
         Optional<IntRange> difficulty,
-        Optional<IntRange> blightTier
+        Optional<Boolean> isBlight
 ) implements LootItemCondition {
     public static final MapCodec<MobProperties> CODEC = RecordCodecBuilder.mapCodec(
             instance -> instance.group(
                     IntRange.CODEC.optionalFieldOf("level").forGetter(p -> p.level),
                     IntRange.CODEC.optionalFieldOf("difficulty").forGetter(p -> p.difficulty),
-                    IntRange.CODEC.optionalFieldOf("blight_tier").forGetter(p -> p.blightTier)
+                    Codec.BOOL.optionalFieldOf("is_blight").forGetter(p -> p.isBlight)
             ).apply(instance, MobProperties::new)
     );
 
@@ -43,7 +44,7 @@ public record MobProperties(
         if (this.difficulty.isPresent() && !this.difficulty.get().test(lootContext, entity.getData(PsAttachmentTypes.DIFFICULTY).intValue())) {
             return false;
         }
-        if (this.blightTier.isPresent() && !this.blightTier.get().test(lootContext, entity.getData(PsAttachmentTypes.BLIGHT_TIER))) {
+        if (this.isBlight.isPresent() && this.isBlight.get() != entity.getData(PsAttachmentTypes.IS_BLIGHT)) {
             return false;
         }
 
