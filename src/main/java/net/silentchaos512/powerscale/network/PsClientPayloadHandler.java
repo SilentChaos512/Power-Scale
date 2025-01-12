@@ -2,6 +2,7 @@ package net.silentchaos512.powerscale.network;
 
 import net.minecraft.network.chat.Component;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
+import net.silentchaos512.powerscale.PowerScale;
 import net.silentchaos512.powerscale.core.MobDifficulty;
 import net.silentchaos512.powerscale.network.payload.MobDataPayload;
 import net.silentchaos512.powerscale.network.payload.SyncScalingAttributesPayload;
@@ -19,7 +20,7 @@ public class PsClientPayloadHandler {
     private static CompletableFuture<Void> handleData(final IPayloadContext ctx, Runnable handler) {
         return ctx.enqueueWork(handler)
                 .exceptionally(e -> {
-                    ctx.disconnect(Component.translatable("network.sad.failure", e.getMessage()));
+                    ctx.disconnect(Component.translatable("network.powerscale.failure", e.getMessage()));
                     return null;
                 });
     }
@@ -28,6 +29,9 @@ public class PsClientPayloadHandler {
         handleData(ctx, () -> {
             var entity = ctx.player().level().getEntity(data.entityId());
             if (entity != null) {
+                if (PowerScale.detailedLogging()) {
+                    PowerScale.LOGGER.debug("Syncing entity data from server for {} {}", data.entityId(), entity);
+                }
                 MobDifficulty.onClientSync(entity, data);
             }
         });

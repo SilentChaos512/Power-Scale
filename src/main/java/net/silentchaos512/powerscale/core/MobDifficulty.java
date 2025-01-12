@@ -8,12 +8,15 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.living.FinalizeSpawnEvent;
+import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.silentchaos512.powerscale.Config;
 import net.silentchaos512.powerscale.PowerScale;
 import net.silentchaos512.powerscale.core.scalingattribute.ScalingAttribute;
 import net.silentchaos512.powerscale.network.payload.MobDataPayload;
+import net.silentchaos512.powerscale.network.payload.RequestMobDataPayload;
 import net.silentchaos512.powerscale.setup.PsAttachmentTypes;
 import net.silentchaos512.powerscale.setup.PsRegistries;
 
@@ -33,6 +36,20 @@ public class MobDifficulty {
         setDifficultyAndAttributes(mob, localDifficulty);
     }
 
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    public static void onEntityTick(EntityTickEvent.Post event) {
+        // On the client, request mob data from the server
+        // TODO: This is only really necessary for blights, as the level and difficulty are invisible without Jade...
+        //  But the blight attachment must be on the client for the fire effect to render. Maybe this could be improved
+        //  somehow?
+        if (!event.getEntity().hasData(PsAttachmentTypes.LEVEL) && event.getEntity() instanceof Mob mob && mob.level().isClientSide) {
+            if (PowerScale.detailedLogging()) {
+                PowerScale.LOGGER.debug("Requesting missing data from {} {}", mob.getId(), mob);
+            }
+            PacketDistributor.sendToServer(new RequestMobDataPayload(mob));
+        }
+    }
+
     public static void setDifficultyAndAttributes(Mob mob, double difficulty) {
         final var mobDifficulty = DifficultyUtil.setDifficultyClamped(mob, difficulty);
         var level = (int) mobDifficulty + 1;
@@ -45,8 +62,6 @@ public class MobDifficulty {
         }
 
         handleAttributeBoosts(mob, level);
-
-        PacketDistributor.sendToAllPlayers(new MobDataPayload(mob));
     }
 
     private static void trySetBlight(Mob mob, double difficulty, int level) {
