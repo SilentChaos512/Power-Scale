@@ -2,10 +2,20 @@ package net.silentchaos512.powerscale.setup;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.silentchaos512.powerscale.PowerScale;
 
 public class PsTags {
+    public static final class EntityTypes {
+        public static final TagKey<EntityType<?>> BLIGHT_EXEMPT = mod("blight_exempt");
+        public static final TagKey<EntityType<?>> DIFFICULTY_EXEMPT = mod("difficulty_exempt");
+
+        private static TagKey<EntityType<?>> mod(String path) {
+            return TagKey.create(Registries.ENTITY_TYPE, PowerScale.getId(path));
+        }
+    }
+
     public static final class Items {
         public static final TagKey<Item> ALCHEMY_BREWS = mod("alchemy_brews");
         public static final TagKey<Item> ALCHEMY_FUELS = mod("alchemy_fuels");

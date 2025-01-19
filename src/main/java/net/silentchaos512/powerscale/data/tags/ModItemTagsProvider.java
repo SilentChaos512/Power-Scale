@@ -1,4 +1,4 @@
-package net.silentchaos512.powerscale.data;
+package net.silentchaos512.powerscale.data.tags;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;

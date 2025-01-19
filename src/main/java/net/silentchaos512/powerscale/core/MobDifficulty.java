@@ -8,7 +8,6 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.living.FinalizeSpawnEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
@@ -19,6 +18,7 @@ import net.silentchaos512.powerscale.network.payload.MobDataPayload;
 import net.silentchaos512.powerscale.network.payload.RequestMobDataPayload;
 import net.silentchaos512.powerscale.setup.PsAttachmentTypes;
 import net.silentchaos512.powerscale.setup.PsRegistries;
+import net.silentchaos512.powerscale.setup.PsTags;
 
 @EventBusSubscriber(modid = PowerScale.MOD_ID)
 public class MobDifficulty {
@@ -28,7 +28,7 @@ public class MobDifficulty {
 
         final var mob = event.getEntity();
 
-        if (mob.hasData(PsAttachmentTypes.LEVEL)) {
+        if (mob.hasData(PsAttachmentTypes.LEVEL) || mob.getType().is(PsTags.EntityTypes.DIFFICULTY_EXEMPT)) {
             return;
         }
 
@@ -65,13 +65,14 @@ public class MobDifficulty {
     }
 
     private static void trySetBlight(Mob mob, double difficulty, int level) {
-        double chance = Config.COMMON.blightSpawnChance
-                .with("difficulty", difficulty)
-                .with("level", level)
-                .evaluateDouble(0.0, null);
+        if (mob.getType().is(PsTags.EntityTypes.BLIGHT_EXEMPT)) return;
+
+        double chance = EntityGroups.from(mob).getBlightSpawnChance(mob, difficulty, level);
         if (mob.getRandom().nextDouble() < chance) {
             // Mob becomes a blight!
-            PowerScale.LOGGER.debug("Setting mob as blight: {}", mob);
+            if (PowerScale.detailedLogging()) {
+                PowerScale.LOGGER.debug("Setting mob as blight: {}", mob);
+            }
             mob.setData(PsAttachmentTypes.IS_BLIGHT, true);
         }
     }

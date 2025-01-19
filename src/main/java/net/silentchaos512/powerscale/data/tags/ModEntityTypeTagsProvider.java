@@ -1,0 +1,28 @@
+package net.silentchaos512.powerscale.data.tags;
+
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.PackOutput;
+import net.minecraft.data.tags.EntityTypeTagsProvider;
+import net.minecraft.world.entity.EntityType;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.silentchaos512.powerscale.PowerScale;
+import net.silentchaos512.powerscale.setup.PsTags;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.concurrent.CompletableFuture;
+
+public class ModEntityTypeTagsProvider extends EntityTypeTagsProvider {
+    public ModEntityTypeTagsProvider(PackOutput pOutput, CompletableFuture<HolderLookup.Provider> pProvider, @Nullable ExistingFileHelper existingFileHelper) {
+        super(pOutput, pProvider, PowerScale.MOD_ID, existingFileHelper);
+    }
+
+    @Override
+    protected void addTags(HolderLookup.Provider pProvider) {
+        tag(PsTags.EntityTypes.BLIGHT_EXEMPT)
+                .add(
+                        EntityType.WARDEN
+                );
+
+        tag(PsTags.EntityTypes.DIFFICULTY_EXEMPT);
+    }
+}
