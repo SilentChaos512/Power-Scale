@@ -46,7 +46,7 @@ public class AttributeMutatorItem extends Item {
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
         var mutator = getAttributeMutator(stack);
         if (mutator != null) {
-            var attributeName = mutator.attribute().get().getName();
+            var attributeName = ScalingAttribute.getNameSafely(mutator.attribute());
             var amountText = Component.literal((mutator.amount() > 0 ? "+" : "") + mutator.amount());
             tooltip.add(Component.translatable("item.powerscale.mutator.desc", attributeName, amountText));
         }

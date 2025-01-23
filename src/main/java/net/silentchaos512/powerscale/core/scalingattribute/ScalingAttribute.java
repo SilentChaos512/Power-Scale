@@ -11,6 +11,7 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.silentchaos512.powerscale.core.resources.DataHolder;
 import net.silentchaos512.powerscale.setup.PsRegistries;
 
 public record ScalingAttribute(
@@ -43,5 +44,19 @@ public record ScalingAttribute(
     public Component getName() {
         var id = PsRegistries.SCALING_ATTRIBUTE.getKey(this);
         return Component.translatable("scaling_attribute." + id.getNamespace() + "." + id.getPath());
+    }
+
+    /**
+     * Gets the display name of the scaling attribute, but first checks that the data resource is present. If it is not
+     * present, it returns the ID of the data resource as a placeholder.
+     *
+     * @param dataHolder The scaling attribute
+     * @return A translated name to display, or the ID if something goes wrong.
+     */
+    public static Component getNameSafely(DataHolder<ScalingAttribute> dataHolder) {
+        if (dataHolder.isPresent()) {
+            return dataHolder.get().getName();
+        }
+        return Component.literal(dataHolder.getId().toString());
     }
 }
