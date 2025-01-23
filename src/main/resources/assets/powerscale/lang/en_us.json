@@ -27,6 +27,8 @@
   "jei.category.powerscale.alchemy": "Alchemy Brewing",
   "narration.powerscale.alchemy_set.fuel": "Fuel: %s",
   "network.powerscale.failure": "Network Failure (Power Scale)",
+  "powerscale.blight": "Blight",
+  "powerscale.blight.name": "Blight %s",
   "powerscale.configuration.arrow_damage": "Arrow Damage",
   "powerscale.configuration.attack_damage": "Attack Damage",
   "powerscale.configuration.attribute_changes": "Attribute Changes",
@@ -79,8 +81,6 @@
   "powerscale.configuration.time_until_idle": "Time Until Idle",
   "powerscale.configuration.use_override": "Use Override",
   "powerscale.difficulty": "Difficulty: %d",
-  "powerscale.blight": "Blight",
-  "powerscale.blight.name": "Blight %s",
   "powerscale.level": "Level: %d",
   "powerscale.notifyAttributeChange": "Your %s has %s by %d",
   "powerscale.notifyAttributeChange.decreased": "decreased",
@@ -92,5 +92,6 @@
   "scaling_attribute.powerscale.movement_speed": "Movement Speed",
   "tag.item.powerscale.alchemy_brews": "Alchemy Brews & Tonics",
   "tag.item.powerscale.alchemy_fuels": "Alchemy Fuels",
+  "tag.item.powerscale.crystals": "Crystals",
   "tag.item.powerscale.flask_gems": "Flask Gems"
 }
