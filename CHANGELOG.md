@@ -5,6 +5,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
+- Blight creepers will now be supercharged by default
 - Player difficulty expression config (`difficulty.player_difficulty.expression`). This allows the difficulty value stored on a player to be modified before being used in local difficulty calculations. It does not change the difficulty value stored on the player. It makes no modifications to the returned value by default.
 - `ARMOR_VALUE()` function, which returns the total armor value of a player. This can be used either in the new player difficulty expression, or the player difficulty mutator. It is not used by default.
 

@@ -1,10 +1,14 @@
 package net.silentchaos512.powerscale.core;
 
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.monster.Creeper;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -74,6 +78,15 @@ public class MobDifficulty {
                 PowerScale.LOGGER.debug("Setting mob as blight: {}", mob);
             }
             mob.setData(PsAttachmentTypes.IS_BLIGHT, true);
+            applyBlightBuffs(mob, difficulty, level);
+        }
+    }
+
+    private static void applyBlightBuffs(Mob mob, double difficulty, int powerLevel) {
+        if (Config.COMMON.superchargeBlightCreepers.get() && mob instanceof Creeper creeper && mob.level() instanceof ServerLevel serverLevel) {
+            // Supercharge creepers
+            creeper.thunderHit(serverLevel, new LightningBolt(EntityType.LIGHTNING_BOLT, serverLevel));
+            creeper.setRemainingFireTicks(0);
         }
     }
 

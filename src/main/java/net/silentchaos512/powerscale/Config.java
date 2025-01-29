@@ -62,6 +62,8 @@ public class Config {
         public final ModConfigSpec.BooleanValue notifyOfAttributeChangesOnMobKill;
         public final ModConfigSpec.BooleanValue notifyOfAttributeChangesOnBossKill;
 
+        public final ModConfigSpec.BooleanValue superchargeBlightCreepers;
+
         public final ConfiguredExpression playerDifficultyModifier;
         public final ConfiguredExpression difficultyMutatorPerSecond;
         public final ConfiguredExpression blightSpawnChanceHostile;
@@ -160,6 +162,10 @@ public class Config {
             notifyOfAttributeChangesOnBossKill = builder
                     .comment("Send a message to players if their attributes change after killing a boss")
                     .define("notifications.attribute_changes.on_boss_kill", true);
+
+            superchargeBlightCreepers = builder
+                    .comment("Supercharge blight creepers as if they were struck by lightning")
+                    .define("difficulty.blight.supercharge_creepers", true);
 
             playerTimeUntilIdle = builder
                     .comment("The time (in seconds) until a player is considered idle, which affects the per second difficulty mutator.",
