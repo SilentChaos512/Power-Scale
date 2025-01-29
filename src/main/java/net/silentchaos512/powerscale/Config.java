@@ -62,6 +62,7 @@ public class Config {
         public final ModConfigSpec.BooleanValue notifyOfAttributeChangesOnMobKill;
         public final ModConfigSpec.BooleanValue notifyOfAttributeChangesOnBossKill;
 
+        public final ConfiguredExpression playerDifficultyModifier;
         public final ConfiguredExpression difficultyMutatorPerSecond;
         public final ConfiguredExpression blightSpawnChanceHostile;
         public final ConfiguredExpression blightSpawnChancePeaceful;
@@ -167,6 +168,14 @@ public class Config {
             sendIdleNotification = builder
                     .comment("Notify a player when they become idle")
                     .define("difficulty.player.send_idle_notification", true);
+
+            playerDifficultyModifier = expressionConfig(
+                    builder,
+                    "difficulty.player_difficulty.expression",
+                    "value",
+                    "(EvalEx) The expression that returns a player's difficulty value.",
+                    "By default, this simply gets the value stored on the player. It can be changed to incorporate different functions if desired."
+            );
             difficultyMutatorPerSecond = expressionConfig(
                     builder,
                     "difficulty.player_difficulty.mutator.per_second",

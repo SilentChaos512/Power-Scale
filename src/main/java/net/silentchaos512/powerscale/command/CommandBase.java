@@ -14,9 +14,12 @@ public class CommandBase {
     }
 
     static void sendInfoLine(CommandSourceStack source, String prefix, String format, Object value) {
+        sendInfoLine(source, prefix, String.format(format, value));
+    }
+
+    static void sendInfoLine(CommandSourceStack source, String prefix, String formattedSuffix) {
         source.sendSuccess(
                 () -> {
-                    var formattedSuffix = String.format(format, value);
                     var valueText = Component.literal(formattedSuffix)
                             .withStyle(ChatFormatting.GREEN);
                     return Component.literal(prefix)

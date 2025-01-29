@@ -36,7 +36,8 @@ public class ConfiguredExpression implements ExpressionExtension<ConfiguredExpre
                         Map.entry("LOCAL_PLAYER_COUNT", new LocalPlayerCountFunction()),
                         Map.entry("REDUCED_SCALING", new ReducedScalingFunction()),
                         Map.entry("LUNAR_CYCLES", new LunarCycleFunction()),
-                        Map.entry("IDLE_MULTIPLIER", new IdleMultiplierFunction())
+                        Map.entry("IDLE_MULTIPLIER", new IdleMultiplierFunction()),
+                        Map.entry("ARMOR_VALUE", new ArmorValueFunction())
                 );
     }
 

@@ -51,6 +51,14 @@ public class DifficultyUtil {
         entity.setData(PsAttachmentTypes.DIFFICULTY, value);
     }
 
+    public static double getModifiedPlayerDifficulty(Player player) {
+        var storedDifficultyValue = player.getData(PsAttachmentTypes.DIFFICULTY);
+        return Config.COMMON.playerDifficultyModifier
+                .withPlayer(player)
+                .with("value", storedDifficultyValue)
+                .evaluateDouble(storedDifficultyValue, player);
+    }
+
     public static double setDifficultyClamped(Entity entity, double value) {
         var entityGroup = EntityGroups.from(entity);
         double clampedValue = MathUtils.clamp(value, entityGroup.minDifficulty(), entityGroup.maxDifficulty());

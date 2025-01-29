@@ -7,6 +7,8 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.silentchaos512.lib.util.MathUtils;
 import net.silentchaos512.powerscale.core.DifficultyUtil;
 import net.silentchaos512.powerscale.setup.PsAttachmentTypes;
 
@@ -86,8 +88,21 @@ public class DifficultyCommand extends CommandBase {
     }
 
     private static int printEntityDifficulty(CommandContext<CommandSourceStack> context, Entity entity) {
+        if (entity instanceof Player player) {
+            return printPlayerDifficulty(context, player);
+        }
         var difficulty = entity.getData(PsAttachmentTypes.DIFFICULTY);
         sendInfoLine(context.getSource(), entity.getName().getString() + "'s difficulty", "%.3f", difficulty);
+        return 1;
+    }
+
+    private static int printPlayerDifficulty(CommandContext<CommandSourceStack> context, Player player) {
+        var difficulty = player.getData(PsAttachmentTypes.DIFFICULTY);
+        var modifiedDifficulty = DifficultyUtil.getModifiedPlayerDifficulty(player);
+        String format = MathUtils.doublesEqual(difficulty, modifiedDifficulty)
+                ? String.format("%.3f", difficulty)
+                : String.format("%.3f (%.3f)", difficulty, modifiedDifficulty);
+        sendInfoLine(context.getSource(), player.getName().getString() + "'s difficulty", format);
         return 1;
     }
 

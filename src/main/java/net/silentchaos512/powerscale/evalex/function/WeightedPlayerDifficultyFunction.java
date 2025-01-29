@@ -11,7 +11,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.silentchaos512.powerscale.core.DifficultyUtil;
-import net.silentchaos512.powerscale.setup.PsAttachmentTypes;
 
 @FunctionParameter(name = "radius")
 public class WeightedPlayerDifficultyFunction extends AbstractFunction {
@@ -29,7 +28,7 @@ public class WeightedPlayerDifficultyFunction extends AbstractFunction {
             var horizontalDistanceSqr = DifficultyUtil.horizontalDistanceSqr(pos, player);
             if (horizontalDistanceSqr <= radiusSquared) {
                 double weight = 1.0 - horizontalDistanceSqr / radiusSquared;
-                totalDifficulty += weight * player.getData(PsAttachmentTypes.DIFFICULTY);
+                totalDifficulty += weight * DifficultyUtil.getModifiedPlayerDifficulty(player);
                 totalWeight += weight;
             }
         }
