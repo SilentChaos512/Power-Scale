@@ -7,6 +7,7 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.silentchaos512.powerscale.PowerScale;
 import net.silentchaos512.powerscale.core.scalingattribute.ScalingAttribute;
+import net.silentchaos512.powerscale.setup.PsRegistries;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,6 +27,10 @@ public record SyncScalingAttributesPayload(
             (buf, data) -> MAP_STREAM_CODEC.encode(buf, new HashMap<>(data.scalingAttributes)),
             buf -> new SyncScalingAttributesPayload(MAP_STREAM_CODEC.decode(buf))
     );
+
+    public SyncScalingAttributesPayload() {
+        this(PsRegistries.SCALING_ATTRIBUTE.copyOfMap());
+    }
 
     @Override
     public Type<? extends CustomPacketPayload> type() {

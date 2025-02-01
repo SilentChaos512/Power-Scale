@@ -3,11 +3,14 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.21.1-0.2.1] - 2025-01-31
+Blights are still pending a lot of work... Please be patient with me :)
 ### Added
 - Blight creepers will now be supercharged by default
 - Player difficulty expression config (`difficulty.player_difficulty.expression`). This allows the difficulty value stored on a player to be modified before being used in local difficulty calculations. It does not change the difficulty value stored on the player. It makes no modifications to the returned value by default.
 - `ARMOR_VALUE()` function, which returns the total armor value of a player. This can be used either in the new player difficulty expression, or the player difficulty mutator. It is not used by default.
+### Fixed
+- Scaling Attributes not syncing from server to client, causing a disconnect error when drinking tonics on dedicated servers
 
 ## [1.21.1-0.2.0] - 2025-01-22
 ### Added

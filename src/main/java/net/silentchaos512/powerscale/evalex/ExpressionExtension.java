@@ -48,8 +48,9 @@ public interface ExpressionExtension<T extends ExpressionExtension<T>> {
             (buf, exp) -> {
                 if (exp instanceof ConfiguredExpression) {
                     buf.writeUtf("$" + exp.getDescription());
+                } else {
+                    buf.writeUtf(exp.expression().getExpressionString());
                 }
-                buf.writeUtf(exp.expression().getExpressionString());
             },
             buf -> {
                 var str = buf.readUtf();
