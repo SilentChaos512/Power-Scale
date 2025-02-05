@@ -3,6 +3,7 @@ package net.silentchaos512.powerscale.core.scalingattribute;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -19,6 +20,8 @@ import java.util.Map;
 import java.util.function.Function;
 
 public class ScalingAttributeHelper {
+    public static final ResourceLocation BOOST_MODIFIER_ID = PowerScale.getId("boost");
+
     public static void applyBoostedAttributes(LivingEntity entity) {
         Map<DataHolder<ScalingAttribute>, Double> immutableMap = entity.getData(PsAttachmentTypes.BOOSTED_ATTRIBUTES);
         immutableMap.forEach((attribute, amount) -> applyAttributeBoost(entity, attribute, amount));
@@ -28,15 +31,20 @@ public class ScalingAttributeHelper {
         var attributeInstance = entity.getAttribute(attribute.get().attribute());
         if (attributeInstance == null) return;
 
+        // Get existing modifier value (to check for health increase)
+        var oldModifier = attributeInstance.getModifier(BOOST_MODIFIER_ID);
+        var oldAmount = oldModifier != null ? oldModifier.amount() : 0.0;
+
         attributeInstance.addOrReplacePermanentModifier(
                 new AttributeModifier(
-                        PowerScale.getId("boost"),
+                        BOOST_MODIFIER_ID,
                         amount,
                         AttributeModifier.Operation.ADD_VALUE
                 )
         );
-        if (attributeInstance.getAttribute().equals(Attributes.MAX_HEALTH)) {
-            entity.heal(amount.floatValue());
+        // Restore health if max health is increasing
+        if (attributeInstance.getAttribute().equals(Attributes.MAX_HEALTH) && amount - oldAmount > 0) {
+            entity.heal((float) (amount - oldAmount));
         }
     }
 
