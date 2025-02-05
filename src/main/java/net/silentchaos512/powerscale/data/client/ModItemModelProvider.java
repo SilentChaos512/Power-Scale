@@ -40,6 +40,29 @@ public class ModItemModelProvider extends ItemModelProvider {
         builder(PsItems.SPEED_BOOSTER_TONIC, itemGenerated);
         builder(PsItems.ARDUOUS_BREW, itemGenerated);
         builder(PsItems.LANGUID_BREW, itemGenerated);
+
+
+        for (int i = 0; i < 14; ++i) {
+            var path = "difficulty_meter_" + i;
+            getBuilder(path).parent(itemGenerated).texture("layer0", "item/" + path);
+        }
+        getBuilder("difficulty_meter")
+                .parent(itemGenerated)
+                .override().predicate(PowerScale.getId("difficulty"), 0f).model(getExistingFile(PowerScale.getId("difficulty_meter_0"))).end()
+                .override().predicate(PowerScale.getId("difficulty"), 1f / 14f).model(getExistingFile(PowerScale.getId("difficulty_meter_1"))).end()
+                .override().predicate(PowerScale.getId("difficulty"), 2f / 14f).model(getExistingFile(PowerScale.getId("difficulty_meter_2"))).end()
+                .override().predicate(PowerScale.getId("difficulty"), 3f / 14f).model(getExistingFile(PowerScale.getId("difficulty_meter_3"))).end()
+                .override().predicate(PowerScale.getId("difficulty"), 4f / 14f).model(getExistingFile(PowerScale.getId("difficulty_meter_4"))).end()
+                .override().predicate(PowerScale.getId("difficulty"), 5f / 14f).model(getExistingFile(PowerScale.getId("difficulty_meter_5"))).end()
+                .override().predicate(PowerScale.getId("difficulty"), 6f / 14f).model(getExistingFile(PowerScale.getId("difficulty_meter_6"))).end()
+                .override().predicate(PowerScale.getId("difficulty"), 7f / 14f).model(getExistingFile(PowerScale.getId("difficulty_meter_7"))).end()
+                .override().predicate(PowerScale.getId("difficulty"), 8f / 14f).model(getExistingFile(PowerScale.getId("difficulty_meter_8"))).end()
+                .override().predicate(PowerScale.getId("difficulty"), 9f / 14f).model(getExistingFile(PowerScale.getId("difficulty_meter_9"))).end()
+                .override().predicate(PowerScale.getId("difficulty"), 10f / 14f).model(getExistingFile(PowerScale.getId("difficulty_meter_10"))).end()
+                .override().predicate(PowerScale.getId("difficulty"), 11f / 14f).model(getExistingFile(PowerScale.getId("difficulty_meter_11"))).end()
+                .override().predicate(PowerScale.getId("difficulty"), 12f / 14f).model(getExistingFile(PowerScale.getId("difficulty_meter_12"))).end()
+                .override().predicate(PowerScale.getId("difficulty"), 13f / 14f).model(getExistingFile(PowerScale.getId("difficulty_meter_13"))).end()
+                .texture("layer0", "item/difficulty_meter_0");
     }
 
     private ItemModelBuilder builder(ItemLike item) {

@@ -37,5 +37,7 @@ public class ServerEvents {
         if (!(player instanceof ServerPlayer serverPlayer)) return;
 
         PsRegistries.SCALING_ATTRIBUTE.getErrorMessages(serverPlayer).forEach(serverPlayer::sendSystemMessage);
+
+        PlayerEvents.sendClientUpdate(serverPlayer);
     }
 }

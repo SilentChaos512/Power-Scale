@@ -4,6 +4,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.silentchaos512.powerscale.PowerScale;
+import net.silentchaos512.powerscale.network.payload.ClientDataUpdatePayload;
 import net.silentchaos512.powerscale.network.payload.MobDataPayload;
 import net.silentchaos512.powerscale.network.payload.RequestMobDataPayload;
 import net.silentchaos512.powerscale.network.payload.SyncScalingAttributesPayload;
@@ -12,8 +13,13 @@ import net.silentchaos512.powerscale.network.payload.SyncScalingAttributesPayloa
 public class PsNetwork {
     @SubscribeEvent
     public static void register(RegisterPayloadHandlersEvent event) {
-        final var registrar = event.registrar("1.2");
+        final var registrar = event.registrar("1.3");
         // Server to Client
+        registrar.playToClient(
+                ClientDataUpdatePayload.TYPE,
+                ClientDataUpdatePayload.STREAM_CODEC,
+                (data, ctx) -> PsClientPayloadHandler.getInstance().handleClientDataUpdate(data, ctx)
+        );
         registrar.playToClient(
                 SyncScalingAttributesPayload.TYPE,
                 SyncScalingAttributesPayload.STREAM_CODEC,

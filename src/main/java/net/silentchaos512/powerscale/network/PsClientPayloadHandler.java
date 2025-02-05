@@ -3,7 +3,9 @@ package net.silentchaos512.powerscale.network;
 import net.minecraft.network.chat.Component;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import net.silentchaos512.powerscale.PowerScale;
+import net.silentchaos512.powerscale.client.ClientData;
 import net.silentchaos512.powerscale.core.MobDifficulty;
+import net.silentchaos512.powerscale.network.payload.ClientDataUpdatePayload;
 import net.silentchaos512.powerscale.network.payload.MobDataPayload;
 import net.silentchaos512.powerscale.network.payload.SyncScalingAttributesPayload;
 import net.silentchaos512.powerscale.setup.PsRegistries;
@@ -39,5 +41,9 @@ public class PsClientPayloadHandler {
 
     public void handleSyncScalingAttributes(SyncScalingAttributesPayload data, IPayloadContext ctx) {
         handleData(ctx, () -> PsRegistries.SCALING_ATTRIBUTE.handleSyncPacket(data, ctx));
+    }
+
+    public void handleClientDataUpdate(ClientDataUpdatePayload data, IPayloadContext ctx) {
+        handleData(ctx, () -> ClientData.update(data));
     }
 }

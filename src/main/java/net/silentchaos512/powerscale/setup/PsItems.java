@@ -12,6 +12,7 @@ import net.silentchaos512.powerscale.PowerScale;
 import net.silentchaos512.powerscale.component.AttributeMutator;
 import net.silentchaos512.powerscale.core.resources.ScalingAttributeManager;
 import net.silentchaos512.powerscale.item.AttributeMutatorItem;
+import net.silentchaos512.powerscale.item.DifficultyMeterItem;
 import net.silentchaos512.powerscale.item.DifficultyMutatorItem;
 import net.silentchaos512.powerscale.item.FlaskItem;
 
@@ -29,6 +30,11 @@ public class PsItems {
     public static final DeferredItem<Item> ALCHEMY_POWDER = ITEMS.register(
             "alchemy_powder",
             () -> new Item(new Item.Properties())
+    );
+
+    public static final DeferredItem<DifficultyMeterItem> DIFFICULTY_METER = ITEMS.register(
+            "difficulty_meter",
+            () -> new DifficultyMeterItem(new Item.Properties())
     );
 
     public static final DeferredItem<AttributeMutatorItem> HEART_CRYSTAL = ITEMS.register(

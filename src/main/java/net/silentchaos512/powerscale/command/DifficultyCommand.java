@@ -6,10 +6,12 @@ import com.mojang.brigadier.context.CommandContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.EntityArgument;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.silentchaos512.lib.util.MathUtils;
 import net.silentchaos512.powerscale.core.DifficultyUtil;
+import net.silentchaos512.powerscale.core.PlayerEvents;
 import net.silentchaos512.powerscale.setup.PsAttachmentTypes;
 
 import java.util.Collection;
@@ -117,6 +119,10 @@ public class DifficultyCommand extends CommandBase {
         for (var entity : entities) {
             var clampedResult = DifficultyUtil.setDifficultyClamped(entity, value);
             sendInfoLine(context.getSource(), "Set " + entity.getName().getString() + "'s difficulty to", "%.3f", clampedResult);
+
+            if (entity instanceof ServerPlayer serverPlayer) {
+                PlayerEvents.sendClientUpdate(serverPlayer);
+            }
         }
         return 1;
     }
