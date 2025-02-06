@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "tag": "c:gems/amethyst"
+    },
+    "I": {
+      "tag": "c:ingots/iron"
+    },
+    "P": {
+      "item": "powerscale:alchemy_powder"
+    }
+  },
+  "pattern": [
+    "IPI",
+    " A "
+  ],
+  "result": {
+    "count": 1,
+    "id": "powerscale:difficulty_meter"
+  }
+}

@@ -52,6 +52,15 @@ public class ModRecipesProvider extends LibRecipeProvider {
                 .define('#', Items.SMOOTH_STONE)
                 .unlockedBy("has_item", has(PsItems.FLASK.get()))
                 .save(output);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, PsItems.DIFFICULTY_METER)
+                .pattern("IPI")
+                .pattern(" A ")
+                .define('I', Tags.Items.INGOTS_IRON)
+                .define('P', PsItems.ALCHEMY_POWDER)
+                .define('A', Tags.Items.GEMS_AMETHYST)
+                .unlockedBy("has_item", has(Items.AMETHYST_SHARD))
+                .save(output);
     }
 
     private void buildAlchemy(RecipeOutput output) {

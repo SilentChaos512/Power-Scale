@@ -34,7 +34,10 @@ public class PsItems {
 
     public static final DeferredItem<DifficultyMeterItem> DIFFICULTY_METER = ITEMS.register(
             "difficulty_meter",
-            () -> new DifficultyMeterItem(new Item.Properties())
+            () -> new DifficultyMeterItem(
+                    new Item.Properties()
+                            .stacksTo(1)
+            )
     );
 
     public static final DeferredItem<AttributeMutatorItem> HEART_CRYSTAL = ITEMS.register(

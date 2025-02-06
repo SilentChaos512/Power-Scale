@@ -6,6 +6,7 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.silentchaos512.powerscale.PowerScale;
 import net.silentchaos512.powerscale.component.AttributeMutator;
+import net.silentchaos512.powerscale.item.DifficultyMeterItem;
 
 import java.util.function.Supplier;
 
@@ -24,5 +25,12 @@ public class PsDataComponents {
             builder -> builder
                     .persistent(Codec.DOUBLE)
                     .networkSynchronized(ByteBufCodecs.DOUBLE)
+    );
+
+    public static final Supplier<DataComponentType<DifficultyMeterItem.Mode>> DIFFICULTY_METER_MODE = DATA_COMPONENTS.registerComponentType(
+            "difficulty_meter_mode",
+            builder -> builder
+                    .persistent(DifficultyMeterItem.Mode.CODEC)
+                    .networkSynchronized(DifficultyMeterItem.Mode.STREAM_CODEC)
     );
 }
