@@ -42,6 +42,7 @@ public class Config {
         public final ModConfigSpec.DoubleValue crystalDropChance;
         public final ModConfigSpec.DoubleValue crystalDropChanceLootingBonus;
         public final ModConfigSpec.DoubleValue crystalDropCooldown;
+        public final ModConfigSpec.BooleanValue difficultyMeterShowExactValue;
 
         public final ModConfigSpec.IntValue playerTimeUntilIdle;
         public final ModConfigSpec.BooleanValue sendIdleNotification;
@@ -110,6 +111,10 @@ public class Config {
                     .comment("The amount of time (in minutes) after getting a random crystal drop before another can be found.",
                             "This does not affect guaranteed crystal drops, like those from blights and bosses.")
                     .defineInRange("item.crystal_drops.cooldown_time", 10.0, 0.0, 1440.0);
+
+            difficultyMeterShowExactValue = builder
+                    .comment("If set to true, the difficulty meter will display the exact difficulty value instead of a loose percentage")
+                    .define("item.difficulty_meter.show_exact_value", false);
 
             final double minMaxDifficulty = 999_999;
             difficultyPlayerInitial = builder

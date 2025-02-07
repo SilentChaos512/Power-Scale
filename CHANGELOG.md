@@ -3,9 +3,12 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.21.1-0.2.2] - 2025-02-06
 ### Added
-- Difficulty meter item (hints at local difficulty, still needs some work)
+- Difficulty meter item
+  - Detects and displays difficulty in the form of an animated texture and a message
+  - Use while crouching to change between local and player difficulty detecting modes.
+  - Use without crouching to display difficulty as a message in the action bar. By default, this displays a percentage rounded down to the nearest 5%. A config option can change it to display an exact value instead.
 ### Fixed
 - Players with boosted health healing when killing mobs
 

@@ -41,6 +41,8 @@
   "powerscale.configuration.crystal_drops": "Crystal Drops",
   "powerscale.configuration.detailed_logging": "Detailed Logging",
   "powerscale.configuration.difficulty": "Difficulty",
+  "powerscale.configuration.difficulty_meter": "Difficulty Meter",
+  "powerscale.configuration.show_exact_value": "Show Exact Value",
   "powerscale.configuration.expression": "Expression",
   "powerscale.configuration.from_location": "From Location",
   "powerscale.configuration.from_players": "From Players",
