@@ -2,11 +2,15 @@ package net.silentchaos512.powerscale.config;
 
 import net.neoforged.neoforge.common.ModConfigSpec;
 import net.silentchaos512.powerscale.evalex.ExpressionExtension;
+import org.checkerframework.checker.units.qual.C;
 
 public record ScalingAttributeConfigSet(
         ExpressionExtension<?> hostileMobScaling,
         ExpressionExtension<?> peacefulMobScaling,
         ExpressionExtension<?> bossMobScaling,
+        ExpressionExtension<?> hostileBlightScaling,
+        ExpressionExtension<?> peacefulBlightScaling,
+        ExpressionExtension<?> bossBlightScaling,
         ExpressionExtension<?> onMobKill,
         ExpressionExtension<?> onBossKill,
         ExpressionExtension<?> onDeath,
@@ -18,6 +22,9 @@ public record ScalingAttributeConfigSet(
             String hostileMobScalingExpression,
             String peacefulMobScalingExpression,
             String bossMobScalingExpression,
+            String hostileBlightScalingExpression,
+            String peacefulBlightScalingExpression,
+            String bossBlightScalingExpression,
             String onMobKillExpression,
             String onBossKillExpression,
             String onDeathExpression,
@@ -38,6 +45,21 @@ public record ScalingAttributeConfigSet(
                         builder
                                 .comment("(EvalEx) Scaling expression for boss mobs")
                                 .define(configPathRoot + ".mob_scaling.boss", bossMobScalingExpression)
+                ),
+                new ConfiguredExpression(
+                        builder
+                                .comment("(EvalEx) Scaling expression for hostile blight mobs")
+                                .define(configPathRoot + ".blight_scaling.hostile", hostileBlightScalingExpression)
+                ),
+                new ConfiguredExpression(
+                        builder
+                                .comment("(EvalEx) Scaling expression for peaceful blight mobs")
+                                .define(configPathRoot + ".blight_scaling.peaceful", peacefulBlightScalingExpression)
+                ),
+                new ConfiguredExpression(
+                        builder
+                                .comment("(EvalEx) Scaling expression for boss blight mobs")
+                                .define(configPathRoot + ".blight_scaling.boss", bossBlightScalingExpression)
                 ),
                 new ConfiguredExpression(
                         builder

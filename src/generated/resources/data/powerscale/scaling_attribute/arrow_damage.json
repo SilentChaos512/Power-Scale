@@ -1,5 +1,10 @@
 {
   "attribute": "powerscale:arrow_damage",
+  "blight_scaling": {
+    "boss_mobs": "$scaling_attributes.arrow_damage.blight_scaling.boss",
+    "hostile_mobs": "$scaling_attributes.arrow_damage.blight_scaling.hostile",
+    "peaceful_mobs": "$scaling_attributes.arrow_damage.blight_scaling.peaceful"
+  },
   "mob_scaling": {
     "boss_mobs": "$scaling_attributes.arrow_damage.mob_scaling.boss",
     "hostile_mobs": "$scaling_attributes.arrow_damage.mob_scaling.hostile",

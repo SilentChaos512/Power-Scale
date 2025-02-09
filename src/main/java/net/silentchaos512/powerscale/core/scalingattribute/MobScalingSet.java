@@ -50,12 +50,12 @@ public record MobScalingSet(
         );
     }
 
-    public MobScalingSet(ScalingAttributeConfigSet configSet) {
-        this(configSet.hostileMobScaling(), configSet.peacefulMobScaling(), configSet.bossMobScaling(), List.of());
+    public static MobScalingSet forRegularMobs(ScalingAttributeConfigSet configSet) {
+        return new MobScalingSet(configSet.hostileMobScaling(), configSet.peacefulMobScaling(), configSet.bossMobScaling(), List.of());
     }
 
-    public MobScalingSet(ScalingAttributeConfigSet configSet, List<CustomMobScalingEntry> customMobScalingEntryList) {
-        this(configSet.hostileMobScaling(), configSet.peacefulMobScaling(), configSet.bossMobScaling(), customMobScalingEntryList);
+    public static MobScalingSet forBlightMobs(ScalingAttributeConfigSet configSet) {
+        return new MobScalingSet(configSet.hostileBlightScaling(), configSet.peacefulBlightScaling(), configSet.bossBlightScaling(), List.of());
     }
 
     public ExpressionExtension<?> getExpressionForMob(Mob mob) {

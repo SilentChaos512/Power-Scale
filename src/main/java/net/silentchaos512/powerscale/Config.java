@@ -37,6 +37,7 @@ public class Config {
     public static final class Common {
         public final ModConfigSpec.BooleanValue detailedLogging;
 
+        // Items
         public final ModConfigSpec.BooleanValue simpleAttributeBoosters;
         public final ModConfigSpec.BooleanValue simpleDifficultyMutators;
         public final ModConfigSpec.DoubleValue crystalDropChance;
@@ -44,6 +45,7 @@ public class Config {
         public final ModConfigSpec.DoubleValue crystalDropCooldown;
         public final ModConfigSpec.BooleanValue difficultyMeterShowExactValue;
 
+        // Difficulty
         public final ModConfigSpec.IntValue playerTimeUntilIdle;
         public final ModConfigSpec.BooleanValue sendIdleNotification;
         public final ModConfigSpec.DoubleValue difficultyPlayerInitial;
@@ -63,8 +65,10 @@ public class Config {
         public final ModConfigSpec.BooleanValue notifyOfAttributeChangesOnMobKill;
         public final ModConfigSpec.BooleanValue notifyOfAttributeChangesOnBossKill;
 
+        // Blights
         public final ModConfigSpec.BooleanValue superchargeBlightCreepers;
 
+        // Expressions
         public final ConfiguredExpression playerDifficultyModifier;
         public final ConfiguredExpression difficultyMutatorPerSecond;
         public final ConfiguredExpression blightSpawnChanceHostile;
@@ -78,6 +82,7 @@ public class Config {
         public final ConfiguredExpression localDifficultyGroupBonus;
         public final ConfiguredExpression playerLevelCurve;
 
+        // Scaling Attributes
         public final ScalingAttributeConfigSet defaultScalingAttributeArrowDamage;
         public final ScalingAttributeConfigSet defaultScalingAttributeAttackDamage;
         public final ScalingAttributeConfigSet defaultScalingAttributeMaxHealth;
@@ -254,7 +259,8 @@ public class Config {
                     builder,
                     "player.levelCurve",
                     "500(level * level) - 500*level",
-                    "(EvalEx) The expression that computes the SP required to reach a given level"
+                    "(EvalEx) The expression that computes the SP required to reach a given level",
+                    "This is currently unused and may or may not be used in the future..."
             );
 
             defaultScalingAttributeArrowDamage = new ScalingAttributeConfigSet(
@@ -263,6 +269,9 @@ public class Config {
                     "0.1 * (level - 1)",
                     "0.0",
                     "0.1 * (level - 1)",
+                    "0.15 * (level - 1)",
+                    "0.0",
+                    "0.15 * (level - 1)",
                     "value",
                     "value",
                     "value",
@@ -274,6 +283,9 @@ public class Config {
                     "0.1 * (level - 1)",
                     "0.0",
                     "0.1 * (level - 1)",
+                    "0.17 * (level - 1)",
+                    "0.0",
+                    "0.17 * (level - 1)",
                     "value",
                     "value",
                     "value",
@@ -285,6 +297,9 @@ public class Config {
                     "REDUCED_SCALING(0.375 * (level - 1), 0.5, 20)",
                     "REDUCED_SCALING(0.125 * (level - 1), 0.5, 20)",
                     "REDUCED_SCALING(0.375 * (level - 1), 0.5, 20)",
+                    "REDUCED_SCALING(0.625 * (level - 1), 0.5, 20)",
+                    "REDUCED_SCALING(0.175 * (level - 1), 0.5, 20)",
+                    "REDUCED_SCALING(0.625 * (level - 1), 0.5, 20)",
                     "value",
                     "value",
                     "value",
@@ -296,9 +311,12 @@ public class Config {
                     "base_value * 0.05 * FLOOR((level - 51) / 50)",
                     "0.0",
                     "0.0",
+                    "base_value * 1.2",
+                    "base_value * 0.08",
+                    "0.0",
                     "value",
                     "value",
-                    "value",
+                    "value - MAX(0.1, value / 4)",
                     "value"
             );
         }

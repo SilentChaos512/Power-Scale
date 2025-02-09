@@ -34,28 +34,32 @@ public class ScalingAttributesProvider implements DataProvider {
             ret.put(Const.ARROW_DAMAGE,
                     new ScalingAttribute(
                             PsAttributes.ARROW_DAMAGE,
-                            new MobScalingSet(Config.COMMON.defaultScalingAttributeArrowDamage),
+                            MobScalingSet.forRegularMobs(Config.COMMON.defaultScalingAttributeArrowDamage),
+                            MobScalingSet.forBlightMobs(Config.COMMON.defaultScalingAttributeArrowDamage),
                             new MutatorSet(Config.COMMON.defaultScalingAttributeArrowDamage)
                     )
             );
             ret.put(Const.ATTACK_DAMAGE,
                     new ScalingAttribute(
                             Attributes.ATTACK_DAMAGE,
-                            new MobScalingSet(Config.COMMON.defaultScalingAttributeAttackDamage),
+                            MobScalingSet.forRegularMobs(Config.COMMON.defaultScalingAttributeAttackDamage),
+                            MobScalingSet.forBlightMobs(Config.COMMON.defaultScalingAttributeAttackDamage),
                             new MutatorSet(Config.COMMON.defaultScalingAttributeAttackDamage)
                     )
             );
             ret.put(Const.MAX_HEALTH,
                     new ScalingAttribute(
                             Attributes.MAX_HEALTH,
-                            new MobScalingSet(Config.COMMON.defaultScalingAttributeMaxHealth),
+                            MobScalingSet.forRegularMobs(Config.COMMON.defaultScalingAttributeMaxHealth),
+                            MobScalingSet.forBlightMobs(Config.COMMON.defaultScalingAttributeMaxHealth),
                             new MutatorSet(Config.COMMON.defaultScalingAttributeMaxHealth)
                     )
             );
             ret.put(Const.MOVEMENT_SPEED,
                     new ScalingAttribute(
                             Attributes.MOVEMENT_SPEED,
-                            new MobScalingSet(Config.COMMON.defaultScalingAttributeMovementSpeed),
+                            MobScalingSet.forRegularMobs(Config.COMMON.defaultScalingAttributeMovementSpeed),
+                            MobScalingSet.forBlightMobs(Config.COMMON.defaultScalingAttributeMovementSpeed),
                             new MutatorSet(Config.COMMON.defaultScalingAttributeMovementSpeed)
                     )
             );

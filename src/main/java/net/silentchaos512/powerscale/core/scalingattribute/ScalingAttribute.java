@@ -12,17 +12,21 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.silentchaos512.powerscale.core.resources.DataHolder;
+import net.silentchaos512.powerscale.evalex.ExpressionExtension;
+import net.silentchaos512.powerscale.setup.PsAttachmentTypes;
 import net.silentchaos512.powerscale.setup.PsRegistries;
 
 public record ScalingAttribute(
         Holder<Attribute> attribute,
         MobScalingSet mobScaling,
+        MobScalingSet blightScaling,
         MutatorSet playerMutators
 ) {
     public static final Codec<ScalingAttribute> CODEC = RecordCodecBuilder.create(
             instance -> instance.group(
                     BuiltInRegistries.ATTRIBUTE.holderByNameCodec().fieldOf("attribute").forGetter(sa -> sa.attribute),
                     MobScalingSet.CODEC.fieldOf("mob_scaling").forGetter(sa -> sa.mobScaling),
+                    MobScalingSet.CODEC.fieldOf("blight_scaling").forGetter(sa -> sa.blightScaling),
                     MutatorSet.CODEC.fieldOf("player_mutators").forGetter(sa -> sa.playerMutators)
             ).apply(instance, ScalingAttribute::new)
     );
@@ -30,12 +34,20 @@ public record ScalingAttribute(
     public static final StreamCodec<RegistryFriendlyByteBuf, ScalingAttribute> STREAM_CODEC = StreamCodec.composite(
             ByteBufCodecs.holderRegistry(Registries.ATTRIBUTE), sa -> sa.attribute,
             MobScalingSet.STREAM_CODEC, sa -> sa.mobScaling,
+            MobScalingSet.STREAM_CODEC, sa -> sa.blightScaling,
             MutatorSet.STREAM_CODEC, sa -> sa.playerMutators,
             ScalingAttribute::new
     );
 
+    private ExpressionExtension<?> getExpressionForMob(Mob mob) {
+        if (mob.getData(PsAttachmentTypes.IS_BLIGHT)) {
+            return blightScaling().getExpressionForMob(mob);
+        }
+        return mobScaling.getExpressionForMob(mob);
+    }
+
     public double getMobBoost(Mob mob, int level) {
-        return this.mobScaling.getExpressionForMob(mob)
+        return getExpressionForMob(mob)
                 .with("base_value", mob.getAttributeBaseValue(this.attribute))
                 .with("level", level)
                 .evaluateDouble(0.0, null);
