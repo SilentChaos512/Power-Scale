@@ -10,6 +10,7 @@ import net.silentchaos512.powerscale.data.client.ModItemModelProvider;
 import net.silentchaos512.powerscale.data.crafting.ModRecipesProvider;
 import net.silentchaos512.powerscale.data.loot.ModLootTables;
 import net.silentchaos512.powerscale.data.tags.ModBlockTagsProvider;
+import net.silentchaos512.powerscale.data.tags.ModEntityTypeTagsProvider;
 import net.silentchaos512.powerscale.data.tags.ModItemTagsProvider;
 import net.silentchaos512.powerscale.loot.modifier.BonusDropsLootModifier;
 
@@ -28,6 +29,7 @@ public final class DataGenerators {
         var blockTagsProvider = new ModBlockTagsProvider(packOutput, lookupProvider, existingFileHelper);
         generator.addProvider(true, blockTagsProvider);
         generator.addProvider(true, new ModItemTagsProvider(packOutput, lookupProvider, blockTagsProvider.contentsGetter(), existingFileHelper));
+        generator.addProvider(true, new ModEntityTypeTagsProvider(packOutput, lookupProvider, existingFileHelper));
         generator.addProvider(true, new ModRecipesProvider(packOutput, lookupProvider));
 
         generator.addProvider(true, new ScalingAttributesProvider(packOutput));

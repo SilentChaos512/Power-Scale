@@ -9,6 +9,7 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Creeper;
+import net.minecraft.world.entity.monster.Zombie;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -72,21 +73,40 @@ public class MobDifficulty {
         if (mob.getType().is(PsTags.EntityTypes.BLIGHT_EXEMPT)) return;
 
         double chance = EntityGroups.from(mob).getBlightSpawnChance(mob, difficulty, level);
+        PowerScale.LOGGER.debug(chance);
         if (mob.getRandom().nextDouble() < chance) {
             // Mob becomes a blight!
             if (PowerScale.detailedLogging()) {
                 PowerScale.LOGGER.debug("Setting mob as blight: {}", mob);
             }
             mob.setData(PsAttachmentTypes.IS_BLIGHT, true);
-            applyBlightBuffs(mob, difficulty, level);
+            applySpecialBlightBonuses(mob, difficulty, level);
         }
     }
 
-    private static void applyBlightBuffs(Mob mob, double difficulty, int powerLevel) {
-        if (Config.COMMON.superchargeBlightCreepers.get() && mob instanceof Creeper creeper && mob.level() instanceof ServerLevel serverLevel) {
-            // Supercharge creepers
-            creeper.thunderHit(serverLevel, new LightningBolt(EntityType.LIGHTNING_BOLT, serverLevel));
-            creeper.setRemainingFireTicks(0);
+    private static void applySpecialBlightBonuses(Mob mob, double difficulty, int powerLevel) {
+        if (!(mob.level() instanceof ServerLevel serverLevel)) return;
+
+        // Supercharge creepers or strike with lightning
+        if ((Config.COMMON.blightsStrikeWithLightning.get() && mob.getType().is(PsTags.EntityTypes.BLIGHTS_STRIKE_WITH_LIGHTNING))
+                || (Config.COMMON.blightsSuperchargeCreepers.get() && mob instanceof Creeper)) {
+            var currentHealth = mob.getHealth();
+            mob.thunderHit(serverLevel, new LightningBolt(EntityType.LIGHTNING_BOLT, serverLevel));
+            mob.setRemainingFireTicks(0);
+            mob.setHealth(currentHealth);
+        }
+        // Giant mobs
+        if (Config.COMMON.blightsMakeGiants.get() && mob.getType().is(PsTags.EntityTypes.BLIGHTS_MAKE_GIANT)) {
+            var attributeInstance = mob.getAttribute(Attributes.SCALE);
+            if (attributeInstance != null) {
+                attributeInstance.addPermanentModifier(
+                        new AttributeModifier(
+                                PowerScale.getId("giant_blight"),
+                                1.0,
+                                AttributeModifier.Operation.ADD_MULTIPLIED_BASE
+                        )
+                );
+            }
         }
     }
 

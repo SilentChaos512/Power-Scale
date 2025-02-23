@@ -3,6 +3,13 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.12.1-0.2.3] - 2025-02-23
+### Added
+- Scaling attributes now have separate expressions for determining the attribute bonuses of blights
+- Two new tags and config options related to blights
+  - `powerscale:blights/make_giant` - Causes the mob to double in size when becoming a blight, if the relevant config option is enabled.
+  - `powerscale:blights/strike_with_lightning` - Simulates the mob being struck by lightning when becoming a blight, if the relevant config option is enabled. Creepers are in this tag, but there is also a separate config option that will strike all creepers (including modded ones, theoretically) with lightning.
+
 ## [1.21.1-0.2.2] - 2025-02-06
 ### Added
 - Difficulty meter item

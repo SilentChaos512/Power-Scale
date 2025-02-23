@@ -22,6 +22,16 @@ public class ModEntityTypeTagsProvider extends EntityTypeTagsProvider {
                 .add(
                         EntityType.WARDEN
                 );
+        tag(PsTags.EntityTypes.BLIGHTS_MAKE_GIANT)
+                .add(
+                        EntityType.ZOMBIE,
+                        EntityType.DROWNED,
+                        EntityType.HUSK
+                );
+        tag(PsTags.EntityTypes.BLIGHTS_STRIKE_WITH_LIGHTNING)
+                .add(
+                        EntityType.CREEPER
+                );
 
         tag(PsTags.EntityTypes.DIFFICULTY_EXEMPT);
     }

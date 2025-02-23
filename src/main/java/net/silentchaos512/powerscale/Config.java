@@ -66,7 +66,9 @@ public class Config {
         public final ModConfigSpec.BooleanValue notifyOfAttributeChangesOnBossKill;
 
         // Blights
-        public final ModConfigSpec.BooleanValue superchargeBlightCreepers;
+        public final ModConfigSpec.BooleanValue blightsStrikeWithLightning;
+        public final ModConfigSpec.BooleanValue blightsMakeGiants;
+        public final ModConfigSpec.BooleanValue blightsSuperchargeCreepers;
 
         // Expressions
         public final ConfiguredExpression playerDifficultyModifier;
@@ -173,9 +175,18 @@ public class Config {
                     .comment("Send a message to players if their attributes change after killing a boss")
                     .define("notifications.attribute_changes.on_boss_kill", true);
 
-            superchargeBlightCreepers = builder
-                    .comment("Supercharge blight creepers as if they were struck by lightning")
-                    .define("difficulty.blight.supercharge_creepers", true);
+            blightsMakeGiants = builder
+                    .comment("Increase the size of blight mobs if they are in the `powerscale:blights/make_giant` tag.",
+                            "By default, this makes some types of blight zombies into giants.")
+                    .define("difficulty.blight.make_giants", true);
+            blightsStrikeWithLightning = builder
+                    .comment("Strike mobs with lightning if they are in the `powerscale:blights/strike_with_lightning` tag.",
+                            "This has the same effect as supercharge_creepers, but is limited to entities in the tag.")
+                    .define("difficulty.blight.strike_with_lightning", true);
+            blightsSuperchargeCreepers = builder
+                    .comment("Supercharge blight creepers, making their explosions more powerful.",
+                            "This should affect modded creepers.")
+                    .define("difficulty.blights.supercharge_creepers", true);
 
             playerTimeUntilIdle = builder
                     .comment("The time (in seconds) until a player is considered idle, which affects the per second difficulty mutator.",
@@ -201,7 +212,7 @@ public class Config {
             blightSpawnChanceHostile = expressionConfig(
                     builder,
                     "difficulty.blight.spawn_chance.hostile",
-                    "IF(level >= 30, 0.001 * level, 0)",
+                    "IF(level >= 30, 0.00006 * level, 0)",
                     "(EvalEx) The expression that determines the chance of a hostile mob spawning as a blight.",
                     "The default expression prevents blights from spawning if the mob has a power level less than 30."
             );

@@ -9,6 +9,8 @@ import net.silentchaos512.powerscale.PowerScale;
 public class PsTags {
     public static final class EntityTypes {
         public static final TagKey<EntityType<?>> BLIGHT_EXEMPT = mod("blight_exempt");
+        public static final TagKey<EntityType<?>> BLIGHTS_MAKE_GIANT = mod("blights/make_giant");
+        public static final TagKey<EntityType<?>> BLIGHTS_STRIKE_WITH_LIGHTNING = mod("blights/strike_with_lightning");
         public static final TagKey<EntityType<?>> DIFFICULTY_EXEMPT = mod("difficulty_exempt");
 
         private static TagKey<EntityType<?>> mod(String path) {
