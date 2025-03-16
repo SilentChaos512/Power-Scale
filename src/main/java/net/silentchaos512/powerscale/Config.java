@@ -44,6 +44,11 @@ public class Config {
         public final ModConfigSpec.DoubleValue crystalDropChanceLootingBonus;
         public final ModConfigSpec.DoubleValue crystalDropCooldown;
         public final ModConfigSpec.BooleanValue difficultyMeterShowExactValue;
+        // Tonics
+        public final ModConfigSpec.DoubleValue healthBoosterTonicIncreaseAmount;
+        public final ModConfigSpec.DoubleValue powerBoosterTonicIncreaseAmount;
+        public final ModConfigSpec.DoubleValue arrowPowerBoosterTonicIncreaseAmount;
+        public final ModConfigSpec.DoubleValue speedBoosterTonicIncreaseAmount;
 
         // Difficulty
         public final ModConfigSpec.IntValue playerTimeUntilIdle;
@@ -122,6 +127,23 @@ public class Config {
             difficultyMeterShowExactValue = builder
                     .comment("If set to true, the difficulty meter will display the exact difficulty value instead of a loose percentage")
                     .define("item.difficulty_meter.show_exact_value", false);
+
+            healthBoosterTonicIncreaseAmount = builder
+                    .comment("The amount that health booster tonics (or heart crystals when using simple attribute boosters) will increase health")
+                    .comment("1 heart = 2 health")
+                    .defineInRange("item.attribute_boosters.change_amount.health", 2.0, -999999, 999999);
+            powerBoosterTonicIncreaseAmount = builder
+                    .comment("The amount that power booster tonics (or power crystals when using simple attribute boosters) will increase attack damage")
+                    .defineInRange("item.attribute_boosters.change_amount.power", 0.5, -999999, 999999);
+            arrowPowerBoosterTonicIncreaseAmount = builder
+                    .comment("The amount that arrow power booster tonics (or archer crystals when using simple attribute boosters) will increase arrow damage")
+                    .defineInRange("item.attribute_boosters.change_amount.arrow_power", 0.25, -999999, 999999);
+            speedBoosterTonicIncreaseAmount = builder
+                    .comment("The amount that speed booster tonics (or wing crystals when using simple attribute boosters) will increase movement speed")
+                    .comment("Small numbers produce big results, change with caution!")
+                    .defineInRange("item.attribute_boosters.change_amount.speed", 0.01, -999999, 999999);
+
+
 
             final double minMaxDifficulty = 999_999;
             difficultyPlayerInitial = builder

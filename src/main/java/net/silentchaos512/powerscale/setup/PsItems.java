@@ -159,28 +159,28 @@ public class PsItems {
     private static AttributeMutator healthBoostModifier() {
         return new AttributeMutator(
                 ScalingAttributeManager.getHolder(Const.MAX_HEALTH),
-                2.0
+                Config.COMMON.healthBoosterTonicIncreaseAmount.get()
         );
     }
 
     private static AttributeMutator powerBoostModifier() {
         return new AttributeMutator(
                 ScalingAttributeManager.getHolder(Const.ATTACK_DAMAGE),
-                0.5
+                Config.COMMON.powerBoosterTonicIncreaseAmount.get()
         );
     }
 
     private static AttributeMutator arrowPowerBoostModifier() {
         return new AttributeMutator(
                 ScalingAttributeManager.getHolder(Const.ARROW_DAMAGE),
-                0.25
+                Config.COMMON.arrowPowerBoosterTonicIncreaseAmount.get()
         );
     }
 
     private static AttributeMutator speedBoostModifier() {
         return new AttributeMutator(
                 ScalingAttributeManager.getHolder(Const.MOVEMENT_SPEED),
-                0.01
+                Config.COMMON.speedBoosterTonicIncreaseAmount.get()
         );
     }
 
