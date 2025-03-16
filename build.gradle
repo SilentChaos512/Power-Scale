@@ -5,7 +5,7 @@ plugins {
     id 'idea'
     id 'maven-publish'
     id 'com.gradleup.shadow' version '9.+'
-    id 'net.neoforged.gradle.userdev' version '7.0.145'
+    id 'net.neoforged.gradle.userdev' version '7.0.170'
     id "com.matthewprenger.cursegradle" version "1.4.0"
     id "com.modrinth.minotaur" version "2.+"
 }
@@ -156,7 +156,7 @@ dependencies {
     implementation "net.neoforged:neoforge:${neo_version}"
 
     if (project.hasProperty("silentlib_version")) {
-        implementation("net.silentchaos512:silent-lib-1.21-neoforge:${project.silentlib_version}")
+        implementation("net.silentchaos512:silent-lib-1.21.1-neoforge:${project.silentlib_version}")
     }
 
     // Silent Gear
