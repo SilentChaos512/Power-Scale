@@ -1,7 +1,9 @@
 package net.silentchaos512.powerscale.setup;
 
 import com.mojang.serialization.Codec;
+import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.silentchaos512.powerscale.PowerScale;
@@ -11,7 +13,7 @@ import net.silentchaos512.powerscale.item.DifficultyMeterItem;
 import java.util.function.Supplier;
 
 public class PsDataComponents {
-    static final DeferredRegister.DataComponents DATA_COMPONENTS = DeferredRegister.createDataComponents(PowerScale.MOD_ID);
+    static final DeferredRegister.DataComponents DATA_COMPONENTS = DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, PowerScale.MOD_ID);
 
     public static final Supplier<DataComponentType<AttributeMutator>> ATTRIBUTE_MUTATOR = DATA_COMPONENTS.registerComponentType(
             "attribute_mutator",

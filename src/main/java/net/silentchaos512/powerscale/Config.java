@@ -208,7 +208,7 @@ public class Config {
             blightsSuperchargeCreepers = builder
                     .comment("Supercharge blight creepers, making their explosions more powerful.",
                             "This should affect modded creepers.")
-                    .define("difficulty.blights.supercharge_creepers", true);
+                    .define("difficulty.blight.supercharge_creepers", true);
 
             playerTimeUntilIdle = builder
                     .comment("The time (in seconds) until a player is considered idle, which affects the per second difficulty mutator.",
