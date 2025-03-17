@@ -6,6 +6,9 @@
       "conditions": [
         {
           "condition": "minecraft:killed_by_player"
+        },
+        {
+          "condition": "powerscale:boss_crystal_drops_config"
         }
       ],
       "entries": [

@@ -40,6 +40,8 @@ public class Config {
         // Items
         public final ModConfigSpec.BooleanValue simpleAttributeBoosters;
         public final ModConfigSpec.BooleanValue simpleDifficultyMutators;
+        public final ModConfigSpec.BooleanValue blightsDropCrystals;
+        public final ModConfigSpec.BooleanValue bossesDropCrystals;
         public final ModConfigSpec.DoubleValue crystalDropChance;
         public final ModConfigSpec.DoubleValue crystalDropChanceLootingBonus;
         public final ModConfigSpec.DoubleValue crystalDropCooldown;
@@ -111,6 +113,14 @@ public class Config {
             simpleDifficultyMutators = builder
                     .comment("Allows the ingredients for difficulty mutator brews (cursed/enchanted hearts) to be used directly")
                     .define("item.simple_difficulty_mutators", false);
+            blightsDropCrystals = builder
+                    .comment("Allow blights to drop crystals.",
+                            "If you want to customize drops beyond simply turning them off, you must use a data pack to override the blight drops loot table.")
+                    .define("item.crystal_drops.blights_drop_crystals", true);
+            bossesDropCrystals = builder
+                    .comment("Allow bosses to drop crystals.",
+                            "If you want to customize drops beyond simply turning them off, you must use a data pack to override the boss drops loot table.")
+                    .define("item.crystal_drops.bosses_drop_crystals", true);
             crystalDropChance = builder
                     .comment("The chance (out of 1.0, without looting) that a hostile mob will roll a drop from the random crystals loot pool.",
                             "If you want to customize drops beyond this, you must use a data pack to override the loot tables!")

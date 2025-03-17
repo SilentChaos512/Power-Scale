@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 - Config options for tonic boost amounts
+- Config options to turn off crystal drops from blights and bosses
 
 ## [1.21.1-0.2.4] - 2025-03-09
 ### Changed

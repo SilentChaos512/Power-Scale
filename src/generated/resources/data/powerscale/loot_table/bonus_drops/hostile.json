@@ -77,6 +77,9 @@
           "condition": "minecraft:killed_by_player"
         },
         {
+          "condition": "powerscale:blight_crystal_drops_config"
+        },
+        {
           "condition": "powerscale:mob_properties",
           "is_blight": true
         }
