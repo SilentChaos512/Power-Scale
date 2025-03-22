@@ -2,10 +2,12 @@ package net.silentchaos512.powerscale.core;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.storage.loot.LootTable;
+import net.neoforged.neoforge.common.Tags;
 import net.silentchaos512.powerscale.Config;
 import net.silentchaos512.powerscale.PowerScale;
 import net.silentchaos512.powerscale.config.ConfiguredExpression;
@@ -112,7 +114,7 @@ public enum EntityGroups implements Predicate<Entity> {
     }
 
     private static boolean isBoss(Entity entity) {
-        return entity.isAlive() && !entity.canUsePortal(true);
+        return entity.getType().is(Tags.EntityTypes.BOSSES);
     }
 
     private static boolean isHostile(Entity entity) {

@@ -3,10 +3,12 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.21.1-0.2.5]
 ### Added
 - Config options for tonic boost amounts
 - Config options to turn off crystal drops from blights and bosses
+### Changed
+- Mobs are now determined to be bosses if they are in the `c:bosses` tag
 
 ## [1.21.1-0.2.4] - 2025-03-09
 ### Changed
