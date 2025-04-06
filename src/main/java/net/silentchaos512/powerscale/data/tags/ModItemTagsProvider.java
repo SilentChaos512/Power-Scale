@@ -3,6 +3,7 @@ package net.silentchaos512.powerscale.data.tags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
@@ -44,5 +45,8 @@ public class ModItemTagsProvider extends ItemTagsProvider {
                 .addTag(Tags.Items.GEMS_AMETHYST)
                 .addTag(Tags.Items.GEMS_EMERALD)
                 .addTag(Tags.Items.GEMS_QUARTZ);
+
+        tag(PsTags.Items.POWER_LEVEL_DETECTORS)
+                .add(Items.SPYGLASS);
     }
 }

@@ -4,6 +4,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.neoforge.common.ModConfigSpec;
+import net.silentchaos512.powerscale.client.PowerLevelDisplayHandler;
 import net.silentchaos512.powerscale.config.ConfiguredExpression;
 import net.silentchaos512.powerscale.config.ScalingAttributeConfigSet;
 
@@ -375,13 +376,15 @@ public class Config {
 
     public static final class Client {
         private Client(ModConfigSpec.Builder builder) {
-            ;
         }
     }
 
     public static final class Server {
         public final ModConfigSpec.BooleanValue quickToggleDifficulty;
         public final ModConfigSpec.BooleanValue quickToggleScalingAttributes;
+
+        public final ModConfigSpec.ConfigValue<PowerLevelDisplayHandler.ConfigType> powerLevelDisplayRestriction;
+        public final ModConfigSpec.IntValue powerLevelDisplayRange;
 
         private Server(ModConfigSpec.Builder builder) {
             quickToggleDifficulty = builder
@@ -390,6 +393,17 @@ public class Config {
             quickToggleScalingAttributes = builder
                     .comment("Enables the scaling attribute system, which allows players and mobs to gain attribute bonuses, such as extra health and attack damage")
                     .define("quick_toggles.scaling_attributes", true);
+
+            powerLevelDisplayRestriction = builder
+                    .comment("Determines when a player can view a mob's level. By default, levels are only displayed when looking through a spyglass.",
+                            "NEVER: Nothing is displayed",
+                            "USING_ITEM: Only displayed when the player is using an item in the powerscale:power_level_detectors tag (must be an item with a use action)",
+                            "HOLDING_ITEM: Only displayed when the player is holding an item in the powerscale:power_level_detectors tag (any item will work)",
+                            "ALWAYS: Levels are always displayed")
+                    .define("power_level_display.restriction", PowerLevelDisplayHandler.ConfigType.USING_ITEM);
+            powerLevelDisplayRange = builder
+                    .comment("The range that a mob's level can be seen from (depending on restriction)")
+                    .defineInRange("power_level_display.range", 100, 0, 256);
         }
     }
 

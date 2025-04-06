@@ -3,7 +3,13 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.21.1-0.2.5]
+## [Unreleased]
+### Added
+- Options to display a mob's level from a distance. By default, levels are displayed only when looking through a spyglass.
+  - `powerscale:power_level_detectors` item tag is used to determine which items detect levels
+  - The server config contains options to change whether an item is required, whether the item must be used or not, or you can disable this feature completely.
+
+## [1.21.1-0.2.5] - 2025-03-22
 ### Added
 - Config options for tonic boost amounts
 - Config options to turn off crystal drops from blights and bosses

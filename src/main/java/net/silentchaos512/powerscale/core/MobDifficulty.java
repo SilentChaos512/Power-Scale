@@ -73,7 +73,6 @@ public class MobDifficulty {
         if (mob.getType().is(PsTags.EntityTypes.BLIGHT_EXEMPT)) return;
 
         double chance = EntityGroups.from(mob).getBlightSpawnChance(mob, difficulty, level);
-        PowerScale.LOGGER.debug(chance);
         if (mob.getRandom().nextDouble() < chance) {
             // Mob becomes a blight!
             if (PowerScale.detailedLogging()) {

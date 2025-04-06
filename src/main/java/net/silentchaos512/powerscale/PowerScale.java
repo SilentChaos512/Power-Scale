@@ -31,7 +31,6 @@ public class PowerScale {
     public static final String MOD_NAME = "Silent's Power Scale";
     public static final Logger LOGGER = LogManager.getLogger(MOD_NAME);
 
-
     public PowerScale(IEventBus modEventBus, ModContainer modContainer) {
         modEventBus.addListener(this::commonSetup);
 

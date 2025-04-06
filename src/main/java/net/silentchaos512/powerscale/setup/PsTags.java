@@ -23,6 +23,7 @@ public class PsTags {
         public static final TagKey<Item> ALCHEMY_FUELS = mod("alchemy_fuels");
         public static final TagKey<Item> CRYSTALS = mod("crystals");
         public static final TagKey<Item> FLASK_GEMS = mod("flask_gems");
+        public static final TagKey<Item> POWER_LEVEL_DETECTORS = mod("power_level_detectors");
 
         private static TagKey<Item> mod(String path) {
             return TagKey.create(Registries.ITEM, PowerScale.getId(path));
