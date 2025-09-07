@@ -13,6 +13,7 @@ import net.silentchaos512.powerscale.Config;
 import net.silentchaos512.powerscale.PowerScale;
 import net.silentchaos512.powerscale.core.scalingattribute.MobScalingSet;
 import net.silentchaos512.powerscale.core.scalingattribute.MutatorSet;
+import net.silentchaos512.powerscale.core.scalingattribute.PlayerBonusSettings;
 import net.silentchaos512.powerscale.core.scalingattribute.ScalingAttribute;
 import net.silentchaos512.powerscale.setup.Const;
 import net.silentchaos512.powerscale.setup.PsAttributes;
@@ -36,7 +37,8 @@ public class ScalingAttributesProvider implements DataProvider {
                             PsAttributes.ARROW_DAMAGE,
                             MobScalingSet.forRegularMobs(Config.COMMON.defaultScalingAttributeArrowDamage),
                             MobScalingSet.forBlightMobs(Config.COMMON.defaultScalingAttributeArrowDamage),
-                            new MutatorSet(Config.COMMON.defaultScalingAttributeArrowDamage)
+                            new MutatorSet(Config.COMMON.defaultScalingAttributeArrowDamage),
+                            new PlayerBonusSettings(0.0, 0.0, 100.0)
                     )
             );
             ret.put(Const.ATTACK_DAMAGE,
@@ -44,7 +46,8 @@ public class ScalingAttributesProvider implements DataProvider {
                             Attributes.ATTACK_DAMAGE,
                             MobScalingSet.forRegularMobs(Config.COMMON.defaultScalingAttributeAttackDamage),
                             MobScalingSet.forBlightMobs(Config.COMMON.defaultScalingAttributeAttackDamage),
-                            new MutatorSet(Config.COMMON.defaultScalingAttributeAttackDamage)
+                            new MutatorSet(Config.COMMON.defaultScalingAttributeAttackDamage),
+                            new PlayerBonusSettings(1.0, 0.0, 1000.0)
                     )
             );
             ret.put(Const.MAX_HEALTH,
@@ -52,7 +55,8 @@ public class ScalingAttributesProvider implements DataProvider {
                             Attributes.MAX_HEALTH,
                             MobScalingSet.forRegularMobs(Config.COMMON.defaultScalingAttributeMaxHealth),
                             MobScalingSet.forBlightMobs(Config.COMMON.defaultScalingAttributeMaxHealth),
-                            new MutatorSet(Config.COMMON.defaultScalingAttributeMaxHealth)
+                            new MutatorSet(Config.COMMON.defaultScalingAttributeMaxHealth),
+                            new PlayerBonusSettings(20.0, 0.0, Integer.MAX_VALUE)
                     )
             );
             ret.put(Const.MOVEMENT_SPEED,
@@ -60,7 +64,8 @@ public class ScalingAttributesProvider implements DataProvider {
                             Attributes.MOVEMENT_SPEED,
                             MobScalingSet.forRegularMobs(Config.COMMON.defaultScalingAttributeMovementSpeed),
                             MobScalingSet.forBlightMobs(Config.COMMON.defaultScalingAttributeMovementSpeed),
-                            new MutatorSet(Config.COMMON.defaultScalingAttributeMovementSpeed)
+                            new MutatorSet(Config.COMMON.defaultScalingAttributeMovementSpeed),
+                            new PlayerBonusSettings(0.1, 0.01, 2.0)
                     )
             );
             return ret;

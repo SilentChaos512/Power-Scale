@@ -10,6 +10,11 @@
     "hostile_mobs": "$scaling_attributes.movement_speed.mob_scaling.hostile",
     "peaceful_mobs": "$scaling_attributes.movement_speed.mob_scaling.peaceful"
   },
+  "player_bonus_settings": {
+    "max_value": 2.0,
+    "min_value": 0.01,
+    "starting_value": 0.1
+  },
   "player_mutators": {
     "on_player_death": "$scaling_attributes.movement_speed.mutator.player_dies",
     "on_player_kill_boss": "$scaling_attributes.movement_speed.mutator.player_kills_boss",

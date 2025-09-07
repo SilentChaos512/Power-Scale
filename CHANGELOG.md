@@ -5,6 +5,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
+- Scaling attributes now have a `player_bonus_settings` field which can be used to set a starting value and min/max values
+  - Max health has a unique override option in the config. If set to anything other than zero, it overrides the scaling attribute's starting value for player max health. Any other changes will require a data pack.
 - Options to display a mob's level from a distance. By default, levels are displayed only when looking through a spyglass.
   - `powerscale:power_level_detectors` item tag is used to determine which items detect levels
   - The server config contains options to change whether an item is required, whether the item must be used or not, or you can disable this feature completely.

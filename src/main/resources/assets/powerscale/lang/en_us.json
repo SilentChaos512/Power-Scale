@@ -96,6 +96,7 @@
   "powerscale.configuration.simple_difficulty_mutators": "Simple Difficulty Mutators",
   "powerscale.configuration.spawn_chance": "Spawn Chance",
   "powerscale.configuration.speed": "Speed",
+  "powerscale.configuration.starting_amount": "Starting Amount",
   "powerscale.configuration.strike_with_lightning": "Strike With Lightning",
   "powerscale.configuration.supercharge_creepers": "Supercharge Creepers",
   "powerscale.configuration.time_until_idle": "Time Until Idle",

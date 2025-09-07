@@ -16,18 +16,22 @@ import net.silentchaos512.powerscale.evalex.ExpressionExtension;
 import net.silentchaos512.powerscale.setup.PsAttachmentTypes;
 import net.silentchaos512.powerscale.setup.PsRegistries;
 
+import java.util.Optional;
+
 public record ScalingAttribute(
         Holder<Attribute> attribute,
         MobScalingSet mobScaling,
         MobScalingSet blightScaling,
-        MutatorSet playerMutators
+        MutatorSet playerMutators,
+        Optional<PlayerBonusSettings> playerBonusSettings
 ) {
     public static final Codec<ScalingAttribute> CODEC = RecordCodecBuilder.create(
             instance -> instance.group(
                     BuiltInRegistries.ATTRIBUTE.holderByNameCodec().fieldOf("attribute").forGetter(sa -> sa.attribute),
                     MobScalingSet.CODEC.fieldOf("mob_scaling").forGetter(sa -> sa.mobScaling),
                     MobScalingSet.CODEC.fieldOf("blight_scaling").forGetter(sa -> sa.blightScaling),
-                    MutatorSet.CODEC.fieldOf("player_mutators").forGetter(sa -> sa.playerMutators)
+                    MutatorSet.CODEC.fieldOf("player_mutators").forGetter(sa -> sa.playerMutators),
+                    PlayerBonusSettings.CODEC.optionalFieldOf("player_bonus_settings").forGetter(sa -> sa.playerBonusSettings)
             ).apply(instance, ScalingAttribute::new)
     );
 
@@ -36,8 +40,19 @@ public record ScalingAttribute(
             MobScalingSet.STREAM_CODEC, sa -> sa.mobScaling,
             MobScalingSet.STREAM_CODEC, sa -> sa.blightScaling,
             MutatorSet.STREAM_CODEC, sa -> sa.playerMutators,
+            ByteBufCodecs.optional(PlayerBonusSettings.STREAM_CODEC), sa -> sa.playerBonusSettings,
             ScalingAttribute::new
     );
+
+    public ScalingAttribute(
+            Holder<Attribute> attribute,
+            MobScalingSet mobScaling,
+            MobScalingSet blightScaling,
+            MutatorSet playerMutators,
+            PlayerBonusSettings playerBonusSettings
+    ) {
+        this(attribute, mobScaling, blightScaling, playerMutators, Optional.of(playerBonusSettings));
+    }
 
     private ExpressionExtension<?> getExpressionForMob(Mob mob) {
         if (mob.getData(PsAttachmentTypes.IS_BLIGHT)) {

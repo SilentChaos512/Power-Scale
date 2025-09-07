@@ -97,6 +97,8 @@ public class Config {
         public final ScalingAttributeConfigSet defaultScalingAttributeAttackDamage;
         public final ScalingAttributeConfigSet defaultScalingAttributeMaxHealth;
         public final ScalingAttributeConfigSet defaultScalingAttributeMovementSpeed;
+        // Special overrides
+        public final ModConfigSpec.DoubleValue playerStartingHealthOverride;
 
         private final Map<String, ConfiguredExpression> configuredExpressions = new HashMap<>();
 
@@ -360,9 +362,15 @@ public class Config {
                     "0.0",
                     "value",
                     "value",
-                    "value - MAX(0.1, value / 4)",
+                    "value - MAX(0.01, value / 4)",
                     "value"
             );
+
+            playerStartingHealthOverride = builder
+                    .comment("Overrides the player's starting health in new worlds. Only applies to newly spawned players.",
+                            "If set to zero, this option is ignored.",
+                            "Vanilla player health is 20 (equal to 10 hearts)")
+                    .defineInRange("scaling_attributes.max_health.player.starting_amount", 0.0, 0.0, Integer.MAX_VALUE);
         }
 
         private ConfiguredExpression expressionConfig(ModConfigSpec.Builder builder, String path, String expressionString, String... comments) {
