@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Options to display a mob's level from a distance. By default, levels are displayed only when looking through a spyglass.
   - `powerscale:power_level_detectors` item tag is used to determine which items detect levels
   - The server config contains options to change whether an item is required, whether the item must be used or not, or you can disable this feature completely.
+### Fixed
+- Some mobs not received a level and attribute bonuses. This should be fixed for most if not all mobs now. [#8]
 
 ## [1.21.1-0.2.5] - 2025-03-22
 ### Added

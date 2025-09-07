@@ -2,17 +2,14 @@ package net.silentchaos512.powerscale.core;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LightningBolt;
-import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Creeper;
-import net.minecraft.world.entity.monster.Zombie;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.living.FinalizeSpawnEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
@@ -29,11 +26,43 @@ import net.silentchaos512.powerscale.setup.PsTags;
 public class MobDifficulty {
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void onFinalizeSpawn(FinalizeSpawnEvent event) {
-        if (!Config.SERVER.quickToggleDifficulty.get()) return;
+        // This covers most mob spawns, such as natural spawns
+        trySetDifficultyLevelAndAttributes(event.getEntity());
+    }
 
-        final var mob = event.getEntity();
+    @SubscribeEvent
+    public static void onJoinLevel(EntityJoinLevelEvent event) {
+        // Try to catch mobs spawned through less common means that don't fire the FinalizeSpawnEvent
+        if (event.getEntity() instanceof Mob mob) {
+            trySetDifficultyLevelAndAttributes(mob);
+        }
+    }
 
-        if (mob.hasData(PsAttachmentTypes.LEVEL) || mob.getType().is(PsTags.EntityTypes.DIFFICULTY_EXEMPT)) {
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    public static void onEntityTick(EntityTickEvent.Post event) {
+        var entity = event.getEntity();
+        var isClientSide = entity.level().isClientSide;
+        // Occasionally check for mobs with missing levels
+        if (!isClientSide && !hasLevelAssignedOrIsExempt(entity) && entity.tickCount % 200 == 0 && entity instanceof Mob mob) {
+            // Mob is somehow missing a level, but should have one
+            final var localDifficulty = DifficultyUtil.getLocalDifficulty(mob.level(), mob.getOnPos());
+            setDifficultyAndAttributes(mob, localDifficulty);
+        }
+
+        // On the client, request mob data from the server (needed to see mob levels with spyglass, Jade, etc.)
+        // This is also necessary for blight fires to render
+        if (!entity.hasData(PsAttachmentTypes.LEVEL) && entity instanceof Mob mob && isClientSide) {
+            if (PowerScale.detailedLogging()) {
+                PowerScale.LOGGER.debug("Requesting missing data from {} {}", mob.getId(), mob);
+            }
+            PacketDistributor.sendToServer(new RequestMobDataPayload(mob));
+        }
+    }
+
+    private static void trySetDifficultyLevelAndAttributes(Mob mob) {
+        if (!Config.SERVER.quickToggleDifficulty.get() || mob.level().isClientSide) return;
+
+        if (hasLevelAssignedOrIsExempt(mob)) {
             return;
         }
 
@@ -41,18 +70,8 @@ public class MobDifficulty {
         setDifficultyAndAttributes(mob, localDifficulty);
     }
 
-    @SubscribeEvent(priority = EventPriority.LOWEST)
-    public static void onEntityTick(EntityTickEvent.Post event) {
-        // On the client, request mob data from the server
-        // TODO: This is only really necessary for blights, as the level and difficulty are invisible without Jade...
-        //  But the blight attachment must be on the client for the fire effect to render. Maybe this could be improved
-        //  somehow?
-        if (!event.getEntity().hasData(PsAttachmentTypes.LEVEL) && event.getEntity() instanceof Mob mob && mob.level().isClientSide) {
-            if (PowerScale.detailedLogging()) {
-                PowerScale.LOGGER.debug("Requesting missing data from {} {}", mob.getId(), mob);
-            }
-            PacketDistributor.sendToServer(new RequestMobDataPayload(mob));
-        }
+    private static boolean hasLevelAssignedOrIsExempt(Entity entity) {
+        return entity.hasData(PsAttachmentTypes.LEVEL) || entity.getType().is(PsTags.EntityTypes.DIFFICULTY_EXEMPT);
     }
 
     public static void setDifficultyAndAttributes(Mob mob, double difficulty) {
