@@ -3,7 +3,7 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.21.1-0.3.0] - 2025-09-07
 ### Added
 - Scaling attributes now have a `player_bonus_settings` field which can be used to set a starting value and min/max values
   - Max health has a unique override option in the config. If set to anything other than zero, it overrides the scaling attribute's starting value for player max health. Any other changes will require a data pack.
@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - The server config contains options to change whether an item is required, whether the item must be used or not, or you can disable this feature completely.
 ### Fixed
 - Some mobs not received a level and attribute bonuses. This should be fixed for most if not all mobs now. [#8]
+- Alchemy Set now has a completed (albeit basic) model
 
 ## [1.21.1-0.2.5] - 2025-03-22
 ### Added

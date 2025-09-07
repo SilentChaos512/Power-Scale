@@ -4,6 +4,7 @@
 	"render_type": "cutout",
 	"textures": {
 		"0": "powerscale:block/alchemy_set",
+		"1": "block/smooth_stone",
 		"particle": "powerscale:block/alchemy_set"
 	},
 	"elements": [
@@ -12,14 +13,13 @@
 			"from": [2, 0, 2],
 			"to": [14, 2, 14],
 			"rotation": {"angle": 0, "axis": "y", "origin": [1, 0, 1]},
-			"color": 0,
 			"faces": {
-				"north": {"uv": [0, 0, 12, 2], "texture": "#missing"},
-				"east": {"uv": [0, 0, 12, 2], "texture": "#missing"},
-				"south": {"uv": [0, 0, 12, 2], "texture": "#missing"},
-				"west": {"uv": [0, 0, 12, 2], "texture": "#missing"},
-				"up": {"uv": [0, 0, 12, 12], "texture": "#missing"},
-				"down": {"uv": [0, 0, 12, 12], "texture": "#missing"}
+				"north": {"uv": [0, 0, 12, 2], "texture": "#1"},
+				"east": {"uv": [0, 0, 12, 2], "texture": "#1"},
+				"south": {"uv": [0, 0, 12, 2], "texture": "#1"},
+				"west": {"uv": [0, 0, 12, 2], "texture": "#1"},
+				"up": {"uv": [1, 1, 13, 13], "texture": "#1"},
+				"down": {"uv": [3, 3, 15, 15], "texture": "#1"}
 			}
 		},
 		{
@@ -51,31 +51,31 @@
 			}
 		},
 		{
-			"from": [10, 2, 10],
-			"to": [12, 6, 11],
-			"rotation": {"angle": 0, "axis": "y", "origin": [10, 2, 10]},
-			"color": 6,
+			"name": "spout1",
+			"from": [7, 2, 10],
+			"to": [9, 11, 12],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 2, 10]},
 			"faces": {
-				"north": {"uv": [0, 0, 2, 4], "texture": "#missing"},
-				"east": {"uv": [0, 0, 1, 4], "texture": "#missing"},
-				"south": {"uv": [0, 0, 2, 4], "texture": "#missing"},
-				"west": {"uv": [0, 0, 1, 4], "texture": "#missing"},
-				"up": {"uv": [0, 0, 2, 1], "texture": "#missing"},
-				"down": {"uv": [0, 0, 2, 1], "texture": "#missing"}
+				"north": {"uv": [5, 5, 7, 14], "texture": "#0"},
+				"east": {"uv": [9, 2, 11, 11], "texture": "#0"},
+				"south": {"uv": [9, 5, 11, 14], "texture": "#0"},
+				"west": {"uv": [5, 2, 7, 11], "texture": "#0"},
+				"up": {"uv": [3, 1, 5, 3], "texture": "#0"},
+				"down": {"uv": [0, 2, 2, 4], "texture": "#0"}
 			}
 		},
 		{
-			"from": [4, 2, 10],
-			"to": [6, 7, 11],
-			"rotation": {"angle": 0, "axis": "y", "origin": [4, 2, 10]},
-			"color": 6,
+			"name": "spout2",
+			"from": [7.5, 10, 5.5],
+			"to": [8.5, 11, 10],
+			"rotation": {"angle": 0, "axis": "x", "origin": [7, 10, 5]},
 			"faces": {
-				"north": {"uv": [0, 0, 2, 5], "texture": "#missing"},
-				"east": {"uv": [0, 0, 1, 5], "texture": "#missing"},
-				"south": {"uv": [0, 0, 2, 5], "texture": "#missing"},
-				"west": {"uv": [0, 0, 1, 5], "texture": "#missing"},
-				"up": {"uv": [0, 0, 2, 1], "texture": "#missing"},
-				"down": {"uv": [0, 0, 2, 1], "texture": "#missing"}
+				"north": {"uv": [5, 7, 6, 8], "texture": "#0"},
+				"east": {"uv": [5, 3, 9.5, 4], "texture": "#0"},
+				"south": {"uv": [5, 6, 6, 7], "texture": "#0"},
+				"west": {"uv": [8, 3, 12.5, 4], "texture": "#0"},
+				"up": {"uv": [5, 9, 6, 13.5], "texture": "#0"},
+				"down": {"uv": [10, 4, 11, 8.5], "texture": "#0"}
 			}
 		}
 	],
@@ -87,7 +87,11 @@
 			"color": 0,
 			"children": [1, 2]
 		},
-		3,
-		4
+		{
+			"name": "spout",
+			"origin": [7, 10, 5],
+			"color": 0,
+			"children": [3, 4]
+		}
 	]
 }
