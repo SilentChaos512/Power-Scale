@@ -19,6 +19,7 @@ import net.neoforged.neoforge.event.entity.living.FinalizeSpawnEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.silentchaos512.powerscale.Config;
 import net.silentchaos512.powerscale.PowerScale;
+import net.silentchaos512.powerscale.api.event.SetMobDifficultyEvent;
 import net.silentchaos512.powerscale.core.scalingattribute.ScalingAttribute;
 import net.silentchaos512.powerscale.network.payload.MobDataPayload;
 import net.silentchaos512.powerscale.network.payload.RequestMobDataPayload;
@@ -71,7 +72,9 @@ public class MobDifficulty {
         }
 
         final var localDifficulty = DifficultyUtil.getLocalDifficulty(mob.level(), mob.getOnPos());
-        setDifficultyAndAttributes(mob, localDifficulty);
+        SetMobDifficultyEvent event = new SetMobDifficultyEvent(mob, localDifficulty);
+        NeoForge.EVENT_BUS.post(event);
+        setDifficultyAndAttributes(mob, event.getNewDifficulty());
     }
 
     private static boolean hasLevelAssignedOrIsExempt(Entity entity) {

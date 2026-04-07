@@ -3,6 +3,10 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.21.1-0.3.1] - 2026-04-07
+### Added
+- `SetMobDifficultyEvent`, which allows other mods to make changes to the difficulty a mob spawns with.
+
 ## [1.21.1-0.3.0] - 2025-09-07
 ### Added
 - Scaling attributes now have a `player_bonus_settings` field which can be used to set a starting value and min/max values
