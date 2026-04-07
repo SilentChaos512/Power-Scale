@@ -2,19 +2,24 @@ package net.silentchaos512.powerscale.core;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LightningBolt;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Creeper;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.living.FinalizeSpawnEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.silentchaos512.powerscale.Config;
 import net.silentchaos512.powerscale.PowerScale;
+import net.silentchaos512.powerscale.api.event.SetMobDifficultyEvent;
 import net.silentchaos512.powerscale.core.scalingattribute.ScalingAttribute;
 import net.silentchaos512.powerscale.network.payload.MobDataPayload;
 import net.silentchaos512.powerscale.network.payload.RequestMobDataPayload;
@@ -67,7 +72,9 @@ public class MobDifficulty {
         }
 
         final var localDifficulty = DifficultyUtil.getLocalDifficulty(mob.level(), mob.getOnPos());
-        setDifficultyAndAttributes(mob, localDifficulty);
+        SetMobDifficultyEvent event = new SetMobDifficultyEvent(mob, localDifficulty);
+        NeoForge.EVENT_BUS.post(event);
+        setDifficultyAndAttributes(mob, event.getNewDifficulty());
     }
 
     private static boolean hasLevelAssignedOrIsExempt(Entity entity) {
