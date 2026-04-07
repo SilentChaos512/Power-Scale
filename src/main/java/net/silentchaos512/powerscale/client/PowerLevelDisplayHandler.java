@@ -19,7 +19,6 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.silentchaos512.powerscale.Config;
-import net.silentchaos512.powerscale.PowerScale;
 import net.silentchaos512.powerscale.setup.PsAttachmentTypes;
 import net.silentchaos512.powerscale.setup.PsTags;
 
@@ -27,7 +26,7 @@ import javax.annotation.Nullable;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-@EventBusSubscriber(value = Dist.CLIENT, modid = PowerScale.MOD_ID)
+@EventBusSubscriber(value = Dist.CLIENT)
 public class PowerLevelDisplayHandler {
     public enum ConfigType {
         NEVER,
@@ -92,7 +91,7 @@ public class PowerLevelDisplayHandler {
     @Nullable
     public static Entity rayTrace(Entity entity, double reach) {
         var mc = Minecraft.getInstance();
-        float partialTick = mc.getTimer().getGameTimeDeltaPartialTick(true);
+        float partialTick = mc.getDeltaTracker().getGameTimeDeltaPartialTick(true);
         Vec3 eyePosition = entity.getEyePosition(partialTick);
 
         Vec3 traceEnd;

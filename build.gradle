@@ -5,9 +5,7 @@ plugins {
     id 'idea'
     id 'maven-publish'
     id 'com.gradleup.shadow' version '9.+'
-    id 'net.neoforged.gradle.userdev' version '7.0.170'
-    id "com.matthewprenger.cursegradle" version "1.4.0"
-    id "com.modrinth.minotaur" version "2.+"
+    id 'net.neoforged.gradle.userdev' version '7.1.20'
 }
 
 javadoc.options.addStringOption('Xdoclint:none', '-quiet')
@@ -93,7 +91,7 @@ runs {
         systemProperty 'forge.enabledGameTestNamespaces', project.mod_id
     }
 
-    data {
+    clientData {
         // example of overriding the workingDirectory set in configureEach above, uncomment if you want to use it
         // workingDirectory project.file('run-data')
 
@@ -156,7 +154,7 @@ dependencies {
     implementation "net.neoforged:neoforge:${neo_version}"
 
     if (project.hasProperty("silentlib_version")) {
-        implementation("net.silentchaos512:silent-lib-1.21.1-neoforge:${project.silentlib_version}")
+        implementation("net.silentchaos512:silent-lib-${project.minecraft_version}-neoforge:${project.silentlib_version}")
     }
 
     // Silent Gear
@@ -190,7 +188,6 @@ tasks.withType(ProcessResources).configureEach {
             minecraft_version_range: minecraft_version_range,
             neo_version            : neo_version,
             neo_version_range      : neo_version_range,
-            loader_version_range   : loader_version_range,
             mod_id                 : mod_id,
             mod_name               : mod_name,
             mod_license            : mod_license,
@@ -221,32 +218,6 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
 artifacts {
     archives sourcesJar
     archives javadocJar
-}
-
-if (project.hasProperty('curseforge.apiKey')) {
-    curseforge {
-        apiKey = property('curseforge.apiKey')
-        project {
-            id = project.cf_project_id
-            changelog = file(project.cf_changelog_filename)
-            releaseType = project.release_type
-            addGameVersion(project.minecraft_version)
-            mainArtifact(jar) {
-            }
-        }
-    }
-}
-
-if (project.hasProperty('modrinth_token')) {
-    modrinth {
-        token = property('modrinth.token')
-        projectId = project.mr_project_id
-        versionNumber = project.mod_version
-        versionType = project.release_type
-        uploadFile = jar
-        gameVersions = [project.minecraft_version]
-        loaders = ["neoforge"]
-    }
 }
 
 // GPR/Maven publishing

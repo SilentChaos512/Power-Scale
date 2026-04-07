@@ -1,18 +1,22 @@
 package net.silentchaos512.powerscale.core;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LightningBolt;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Creeper;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.network.ClientPacketDistributor;
+import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.living.FinalizeSpawnEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
-import net.neoforged.neoforge.network.PacketDistributor;
 import net.silentchaos512.powerscale.Config;
 import net.silentchaos512.powerscale.PowerScale;
 import net.silentchaos512.powerscale.core.scalingattribute.ScalingAttribute;
@@ -41,7 +45,7 @@ public class MobDifficulty {
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void onEntityTick(EntityTickEvent.Post event) {
         var entity = event.getEntity();
-        var isClientSide = entity.level().isClientSide;
+        var isClientSide = entity.level().isClientSide();
         // Occasionally check for mobs with missing levels
         if (!isClientSide && !hasLevelAssignedOrIsExempt(entity) && entity.tickCount % 200 == 0 && entity instanceof Mob mob) {
             // Mob is somehow missing a level, but should have one
@@ -55,12 +59,12 @@ public class MobDifficulty {
             if (PowerScale.detailedLogging()) {
                 PowerScale.LOGGER.debug("Requesting missing data from {} {}", mob.getId(), mob);
             }
-            PacketDistributor.sendToServer(new RequestMobDataPayload(mob));
+            ClientPacketDistributor.sendToServer(new RequestMobDataPayload(mob));
         }
     }
 
     private static void trySetDifficultyLevelAndAttributes(Mob mob) {
-        if (!Config.SERVER.quickToggleDifficulty.get() || mob.level().isClientSide) return;
+        if (!Config.SERVER.quickToggleDifficulty.get() || mob.level().isClientSide()) return;
 
         if (hasLevelAssignedOrIsExempt(mob)) {
             return;
@@ -142,9 +146,9 @@ public class MobDifficulty {
 
         double oldValue = attributeInstance.getValue();
         double boostAmount = scalingAttribute.getMobBoost(mob, level);
-        ResourceLocation id = PsRegistries.SCALING_ATTRIBUTE.getKey(scalingAttribute);
+        Identifier id = PsRegistries.SCALING_ATTRIBUTE.getKey(scalingAttribute);
         var modifier = new AttributeModifier(
-                ResourceLocation.fromNamespaceAndPath(id.getNamespace(), id.getPath() + ".level_boost"),
+                Identifier.fromNamespaceAndPath(id.getNamespace(), id.getPath() + ".level_boost"),
                 boostAmount,
                 AttributeModifier.Operation.ADD_VALUE
         );

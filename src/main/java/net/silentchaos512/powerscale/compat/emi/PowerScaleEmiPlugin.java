@@ -1,3 +1,4 @@
+/*
 package net.silentchaos512.powerscale.compat.emi;
 
 import dev.emi.emi.api.EmiEntrypoint;
@@ -32,3 +33,4 @@ public class PowerScaleEmiPlugin implements EmiPlugin {
         }
     }
 }
+*/

@@ -5,7 +5,7 @@ import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.silentchaos512.powerscale.block.AlchemySetBlockEntity;
@@ -17,7 +17,6 @@ import snownee.jade.api.ITooltip;
 import snownee.jade.api.StreamServerDataProvider;
 import snownee.jade.api.config.IPluginConfig;
 import snownee.jade.api.theme.IThemeHelper;
-import snownee.jade.api.ui.IElementHelper;
 
 public class PsJadeAlchemySetProvider implements IBlockComponentProvider, StreamServerDataProvider<BlockAccessor, PsJadeAlchemySetProvider.Data> {
     static final PsJadeAlchemySetProvider INSTANCE = new PsJadeAlchemySetProvider();
@@ -49,7 +48,7 @@ public class PsJadeAlchemySetProvider implements IBlockComponentProvider, Stream
     }
 
     @Override
-    public ResourceLocation getUid() {
+    public Identifier getUid() {
         return PsJadePlugin.ALCHEMY_SET;
     }
 

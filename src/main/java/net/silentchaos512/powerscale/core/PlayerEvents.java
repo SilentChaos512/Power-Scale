@@ -17,17 +17,16 @@ import net.silentchaos512.powerscale.PowerScale;
 import net.silentchaos512.powerscale.core.scalingattribute.ScalingAttribute;
 import net.silentchaos512.powerscale.core.scalingattribute.ScalingAttributeHelper;
 import net.silentchaos512.powerscale.network.payload.ClientDataUpdatePayload;
-import net.silentchaos512.powerscale.setup.PsAttachmentTypes;
 import net.silentchaos512.powerscale.setup.PsRegistries;
 
 import java.util.Objects;
 
-@EventBusSubscriber(bus = EventBusSubscriber.Bus.GAME, modid = PowerScale.MOD_ID)
+@EventBusSubscriber
 public class PlayerEvents {
     @SubscribeEvent
     public static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
         var player = event.getEntity();
-        if (!player.level().isClientSide) {
+        if (!player.level().isClientSide()) {
             // Set up initial scaling attribute values
             for (ScalingAttribute scalingAttribute : PsRegistries.SCALING_ATTRIBUTE) {
                 tryToApplyAttributeStartingValue(scalingAttribute, player);

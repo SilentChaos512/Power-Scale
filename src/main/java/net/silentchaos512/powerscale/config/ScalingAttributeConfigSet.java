@@ -2,7 +2,6 @@ package net.silentchaos512.powerscale.config;
 
 import net.neoforged.neoforge.common.ModConfigSpec;
 import net.silentchaos512.powerscale.evalex.ExpressionExtension;
-import org.checkerframework.checker.units.qual.C;
 
 public record ScalingAttributeConfigSet(
         ExpressionExtension<?> hostileMobScaling,

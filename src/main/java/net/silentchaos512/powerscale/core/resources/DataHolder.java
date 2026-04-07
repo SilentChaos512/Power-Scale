@@ -3,7 +3,7 @@ package net.silentchaos512.powerscale.core.resources;
 import com.mojang.serialization.Codec;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import javax.annotation.Nullable;
 import java.util.Objects;
@@ -15,29 +15,29 @@ import java.util.stream.Stream;
 
 // Maybe move to Silent Lib? Mostly copied from Silent Gear, again.
 public class DataHolder<T> implements Supplier<T> {
-    private final ResourceLocation objectId;
-    private final Function<ResourceLocation, T> getter;
+    private final Identifier objectId;
+    private final Function<Identifier, T> getter;
 
-    public DataHolder(ResourceLocation objectId, Function<ResourceLocation, T> getter) {
+    public DataHolder(Identifier objectId, Function<Identifier, T> getter) {
         this.objectId = objectId;
         this.getter = getter;
     }
 
     public static <T> DataHolder<T> empty() {
-        return new DataHolder<>(ResourceLocation.withDefaultNamespace("empty"), id -> null);
+        return new DataHolder<>(Identifier.withDefaultNamespace("empty"), id -> null);
     }
 
-    public static <T> Codec<DataHolder<T>> makeCodec(Function<ResourceLocation, DataHolder<T>> getter) {
-        return ResourceLocation.CODEC.xmap(
+    public static <T> Codec<DataHolder<T>> makeCodec(Function<Identifier, DataHolder<T>> getter) {
+        return Identifier.CODEC.xmap(
                 getter,
                 DataHolder::getId
         );
     }
 
-    public static <T>StreamCodec<FriendlyByteBuf, DataHolder<T>> makeStreamCodec(Function<ResourceLocation, DataHolder<T>> getter) {
+    public static <T>StreamCodec<FriendlyByteBuf, DataHolder<T>> makeStreamCodec(Function<Identifier, DataHolder<T>> getter) {
         return StreamCodec.of(
-                (buf, val) -> buf.writeResourceLocation(val.getId()),
-                buf -> getter.apply(buf.readResourceLocation())
+                (buf, val) -> buf.writeIdentifier(val.getId()),
+                buf -> getter.apply(buf.readIdentifier())
         );
     }
 
@@ -60,7 +60,7 @@ public class DataHolder<T> implements Supplier<T> {
         return ret;
     }
 
-    public ResourceLocation getId() {
+    public Identifier getId() {
         return this.objectId;
     }
 

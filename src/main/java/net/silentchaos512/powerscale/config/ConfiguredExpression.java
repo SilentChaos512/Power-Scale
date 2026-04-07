@@ -12,7 +12,7 @@ import net.silentchaos512.powerscale.evalex.function.*;
 import javax.annotation.Nullable;
 import java.util.*;
 
-@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber
 public class ConfiguredExpression implements ExpressionExtension<ConfiguredExpression> {
     private static final Map<String, ConfiguredExpression> CONFIG_LIST = new LinkedHashMap<>();
 

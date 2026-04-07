@@ -1,6 +1,6 @@
 package net.silentchaos512.powerscale.compat.jade;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.Mob;
 import net.silentchaos512.powerscale.PowerScale;
 import net.silentchaos512.powerscale.block.AlchemySetBlock;
@@ -11,8 +11,8 @@ import snownee.jade.api.WailaPlugin;
 
 @WailaPlugin
 public class PsJadePlugin implements IWailaPlugin {
-    public static final ResourceLocation ALCHEMY_SET = PowerScale.getId("alchemy_set");
-    public static final ResourceLocation MOB = PowerScale.getId("mob");
+    public static final Identifier ALCHEMY_SET = PowerScale.getId("alchemy_set");
+    public static final Identifier MOB = PowerScale.getId("mob");
 
     @Override
     public void register(IWailaCommonRegistration registration) {

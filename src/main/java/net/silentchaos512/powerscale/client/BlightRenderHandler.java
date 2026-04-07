@@ -13,6 +13,7 @@ import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.Material;
 import net.minecraft.client.resources.model.ModelBakery;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
@@ -30,8 +31,8 @@ import org.joml.Quaternionf;
 @EventBusSubscriber(value = Dist.CLIENT, modid = PowerScale.MOD_ID)
 public class BlightRenderHandler {
     private static final float FIRE_SCALE = 1.8F;
-    private static final ResourceLocation TEXTURE_NORMAL = PowerScale.getId("textures/entity/blightfire.png");
-    private static final ResourceLocation TEXTURE_UNCOLORED = PowerScale.getId("textures/entity/blightfire_grayscale.png");
+    private static final Identifier TEXTURE_NORMAL = PowerScale.getId("textures/entity/blightfire.png");
+    private static final Identifier TEXTURE_UNCOLORED = PowerScale.getId("textures/entity/blightfire_grayscale.png");
     private static RenderType RENDER_TYPE_NORMAL;
     private static RenderType RENDER_TYPE_UNCOLORED;
 

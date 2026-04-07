@@ -37,8 +37,8 @@ public class IdleTracker {
             if (!idle && newIdleTime >= Config.COMMON.playerTimeUntilIdle.get()) {
                 // Player is now idle
                 player.setData(PsAttachmentTypes.IDLE, true);
-                if (!player.level().isClientSide && Config.COMMON.sendIdleNotification.get()) {
-                    player.sendSystemMessage(Component.translatable("powerscale.notifyIdle"));
+                if (!player.level().isClientSide() && Config.COMMON.sendIdleNotification.get()) {
+                    player.displayClientMessage(Component.translatable("powerscale.notifyIdle"), false);
                 }
             }
         } else {

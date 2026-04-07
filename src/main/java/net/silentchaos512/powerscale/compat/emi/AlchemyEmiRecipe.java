@@ -1,3 +1,4 @@
+/*
 package net.silentchaos512.powerscale.compat.emi;
 
 import dev.emi.emi.api.recipe.BasicEmiRecipe;
@@ -37,3 +38,4 @@ public class AlchemyEmiRecipe extends BasicEmiRecipe {
         return List.of(EmiIngredient.of(PsTags.Items.ALCHEMY_FUELS));
     }
 }
+*/

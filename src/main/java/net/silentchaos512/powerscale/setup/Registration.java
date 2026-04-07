@@ -16,6 +16,7 @@ public class Registration {
         PsLoot.LOOT_CONDITION_TYPES.register(modEventBus);
         PsLoot.LOOT_MODIFIERS.register(modEventBus);
         PsMenuTypes.MENU_TYPES.register(modEventBus);
+        PsRecipeBookCategories.RECIPE_BOOK_CATEGORIES.register(modEventBus);
         PsSounds.SOUND_EVENTS.register(modEventBus);
     }
 }

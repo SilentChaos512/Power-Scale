@@ -1,6 +1,7 @@
 package net.silentchaos512.powerscale;
 
 import net.minecraft.client.renderer.item.ItemProperties;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
@@ -11,11 +12,13 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.fml.loading.FMLLoader;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.AddReloadListenerEvent;
+import net.neoforged.neoforge.event.AddServerReloadListenersEvent;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import net.silentchaos512.powerscale.item.DifficultyMeterItem;
@@ -46,13 +49,13 @@ public class PowerScale {
         modContainer.registerConfig(ModConfig.Type.CLIENT, Config.CLIENT_SPEC);
         modContainer.registerConfig(ModConfig.Type.SERVER, Config.SERVER_SPEC);
 
-        if (FMLLoader.getDist() == Dist.CLIENT) {
+        if (FMLEnvironment.getDist() == Dist.CLIENT) {
             new PowerScale.Client(modContainer);
         }
     }
 
-    private void onAddReloadListener(AddReloadListenerEvent event) {
-        event.addListener(PsRegistries.SCALING_ATTRIBUTE);
+    private void onAddReloadListener(AddServerReloadListenersEvent event) {
+        event.addListener(getId("scaling_attribute"), PsRegistries.SCALING_ATTRIBUTE);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
@@ -65,7 +68,7 @@ public class PowerScale {
     public void onServerStarting(ServerStartingEvent event) {
     }
 
-    @EventBusSubscriber(modid = MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+    @EventBusSubscriber(value = Dist.CLIENT)
     public static class ClientModEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
@@ -80,8 +83,8 @@ public class PowerScale {
         }
     }
 
-    public static ResourceLocation getId(String path) {
-        return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
+    public static Identifier getId(String path) {
+        return Identifier.fromNamespaceAndPath(MOD_ID, path);
     }
 
     public static boolean detailedLogging() {

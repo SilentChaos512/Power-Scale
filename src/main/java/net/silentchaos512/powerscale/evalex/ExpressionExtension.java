@@ -9,7 +9,6 @@ import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import net.minecraft.ChatFormatting;
-import net.minecraft.commands.CommandSource;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.StreamCodec;
@@ -74,7 +73,7 @@ public interface ExpressionExtension<T extends ExpressionExtension<T>> {
         return expression().evaluate();
     }
 
-    default int evaluateInt(int fallback, @Nullable CommandSource player) {
+    default int evaluateInt(int fallback, @Nullable Player player) {
         try {
             return evaluate().getNumberValue().intValue();
         } catch (EvaluationException | ParseException e) {
@@ -83,7 +82,7 @@ public interface ExpressionExtension<T extends ExpressionExtension<T>> {
         }
     }
 
-    default double evaluateDouble(double fallback, @Nullable CommandSource player) {
+    default double evaluateDouble(double fallback, @Nullable Player player) {
         try {
             return evaluate().getNumberValue().doubleValue();
         } catch (EvaluationException | ParseException e) {
@@ -94,10 +93,10 @@ public interface ExpressionExtension<T extends ExpressionExtension<T>> {
 
     default void checkExpressionNotNull() {}
 
-    default void logExpressionError(@Nullable CommandSource player, BaseException e) {
+    default void logExpressionError(@Nullable Player player, BaseException e) {
         var message = "Error while evaluating expression \"" + getDescription() + "\" (" + expression().getExpressionString() + "). Check your log file.";
         if (player != null) {
-            player.sendSystemMessage(Component.literal(message).withStyle(ChatFormatting.RED));
+            player.displayClientMessage(Component.literal(message).withStyle(ChatFormatting.RED), false);
         } else {
             PowerScale.LOGGER.error(message);
         }

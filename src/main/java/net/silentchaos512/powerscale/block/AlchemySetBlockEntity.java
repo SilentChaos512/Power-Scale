@@ -1,10 +1,9 @@
 package net.silentchaos512.powerscale.block;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.Containers;
 import net.minecraft.world.entity.player.Inventory;
@@ -12,11 +11,14 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.silentchaos512.powerscale.crafting.recipe.AlchemyRecipe;
 import net.silentchaos512.powerscale.crafting.recipe.AlchemyRecipeInput;
 import net.silentchaos512.powerscale.setup.PsBlockEntityTypes;
@@ -32,7 +34,7 @@ public class AlchemySetBlockEntity extends BaseContainerBlockEntity {
 
     private NonNullList<ItemStack> items = NonNullList.withSize(3, ItemStack.EMPTY);
     int brewTime;
-    private Item ingredient;
+    private Item ingredient = Items.AIR;
     int fuel;
     private boolean lastHasFlask = false;
 
@@ -79,6 +81,8 @@ public class AlchemySetBlockEntity extends BaseContainerBlockEntity {
     }
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, AlchemySetBlockEntity blockEntity) {
+        if (!(level instanceof ServerLevel serverLevel)) return;
+
         var fuelStack = blockEntity.items.get(FUEL_SLOT);
         if (blockEntity.fuel <= 0 && fuelStack.is(PsTags.Items.ALCHEMY_FUELS)) {
             blockEntity.fuel = 10;
@@ -86,7 +90,7 @@ public class AlchemySetBlockEntity extends BaseContainerBlockEntity {
             setChanged(level, pos, state);
         }
 
-        var recipe = blockEntity.getRecipe(level);
+        var recipe = blockEntity.getRecipe(serverLevel);
         var isBrewable = recipe != null;
         var isBrewing = blockEntity.brewTime > 0;
         var ingredientStack = blockEntity.items.get(INGREDIENT_SLOT);
@@ -122,9 +126,9 @@ public class AlchemySetBlockEntity extends BaseContainerBlockEntity {
     }
 
     @Nullable
-    private AlchemyRecipe getRecipe(Level levelIn) {
+    private AlchemyRecipe getRecipe(ServerLevel levelIn) {
         var flask = this.items.get(FLASK_SLOT);
-        if (flask.isEmpty())  return null;
+        if (flask.isEmpty()) return null;
 
         var ingredient = this.items.get(INGREDIENT_SLOT);
         if (ingredient.isEmpty()) return null;
@@ -139,10 +143,10 @@ public class AlchemySetBlockEntity extends BaseContainerBlockEntity {
 
         items.set(0, recipe.assemble(new AlchemyRecipeInput(flask, ingredient), level.registryAccess()));
 
-        if (ingredient.hasCraftingRemainingItem()) {
-            var remainingItem = ingredient.getCraftingRemainingItem();
+        ItemStack remainingItem = ingredient.getCraftingRemainder();
+        if (!remainingItem.isEmpty()) {
             ingredient.shrink(1);
-            if (remainingItem.isEmpty()) {
+            if (ingredient.isEmpty()) {
                 ingredient = remainingItem;
             } else {
                 Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), remainingItem);
@@ -156,24 +160,24 @@ public class AlchemySetBlockEntity extends BaseContainerBlockEntity {
     }
 
     @Override
-    protected void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
-        super.loadAdditional(pTag, pRegistries);
+    protected void loadAdditional(ValueInput input) {
+        super.loadAdditional(input);
         this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
-        ContainerHelper.loadAllItems(pTag, this.items, pRegistries);
-        this.brewTime = pTag.getShort("BrewTime");
+        ContainerHelper.loadAllItems(input, this.items);
+        this.brewTime = input.getShortOr("BrewTime", (short) 0);
         if (this.brewTime > 0) {
             this.ingredient = this.items.get(INGREDIENT_SLOT).getItem();
         }
 
-        this.fuel = pTag.getByte("Fuel");
+        this.fuel = input.getByteOr("Fuel", (byte) 0);
     }
 
     @Override
-    protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
-        super.saveAdditional(pTag, pRegistries);
-        pTag.putShort("BrewTime", (short)this.brewTime);
-        ContainerHelper.saveAllItems(pTag, this.items, pRegistries);
-        pTag.putByte("Fuel", (byte)this.fuel);
+    protected void saveAdditional(ValueOutput output) {
+        super.saveAdditional(output);
+        output.putShort("BrewTime", (short) this.brewTime);
+        ContainerHelper.saveAllItems(output, this.items);
+        output.putByte("Fuel", (byte) this.fuel);
     }
 
     @Override

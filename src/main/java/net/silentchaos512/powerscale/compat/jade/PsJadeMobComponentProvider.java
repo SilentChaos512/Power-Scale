@@ -1,7 +1,7 @@
 package net.silentchaos512.powerscale.compat.jade;
 
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.Entity;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.silentchaos512.lib.util.MathUtils;
@@ -45,7 +45,7 @@ public class PsJadeMobComponentProvider implements IEntityComponentProvider {
     }
 
     @Override
-    public ResourceLocation getUid() {
+    public Identifier getUid() {
         return PsJadePlugin.MOB;
     }
 }

@@ -5,7 +5,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.silentchaos512.powerscale.config.ScalingAttributeConfigSet;
 import net.silentchaos512.powerscale.evalex.ExpressionExtension;
 import net.silentchaos512.powerscale.evalex.ExpressionWrapper;
@@ -47,7 +47,7 @@ public record MutatorSet(
         );
     }
 
-    public static MutatorSet noChanges(ResourceLocation id) {
+    public static MutatorSet noChanges(Identifier id) {
         return new MutatorSet(
                 new ExpressionWrapper(new Expression("value")),
                 new ExpressionWrapper(new Expression("value")),

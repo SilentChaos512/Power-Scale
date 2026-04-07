@@ -8,6 +8,7 @@ import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import net.minecraft.client.Minecraft;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.silentchaos512.powerscale.PowerScale;
@@ -20,12 +21,12 @@ import java.util.stream.Collectors;
 
 @JeiPlugin
 public class PowerScaleJeiPlugin implements IModPlugin {
-    private static final ResourceLocation PLUGIN_ID = PowerScale.getId("plugin");
+    private static final Identifier PLUGIN_ID = PowerScale.getId("plugin");
 
     public static final RecipeType<AlchemyRecipe> ALCHEMY_RECIPE_TYPE = RecipeType.create(PowerScale.MOD_ID, "alchemy", AlchemyRecipe.class);
 
     @Override
-    public ResourceLocation getPluginUid() {
+    public Identifier getPluginUid() {
         return PLUGIN_ID;
     }
 

@@ -8,15 +8,15 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.JsonOps;
 import net.minecraft.ChatFormatting;
-import net.minecraft.Util;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.Util;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import net.silentchaos512.powerscale.network.payload.DataResourcesPayload;
 import org.apache.commons.io.IOUtils;
@@ -42,10 +42,10 @@ public class DataResourceManager<T> implements ResourceManagerReloadListener, It
     private final Logger logger;
     private final Marker logMarker;
     private final String modName;
-    private final Map<ResourceLocation, T> byKey = Collections.synchronizedMap(new LinkedHashMap<>());
-    private final Map<T, ResourceLocation> byValue = Collections.synchronizedMap(new LinkedHashMap<>());
+    private final Map<Identifier, T> byKey = Collections.synchronizedMap(new LinkedHashMap<>());
+    private final Map<T, Identifier> byValue = Collections.synchronizedMap(new LinkedHashMap<>());
     private final List<T> values = new ArrayList<>();
-    private final Collection<ResourceLocation> errorList = new ArrayList<>();
+    private final Collection<Identifier> errorList = new ArrayList<>();
     private final Codec<T> byNameCodec;
 
     public DataResourceManager(Codec<T> codec, JsonExceptionFactory<?> exceptionFactory, String typeName, String dataPath, Logger logger, String logMarkerName, String modName) {
@@ -56,7 +56,7 @@ public class DataResourceManager<T> implements ResourceManagerReloadListener, It
         this.logger = logger;
         this.logMarker = MarkerManager.getMarker(logMarkerName);
         this.modName = modName;
-        this.byNameCodec = ResourceLocation.CODEC.flatXmap(
+        this.byNameCodec = Identifier.CODEC.flatXmap(
                 id -> Optional.ofNullable(get(id))
                         .map(DataResult::success)
                         .orElseGet(() -> DataResult.error(() -> "Unknown " + this.typeName + " key: " + id)),
@@ -87,25 +87,25 @@ public class DataResourceManager<T> implements ResourceManagerReloadListener, It
     }
 
     @Nullable
-    public T get(ResourceLocation key) {
+    public T get(Identifier key) {
         return this.byKey.get(key);
     }
 
-    public ResourceLocation getKey(T value) {
+    public Identifier getKey(T value) {
         return this.byValue.get(value);
     }
 
-    public Set<ResourceLocation> keySet() {
+    public Set<Identifier> keySet() {
         return this.byKey.keySet();
     }
 
-    public Set<Map.Entry<ResourceLocation, T>> entrySet() {
+    public Set<Map.Entry<Identifier, T>> entrySet() {
         return this.byKey.entrySet();
     }
 
-    public Map<ResourceLocation, T> copyOfMap() {
+    public Map<Identifier, T> copyOfMap() {
         return Util.make(() -> {
-            ImmutableMap.Builder<ResourceLocation, T> builder = new ImmutableMap.Builder<>();
+            ImmutableMap.Builder<Identifier, T> builder = new ImmutableMap.Builder<>();
             entrySet().forEach(entry -> builder.put(entry.getKey(), entry.getValue()));
             return builder.build();
         });
@@ -115,7 +115,7 @@ public class DataResourceManager<T> implements ResourceManagerReloadListener, It
         return Util.getRandomSafe(this.values, random);
     }
 
-    public boolean containsKey(ResourceLocation name) {
+    public boolean containsKey(Identifier name) {
         return this.byKey.containsKey(name);
     }
 
@@ -129,7 +129,7 @@ public class DataResourceManager<T> implements ResourceManagerReloadListener, It
 
     public Collection<Component> getErrorMessages(ServerPlayer player) {
         if (!this.errorList.isEmpty()) {
-            String listStr = this.errorList.stream().map(ResourceLocation::toString).collect(Collectors.joining(", "));
+            String listStr = this.errorList.stream().map(Identifier::toString).collect(Collectors.joining(", "));
             return ImmutableList.of(
                     Component.literal("[" + this.modName + "] The following " + this.typeName + "s failed to load, check your log file:")
                             .withStyle(ChatFormatting.RED),
@@ -142,7 +142,7 @@ public class DataResourceManager<T> implements ResourceManagerReloadListener, It
     @Override
     public void onResourceManagerReload(ResourceManager resourceManager) {
         Gson gson = (new GsonBuilder()).setPrettyPrinting().disableHtmlEscaping().create();
-        Map<ResourceLocation, Resource> resources = resourceManager.listResources(this.dataPath, s -> s.toString().endsWith(".json"));
+        Map<Identifier, Resource> resources = resourceManager.listResources(this.dataPath, s -> s.toString().endsWith(".json"));
         if (resources.isEmpty()) return;
 
         synchronized (this.byKey) {
@@ -151,9 +151,9 @@ public class DataResourceManager<T> implements ResourceManagerReloadListener, It
             this.logger.info(this.logMarker, "Reloading {} files", this.typeName);
 
             String packName;
-            for (ResourceLocation id : resources.keySet()) {
+            for (Identifier id : resources.keySet()) {
                 String path = id.getPath().substring(this.dataPath.length() + 1, id.getPath().length() - ".json".length());
-                ResourceLocation name = ResourceLocation.fromNamespaceAndPath(id.getNamespace(), path);
+                Identifier name = Identifier.fromNamespaceAndPath(id.getNamespace(), path);
 
                 Optional<Resource> resourceOptional = resourceManager.getResource(id);
                 if (resourceOptional.isPresent()) {
@@ -194,7 +194,7 @@ public class DataResourceManager<T> implements ResourceManagerReloadListener, It
         validateAll();
     }
 
-    private void tryAddObject(ResourceLocation id, T value) {
+    private void tryAddObject(Identifier id, T value) {
         if (this.byKey.containsKey(id)) {
             throw new IllegalArgumentException("Duplicate " + this.typeName + ": " + id);
         } else {
@@ -204,7 +204,7 @@ public class DataResourceManager<T> implements ResourceManagerReloadListener, It
     }
 
     @SuppressWarnings("OptionalGetWithoutIsPresent")
-    private T tryDecode(ResourceLocation name, String packName, JsonObject json) {
+    private T tryDecode(Identifier name, String packName, JsonObject json) {
         this.logger.info(this.logMarker, "Decoding {} \"{}\" in pack \"{}\"", this.typeName, name, packName);
 
         DataResult<Pair<T, JsonElement>> result;
@@ -225,7 +225,7 @@ public class DataResourceManager<T> implements ResourceManagerReloadListener, It
 
     @FunctionalInterface
     public interface JsonExceptionFactory<E extends RuntimeException> {
-        E create(ResourceLocation resourceName, String packName, Throwable cause);
+        E create(Identifier resourceName, String packName, Throwable cause);
     }
 
     public void handleSyncPacket(DataResourcesPayload<T> data, IPayloadContext ctx) {

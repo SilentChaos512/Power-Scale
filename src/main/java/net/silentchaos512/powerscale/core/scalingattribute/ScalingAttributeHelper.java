@@ -3,6 +3,7 @@ package net.silentchaos512.powerscale.core.scalingattribute;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -20,7 +21,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 public class ScalingAttributeHelper {
-    public static final ResourceLocation BOOST_MODIFIER_ID = PowerScale.getId("boost");
+    public static final Identifier BOOST_MODIFIER_ID = PowerScale.getId("boost");
 
     public static void applyBoostedAttributes(LivingEntity entity) {
         Map<DataHolder<ScalingAttribute>, Double> immutableMap = entity.getData(PsAttachmentTypes.BOOSTED_ATTRIBUTES);
@@ -76,7 +77,7 @@ public class ScalingAttributeHelper {
 
     public static void notifyOfAttributeChange(LivingEntity entity, DataHolder<ScalingAttribute> attribute, double originalAmount, double newAmount) {
         var change = newAmount - originalAmount;
-        if (MathUtils.doublesEqual(change, 0.0)) return; // No changes
+        if (MathUtils.doublesEqual(change, 0.0) || !(entity instanceof Player player)) return; // No changes
 
         var messageColor = change < 0.0 ? ChatFormatting.RED : ChatFormatting.GREEN;
         var changeDirectionText = change < 0.0
@@ -90,6 +91,6 @@ public class ScalingAttributeHelper {
                 changeDirectionText,
                 changeAmountStr
         );
-        entity.sendSystemMessage(message.withStyle(messageColor));
+        player.displayClientMessage(message.withStyle(messageColor), false);
     }
 }

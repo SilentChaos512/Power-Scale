@@ -7,9 +7,9 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.commands.arguments.EntityArgument;
-import net.minecraft.commands.arguments.ResourceLocationArgument;
+import net.minecraft.commands.arguments.IdentifierArgument;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.silentchaos512.powerscale.core.resources.DataHolder;
@@ -29,11 +29,11 @@ public class ScalingAttributeCommand extends CommandBase {
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext context) {
         dispatcher.register(
                 Commands.literal("ps_attributes")
-                        .requires(commandSourceStack -> commandSourceStack.hasPermission(2))
+                        .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
                         .then(
                                 Commands.argument("target", EntityArgument.entity())
                                         .then(
-                                                Commands.argument("attribute", ResourceLocationArgument.id())
+                                                Commands.argument("attribute", IdentifierArgument.id())
                                                         .suggests(
                                                                 (ctx, builder) ->
                                                                         SharedSuggestionProvider.suggestResource(PsRegistries.SCALING_ATTRIBUTE.keySet(), builder)
@@ -44,7 +44,7 @@ public class ScalingAttributeCommand extends CommandBase {
                                                                                 ctx -> getAttributeBoost(
                                                                                         ctx.getSource(),
                                                                                         EntityArgument.getEntity(ctx, "target"),
-                                                                                        ResourceLocationArgument.getId(ctx, "attribute")
+                                                                                        IdentifierArgument.getId(ctx, "attribute")
                                                                                 )
                                                                         )
                                                         )
@@ -56,7 +56,7 @@ public class ScalingAttributeCommand extends CommandBase {
                                                                                                 ctx -> setAttributeBoost(
                                                                                                         ctx.getSource(),
                                                                                                         EntityArgument.getEntity(ctx, "target"),
-                                                                                                        ResourceLocationArgument.getId(ctx, "attribute"),
+                                                                                                        IdentifierArgument.getId(ctx, "attribute"),
                                                                                                         DoubleArgumentType.getDouble(ctx, "amount")
                                                                                                 )
                                                                                         )
@@ -67,7 +67,7 @@ public class ScalingAttributeCommand extends CommandBase {
         );
     }
 
-    private static int getAttributeBoost(CommandSourceStack source, Entity target, ResourceLocation attributeId) {
+    private static int getAttributeBoost(CommandSourceStack source, Entity target, Identifier attributeId) {
         DataHolder<ScalingAttribute> scalingAttribute = ScalingAttributeManager.getHolder(attributeId);
         Map<DataHolder<ScalingAttribute>, Double> boostedAttributes = target.getExistingData(PsAttachmentTypes.BOOSTED_ATTRIBUTES).orElse(null);
 
@@ -87,7 +87,7 @@ public class ScalingAttributeCommand extends CommandBase {
         return 1;
     }
 
-    private static int setAttributeBoost(CommandSourceStack source, Entity target, ResourceLocation attributeId, double amount) {
+    private static int setAttributeBoost(CommandSourceStack source, Entity target, Identifier attributeId, double amount) {
         if (!(target instanceof LivingEntity livingEntity)) {
             source.sendFailure(Component.literal("Target is not a living entity!"));
             return 0;

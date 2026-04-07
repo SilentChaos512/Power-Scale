@@ -21,7 +21,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -31,7 +31,7 @@ import javax.annotation.Nullable;
 
 public class AlchemySetBlock extends BaseEntityBlock {
     public static final MapCodec<AlchemySetBlock> CODEC = simpleCodec(AlchemySetBlock::new);
-    public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
+    public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
     public static final BooleanProperty HAS_FLASK = BooleanProperty.create("has_flask");
     private static final VoxelShape SHAPE = Block.box(2, 0, 2, 14, 8, 14);
 
@@ -100,6 +100,6 @@ public class AlchemySetBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
-        return level.isClientSide ? null : createTickerHelper(blockEntityType, PsBlockEntityTypes.ALCHEMY_SET.get(), AlchemySetBlockEntity::serverTick);
+        return level.isClientSide() ? null : createTickerHelper(blockEntityType, PsBlockEntityTypes.ALCHEMY_SET.get(), AlchemySetBlockEntity::serverTick);
     }
 }

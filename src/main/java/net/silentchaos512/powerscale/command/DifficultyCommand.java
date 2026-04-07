@@ -23,7 +23,7 @@ public class DifficultyCommand extends CommandBase {
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         dispatcher.register(
                 Commands.literal("ps_difficulty")
-                        .requires(commandSourceStack -> commandSourceStack.hasPermission(2))
+                        .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
                         .then(
                                 Commands.literal("get")
                                         .then(

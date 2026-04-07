@@ -22,7 +22,7 @@ public final class PlayerDataCommand extends CommandBase {
                                 Commands.literal("info")
                                         .then(
                                                 Commands.argument("players", EntityArgument.players())
-                                                        .requires(commandSourceStack -> commandSourceStack.hasPermission(2))
+                                                        .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
                                                         .executes(
                                                                 ctx -> runInfo(ctx, EntityArgument.getPlayers(ctx, "players"))
                                                         )

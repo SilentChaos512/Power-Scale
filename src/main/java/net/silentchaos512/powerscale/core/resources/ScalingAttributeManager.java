@@ -4,7 +4,7 @@ import com.mojang.serialization.Codec;
 import net.minecraft.core.Holder;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.silentchaos512.powerscale.PowerScale;
@@ -35,7 +35,7 @@ public class ScalingAttributeManager extends DataResourceManager<ScalingAttribut
         );
     }
 
-    public static DataHolder<ScalingAttribute> getHolder(ResourceLocation id) {
+    public static DataHolder<ScalingAttribute> getHolder(Identifier id) {
         return new DataHolder<>(id, PsRegistries.SCALING_ATTRIBUTE::get);
     }
 
@@ -66,7 +66,7 @@ public class ScalingAttributeManager extends DataResourceManager<ScalingAttribut
     }
 
     static class ResourceJsonException extends RuntimeException {
-        public ResourceJsonException(ResourceLocation name, String packName, Throwable cause) {
+        public ResourceJsonException(Identifier name, String packName, Throwable cause) {
             super("Error loading \"" + name + "\" from pack \"" + packName + "\": " + cause.getMessage(), cause);
         }
     }

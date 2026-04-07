@@ -37,8 +37,8 @@ public record CustomMobScalingEntry(
     // TODO: This is copied from CodecUtils in Silent Gear; it should really be moved to Silent Lib
     private static <T> StreamCodec<FriendlyByteBuf, TagKey<T>> tagStreamCodec(ResourceKey<? extends Registry<T>> registryKey) {
         return StreamCodec.of(
-                (buf, val) -> buf.writeResourceLocation(val.location()),
-                buf -> TagKey.create(registryKey, buf.readResourceLocation())
+                (buf, val) -> buf.writeIdentifier(val.location()),
+                buf -> TagKey.create(registryKey, buf.readIdentifier())
         );
     }
 }
