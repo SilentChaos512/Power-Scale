@@ -70,7 +70,7 @@ public class DifficultyUtil {
         if (entity instanceof Player) {
             setDifficulty(entity, Config.COMMON.difficultyPlayerInitial.get());
         } else if (entity instanceof Mob mob) {
-            var localDifficulty = getLocalDifficulty(mob.level(), mob.getOnPos());
+            var localDifficulty = getLocalDifficulty(mob.level(), mob.position());
             MobDifficulty.setDifficultyAndAttributes(mob, localDifficulty);
         }
     }
