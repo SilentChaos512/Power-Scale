@@ -50,7 +50,7 @@ public class MobDifficulty {
         // Occasionally check for mobs with missing levels
         if (!isClientSide && !hasLevelAssignedOrIsExempt(entity) && entity.tickCount % 200 == 0 && entity instanceof Mob mob) {
             // Mob is somehow missing a level, but should have one
-            final var localDifficulty = DifficultyUtil.getLocalDifficulty(mob.level(), mob.getOnPos());
+            final var localDifficulty = DifficultyUtil.getLocalDifficulty(mob.level(), mob.position());
             setDifficultyAndAttributes(mob, localDifficulty);
         }
 
@@ -71,7 +71,7 @@ public class MobDifficulty {
             return;
         }
 
-        final var localDifficulty = DifficultyUtil.getLocalDifficulty(mob.level(), mob.getOnPos());
+        final var localDifficulty = DifficultyUtil.getLocalDifficulty(mob.level(), mob.position());
         SetMobDifficultyEvent event = new SetMobDifficultyEvent(mob, localDifficulty);
         NeoForge.EVENT_BUS.post(event);
         setDifficultyAndAttributes(mob, event.getNewDifficulty());
