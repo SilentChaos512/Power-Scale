@@ -22,14 +22,14 @@ public class PsAttachmentTypes {
     // attach to players, accumulate over time, maybe lose on death
     public static final Supplier<AttachmentType<Double>> DIFFICULTY = ATTACHMENT_TYPES.register(
             "difficulty", () -> AttachmentType.builder(Config.COMMON.difficultyPlayerInitial)
-                    .serialize(Codec.DOUBLE)
+                    .serialize(Codec.DOUBLE.fieldOf("difficulty"))
                     .copyOnDeath()
                     .build()
     );
 
     public static final Supplier<AttachmentType<Boolean>> IS_BLIGHT = ATTACHMENT_TYPES.register(
             "is_blight", () -> AttachmentType.builder(() -> false)
-                    .serialize(Codec.BOOL)
+                    .serialize(Codec.BOOL.fieldOf("is_blight"))
                     .build()
     );
 
@@ -37,7 +37,7 @@ public class PsAttachmentTypes {
     // assign to mobs, calculated based on difficulty
     public static final Supplier<AttachmentType<Integer>> LEVEL = ATTACHMENT_TYPES.register(
             "level", () -> AttachmentType.builder(() -> 1)
-                    .serialize(ExtraCodecs.POSITIVE_INT)
+                    .serialize(ExtraCodecs.POSITIVE_INT.fieldOf("level"))
                     .copyOnDeath()
                     .build()
     );
@@ -45,7 +45,7 @@ public class PsAttachmentTypes {
     // players accumulate sp by playing the game (mining, fighting, etc.)
     public static final Supplier<AttachmentType<Integer>> SP = ATTACHMENT_TYPES.register(
             "sp", () -> AttachmentType.builder(() -> 0)
-                    .serialize(Codec.INT)
+                    .serialize(Codec.INT.fieldOf("sp"))
                     .copyOnDeath()
                     .build()
     );
@@ -56,7 +56,7 @@ public class PsAttachmentTypes {
                             Codec.unboundedMap(
                                     ScalingAttributeManager.HOLDER_CODEC,
                                     Codec.DOUBLE
-                            )
+                            ).fieldOf("boosted_attributes")
                     )
                     .copyOnDeath()
                     .build()
@@ -64,28 +64,28 @@ public class PsAttachmentTypes {
 
     public static final Supplier<AttachmentType<BlockPos>> LAST_POS = ATTACHMENT_TYPES.register(
             "last_pos", () -> AttachmentType.builder(() -> BlockPos.ZERO)
-                    .serialize(BlockPos.CODEC)
+                    .serialize(BlockPos.CODEC.fieldOf("last_pos"))
                     .copyOnDeath()
                     .build()
     );
 
     public static final Supplier<AttachmentType<Integer>> IDLE_TIME = ATTACHMENT_TYPES.register(
             "idle_time", () -> AttachmentType.builder(() -> 0)
-                    .serialize(Codec.INT)
+                    .serialize(Codec.INT.fieldOf("idle_time"))
                     .copyOnDeath()
                     .build()
     );
 
     public static final Supplier<AttachmentType<Boolean>> IDLE = ATTACHMENT_TYPES.register(
             "idle", () -> AttachmentType.builder(() -> false)
-                    .serialize(Codec.BOOL)
+                    .serialize(Codec.BOOL.fieldOf("idle"))
                     .copyOnDeath()
                     .build()
     );
 
     public static final Supplier<AttachmentType<Integer>> CRYSTAL_DROP_COOLDOWN = ATTACHMENT_TYPES.register(
             "crystal_drop_cooldown", () -> AttachmentType.builder(() -> 0)
-                    .serialize(Codec.INT)
+                    .serialize(Codec.INT.fieldOf("crystal_drop_cooldown"))
                     .copyOnDeath()
                     .build()
     );

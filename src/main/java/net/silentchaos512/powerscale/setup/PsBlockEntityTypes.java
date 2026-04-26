@@ -12,9 +12,9 @@ public class PsBlockEntityTypes {
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<AlchemySetBlockEntity>> ALCHEMY_SET = BLOCK_ENTITY_TYPES.register(
             "alchemy_set",
-            () -> BlockEntityType.Builder.of(
+            () -> new BlockEntityType<>(
                     AlchemySetBlockEntity::new,
                     PsBlocks.ALCHEMY_SET.get()
-            ).build(null)
+            )
     );
 }

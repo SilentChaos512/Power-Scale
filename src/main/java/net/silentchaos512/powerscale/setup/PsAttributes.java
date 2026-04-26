@@ -25,7 +25,7 @@ public class PsAttributes {
             ).setSyncable(true)
     );
 
-    @EventBusSubscriber(modid = PowerScale.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
+    @EventBusSubscriber
     public static final class Events {
         @SubscribeEvent
         public static void addEntityAttributes(EntityAttributeModificationEvent event) {

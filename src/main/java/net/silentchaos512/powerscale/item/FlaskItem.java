@@ -7,7 +7,6 @@ import net.minecraft.stats.Stats;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -20,7 +19,6 @@ import net.minecraft.world.level.block.LayeredCauldronBlock;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
-import net.neoforged.neoforge.registries.DeferredItem;
 import net.silentchaos512.powerscale.setup.PsItems;
 
 public class FlaskItem extends Item {
@@ -29,13 +27,13 @@ public class FlaskItem extends Item {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
+    public InteractionResult use(Level level, Player player, InteractionHand usedHand) {
         ItemStack stack = player.getItemInHand(usedHand);
         BlockHitResult blockhitresult = getPlayerPOVHitResult(level, player, ClipContext.Fluid.SOURCE_ONLY);
         if (blockhitresult.getType() != HitResult.Type.MISS && blockhitresult.getType() == HitResult.Type.BLOCK) {
             BlockPos blockpos = blockhitresult.getBlockPos();
             if (!level.mayInteract(player, blockpos)) {
-                return InteractionResultHolder.pass(stack);
+                return InteractionResult.PASS;
             }
 
             if (level.getFluidState(blockpos).is(FluidTags.WATER)) {
@@ -43,13 +41,10 @@ public class FlaskItem extends Item {
                         player, player.getX(), player.getY(), player.getZ(), SoundEvents.BOTTLE_FILL, SoundSource.NEUTRAL, 1.0F, 1.0F
                 );
                 level.gameEvent(player, GameEvent.FLUID_PICKUP, blockpos);
-                return InteractionResultHolder.sidedSuccess(
-                        turnFlaskIntoItem(stack, player, PsItems.WATER_FLASK),
-                        level.isClientSide()
-                );
+                return InteractionResult.SUCCESS;
             }
         }
-        return InteractionResultHolder.pass(stack);
+        return InteractionResult.PASS;
     }
 
     @Override
@@ -65,17 +60,14 @@ public class FlaskItem extends Item {
             );
             LayeredCauldronBlock.lowerFillLevel(state, level, context.getClickedPos());
             var stack = player.getItemInHand(context.getHand());
-            return InteractionResultHolder.sidedSuccess(
-                    turnFlaskIntoItem(stack, player, PsItems.WATER_FLASK),
-                    level.isClientSide()
-            ).getResult();
+            return InteractionResult.SUCCESS.heldItemTransformedTo(turnFlaskIntoItem(stack, player));
         }
 
         return super.useOn(context);
     }
 
-    private ItemStack turnFlaskIntoItem(ItemStack flaskStack, Player player, DeferredItem<Item> filledItem) {
+    private ItemStack turnFlaskIntoItem(ItemStack flaskStack, Player player) {
         player.awardStat(Stats.ITEM_USED.get(this));
-        return ItemUtils.createFilledResult(flaskStack, player, filledItem.toStack());
+        return ItemUtils.createFilledResult(flaskStack, player, PsItems.WATER_FLASK.toStack());
     }
 }

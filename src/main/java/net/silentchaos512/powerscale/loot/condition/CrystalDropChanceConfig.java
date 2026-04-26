@@ -1,6 +1,5 @@
 package net.silentchaos512.powerscale.loot.condition;
 
-import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.Holder;
@@ -34,7 +33,7 @@ public record CrystalDropChanceConfig(
 
     @Override
     public boolean test(LootContext lootContext) {
-        Entity entity = lootContext.getParamOrNull(LootContextParams.ATTACKING_ENTITY);
+        Entity entity = lootContext.getOptionalParameter(LootContextParams.ATTACKING_ENTITY);
         int enchantmentLevel = entity instanceof LivingEntity livingentity ? EnchantmentHelper.getEnchantmentLevel(this.enchantment, livingentity) : 0;
         float baseChance = Config.COMMON.crystalDropChance.get().floatValue();
         float enchantedBonusPerLevel = Config.COMMON.crystalDropChanceLootingBonus.get().floatValue();

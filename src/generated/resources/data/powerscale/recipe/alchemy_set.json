@@ -2,18 +2,10 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "#": {
-      "item": "minecraft:smooth_stone"
-    },
-    "C": {
-      "tag": "c:ingots/copper"
-    },
-    "F": {
-      "item": "powerscale:flask"
-    },
-    "G": {
-      "tag": "c:ingots/gold"
-    }
+    "#": "minecraft:smooth_stone",
+    "C": "#c:ingots/copper",
+    "F": "powerscale:flask",
+    "G": "#c:ingots/gold"
   },
   "pattern": [
     "GC ",

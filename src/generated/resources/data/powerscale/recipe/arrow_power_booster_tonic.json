@@ -1,11 +1,7 @@
 {
   "type": "powerscale:alchemy",
-  "flask": {
-    "item": "powerscale:torpid_brew"
-  },
-  "ingredient": {
-    "item": "powerscale:archer_crystal"
-  },
+  "flask": "powerscale:torpid_brew",
+  "ingredient": "powerscale:archer_crystal",
   "result": {
     "count": 1,
     "id": "powerscale:arrow_power_booster_tonic"

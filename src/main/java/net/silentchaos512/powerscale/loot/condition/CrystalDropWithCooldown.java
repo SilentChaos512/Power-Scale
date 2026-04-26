@@ -21,7 +21,7 @@ public class CrystalDropWithCooldown implements LootItemCondition {
 
     @Override
     public boolean test(LootContext lootContext) {
-        Entity entity = lootContext.getParamOrNull(LootContextParams.ATTACKING_ENTITY);
+        Entity entity = lootContext.getOptionalParameter(LootContextParams.ATTACKING_ENTITY);
         return entity instanceof Player && entity.getData(PsAttachmentTypes.CRYSTAL_DROP_COOLDOWN) <= 0;
     }
 

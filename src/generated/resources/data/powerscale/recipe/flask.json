@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "#": {
-      "tag": "c:glass_blocks/colorless"
-    },
-    "/": {
-      "tag": "powerscale:flask_gems"
-    }
+    "#": "#c:glass_blocks/colorless",
+    "/": "#powerscale:flask_gems"
   },
   "pattern": [
     "#/#",

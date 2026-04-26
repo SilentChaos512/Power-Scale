@@ -35,7 +35,7 @@ public abstract class HorizontalDistanceFunction extends AbstractFunction {
     public static final class FromSpawn extends HorizontalDistanceFunction {
         @Override
         public BlockPos getOrigin(Level level) {
-            return level.getSharedSpawnPos();
+            return level.getRespawnData().pos();
         }
     }
 }

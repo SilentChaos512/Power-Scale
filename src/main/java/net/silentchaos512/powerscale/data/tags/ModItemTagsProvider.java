@@ -2,20 +2,18 @@ package net.silentchaos512.powerscale.data.tags;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.Tags;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.silentchaos512.lib.data.tag.LibItemTagsProvider;
 import net.silentchaos512.powerscale.PowerScale;
 import net.silentchaos512.powerscale.setup.PsItems;
 import net.silentchaos512.powerscale.setup.PsTags;
 
 import java.util.concurrent.CompletableFuture;
 
-public class ModItemTagsProvider extends ItemTagsProvider {
-    public ModItemTagsProvider(PackOutput pOutput, CompletableFuture<HolderLookup.Provider> pLookupProvider, CompletableFuture<TagLookup<Block>> pBlockTags, ExistingFileHelper existingFileHelper) {
-        super(pOutput, pLookupProvider, pBlockTags, PowerScale.MOD_ID, existingFileHelper);
+public class ModItemTagsProvider extends LibItemTagsProvider {
+    public ModItemTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+        super(output, lookupProvider, PowerScale.MOD_ID);
     }
 
     @Override

@@ -21,7 +21,7 @@ public class PsJadePlugin implements IWailaPlugin {
 
     @Override
     public void registerClient(IWailaClientRegistration registration) {
-        registration.registerBlockComponent(PsJadeAlchemySetProvider.INSTANCE, AlchemySetBlock.class);
+        registration.registerBlockComponent(PsJadeAlchemySetProvider.Client.INSTANCE, AlchemySetBlock.class);
         registration.registerEntityComponent(PsJadeMobComponentProvider.INSTANCE, Mob.class);
     }
 }

@@ -11,7 +11,7 @@ import net.silentchaos512.powerscale.config.ScalingAttributeConfigSet;
 import java.util.HashMap;
 import java.util.Map;
 
-@EventBusSubscriber(modid = PowerScale.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber
 public class Config {
     public static final Common COMMON;
     public static final Client CLIENT;

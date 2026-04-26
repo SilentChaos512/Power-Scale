@@ -1,7 +1,6 @@
 package net.silentchaos512.powerscale.compat.jade;
 
 import io.netty.buffer.ByteBuf;
-import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -17,28 +16,17 @@ import snownee.jade.api.ITooltip;
 import snownee.jade.api.StreamServerDataProvider;
 import snownee.jade.api.config.IPluginConfig;
 import snownee.jade.api.theme.IThemeHelper;
+import snownee.jade.api.ui.JadeUI;
 
-public class PsJadeAlchemySetProvider implements IBlockComponentProvider, StreamServerDataProvider<BlockAccessor, PsJadeAlchemySetProvider.Data> {
+public class PsJadeAlchemySetProvider implements StreamServerDataProvider<BlockAccessor, PsJadeAlchemySetProvider.Data> {
     static final PsJadeAlchemySetProvider INSTANCE = new PsJadeAlchemySetProvider();
-
-    @Override
-    public void appendTooltip(ITooltip tooltip, BlockAccessor level, IPluginConfig config) {
-        Data data = decodeFromData(level).orElse(null);
-        if (data == null) return;
-
-        IElementHelper helper = IElementHelper.get();
-        tooltip.add(helper.smallItem(new ItemStack(PsItems.ALCHEMY_POWDER.get())).message(null));
-        tooltip.append(helper.text(IThemeHelper.get().info(data.fuel)).message(I18n.get("narration.powerscale.alchemy_set.fuel", data.fuel)));
-        if (data.time > 0) {
-            tooltip.append(helper.spacer(5, 0));
-            tooltip.append(helper.smallItem(new ItemStack(Items.CLOCK)).message(" "));
-            tooltip.append(IThemeHelper.get().seconds(data.time, level.tickRate()));
-        }
-    }
 
     @Override
     public @Nullable Data streamData(BlockAccessor level) {
         var blockEntity = (AlchemySetBlockEntity) level.getBlockEntity();
+        if (blockEntity == null) {
+            return null;
+        }
         return new Data(blockEntity.getFuel(), blockEntity.getBrewTime());
     }
 
@@ -58,5 +46,31 @@ public class PsJadeAlchemySetProvider implements IBlockComponentProvider, Stream
                 ByteBufCodecs.VAR_INT, Data::time,
                 Data::new
         );
+    }
+
+    public static class Client implements IBlockComponentProvider {
+        public static final Client INSTANCE = new Client();
+
+        public Client() {
+        }
+
+        @Override
+        public void appendTooltip(ITooltip tooltip, BlockAccessor level, IPluginConfig config) {
+            Data data = PsJadeAlchemySetProvider.INSTANCE.decodeFromData(level).orElse(null);
+            if (data == null) return;
+
+            tooltip.add(JadeUI.smallItem(new ItemStack(PsItems.ALCHEMY_POWDER.get())));
+            tooltip.append(JadeUI.text(IThemeHelper.get().info(data.fuel)).alignSelfCenter()/*.message(I18n.get("narration.powerscale.alchemy_set.fuel", data.fuel))*/);
+            if (data.time > 0) {
+                tooltip.append(JadeUI.spacer(5, 0));
+                tooltip.append(JadeUI.smallItem(new ItemStack(Items.CLOCK)).alignSelfCenter());
+                tooltip.append(IThemeHelper.get().seconds(data.time, level.tickRate()));
+            }
+        }
+
+        @Override
+        public Identifier getUid() {
+            return PsJadePlugin.ALCHEMY_SET;
+        }
     }
 }

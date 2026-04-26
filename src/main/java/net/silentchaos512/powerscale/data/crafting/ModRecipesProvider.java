@@ -1,11 +1,8 @@
 package net.silentchaos512.powerscale.data.crafting;
 
 import net.minecraft.core.HolderLookup;
-import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
-import net.minecraft.data.recipes.ShapedRecipeBuilder;
-import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.world.item.Items;
 import net.neoforged.neoforge.common.Tags;
 import net.silentchaos512.lib.data.recipe.LibRecipeProvider;
@@ -14,27 +11,25 @@ import net.silentchaos512.powerscale.setup.PsBlocks;
 import net.silentchaos512.powerscale.setup.PsItems;
 import net.silentchaos512.powerscale.setup.PsTags;
 
-import java.util.concurrent.CompletableFuture;
-
 public class ModRecipesProvider extends LibRecipeProvider {
-    public ModRecipesProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> registries) {
-        super(packOutput, registries, PowerScale.MOD_ID);
+    public ModRecipesProvider(HolderLookup.Provider registries, RecipeOutput recipeOutput) {
+        super(registries, recipeOutput, PowerScale.MOD_ID);
     }
 
     @Override
-    protected void buildRecipes(RecipeOutput output) {
-        buildCrafting(output);
-        buildAlchemy(output);
+    protected void buildRecipes() {
+        buildCrafting();
+        buildAlchemy();
     }
 
-    private static void buildCrafting(RecipeOutput output) {
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, PsItems.ALCHEMY_POWDER)
+    private void buildCrafting() {
+        shapeless(RecipeCategory.MISC, PsItems.ALCHEMY_POWDER)
                 .requires(Tags.Items.GUNPOWDERS)
                 .requires(Items.CLAY_BALL)
                 .unlockedBy("has_item", has(Tags.Items.GUNPOWDERS))
                 .save(output);
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, PsItems.FLASK, 2)
+        shaped(RecipeCategory.MISC, PsItems.FLASK, 2)
                 .pattern("#/#")
                 .pattern(" # ")
                 .define('#', Tags.Items.GLASS_BLOCKS_COLORLESS)
@@ -42,7 +37,7 @@ public class ModRecipesProvider extends LibRecipeProvider {
                 .unlockedBy("has_item", has(Tags.Items.GLASS_BLOCKS_COLORLESS))
                 .save(output);
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, PsBlocks.ALCHEMY_SET)
+        shaped(RecipeCategory.MISC, PsBlocks.ALCHEMY_SET)
                 .pattern("GC ")
                 .pattern("GF ")
                 .pattern("###")
@@ -53,7 +48,7 @@ public class ModRecipesProvider extends LibRecipeProvider {
                 .unlockedBy("has_item", has(PsItems.FLASK.get()))
                 .save(output);
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, PsItems.DIFFICULTY_METER)
+        shaped(RecipeCategory.MISC, PsItems.DIFFICULTY_METER)
                 .pattern("IPI")
                 .pattern(" A ")
                 .define('I', Tags.Items.INGOTS_IRON)
@@ -63,7 +58,7 @@ public class ModRecipesProvider extends LibRecipeProvider {
                 .save(output);
     }
 
-    private void buildAlchemy(RecipeOutput output) {
+    private void buildAlchemy() {
         AlchemyRecipeBuilder.of(PsItems.MELLOW_BREW, PsItems.WATER_FLASK, Items.CHARCOAL).save(output);
         AlchemyRecipeBuilder.of(PsItems.TORPID_BREW, PsItems.WATER_FLASK, Items.SOUL_SAND).save(output);
         AlchemyRecipeBuilder.of(PsItems.PRETENTIOUS_BREW, PsItems.WATER_FLASK, Items.CHORUS_FRUIT).save(output);

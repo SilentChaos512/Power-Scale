@@ -33,7 +33,7 @@ public record MobProperties(
 
     @Override
     public boolean test(LootContext lootContext) {
-        var entity = lootContext.getParamOrNull(LootContextParams.THIS_ENTITY);
+        var entity = lootContext.getOptionalParameter(LootContextParams.THIS_ENTITY);
         if (entity == null) {
             return false;
         }

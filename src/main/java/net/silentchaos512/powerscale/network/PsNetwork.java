@@ -3,13 +3,12 @@ package net.silentchaos512.powerscale.network;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
-import net.silentchaos512.powerscale.PowerScale;
 import net.silentchaos512.powerscale.network.payload.ClientDataUpdatePayload;
 import net.silentchaos512.powerscale.network.payload.MobDataPayload;
 import net.silentchaos512.powerscale.network.payload.RequestMobDataPayload;
 import net.silentchaos512.powerscale.network.payload.SyncScalingAttributesPayload;
 
-@EventBusSubscriber(modid = PowerScale.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber
 public class PsNetwork {
     @SubscribeEvent
     public static void register(RegisterPayloadHandlersEvent event) {

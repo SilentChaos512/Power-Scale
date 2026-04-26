@@ -34,7 +34,7 @@ public class BonusDropsLootModifier extends LootModifier {
 
     @Override
     protected ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
-        Entity thisEntity = context.getParamOrNull(LootContextParams.THIS_ENTITY);
+        Entity thisEntity = context.getOptionalParameter(LootContextParams.THIS_ENTITY);
         if (thisEntity == null) {
             return generatedLoot;
         }

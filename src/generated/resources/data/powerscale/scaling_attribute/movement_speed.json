@@ -1,5 +1,5 @@
 {
-  "attribute": "minecraft:generic.movement_speed",
+  "attribute": "minecraft:movement_speed",
   "blight_scaling": {
     "boss_mobs": "$scaling_attributes.movement_speed.blight_scaling.boss",
     "hostile_mobs": "$scaling_attributes.movement_speed.blight_scaling.hostile",

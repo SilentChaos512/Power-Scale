@@ -1,11 +1,7 @@
 {
   "type": "powerscale:alchemy",
-  "flask": {
-    "item": "powerscale:pretentious_brew"
-  },
-  "ingredient": {
-    "item": "powerscale:wing_crystal"
-  },
+  "flask": "powerscale:pretentious_brew",
+  "ingredient": "powerscale:wing_crystal",
   "result": {
     "count": 1,
     "id": "powerscale:speed_booster_tonic"

@@ -3,11 +3,11 @@ package net.silentchaos512.powerscale.data;
 import com.google.common.collect.Sets;
 import com.google.gson.JsonElement;
 import com.mojang.serialization.JsonOps;
-import net.minecraft.Util;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
+import net.minecraft.util.Util;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.silentchaos512.powerscale.Config;
 import net.silentchaos512.powerscale.PowerScale;
@@ -29,9 +29,9 @@ public class ScalingAttributesProvider implements DataProvider {
         this.packOutput = packOutput;
     }
 
-    private Map<ResourceLocation, ScalingAttribute> getScalingAttributes() {
+    private Map<Identifier, ScalingAttribute> getScalingAttributes() {
         return Util.make(() -> {
-            Map<ResourceLocation, ScalingAttribute> ret = new LinkedHashMap<>();
+            Map<Identifier, ScalingAttribute> ret = new LinkedHashMap<>();
             ret.put(Const.ARROW_DAMAGE,
                     new ScalingAttribute(
                             PsAttributes.ARROW_DAMAGE,
@@ -75,7 +75,7 @@ public class ScalingAttributesProvider implements DataProvider {
     @Override
     public CompletableFuture<?> run(CachedOutput cachedOutput) {
         Path outputFolder = this.packOutput.getOutputFolder();
-        Set<ResourceLocation> set = Sets.newHashSet();
+        Set<Identifier> set = Sets.newHashSet();
         List<CompletableFuture<?>> list = new ArrayList<>();
 
         this.getScalingAttributes().forEach((id, scalingAttribute) -> {
@@ -89,7 +89,7 @@ public class ScalingAttributesProvider implements DataProvider {
         return CompletableFuture.allOf(list.toArray(new CompletableFuture[0]));
     }
 
-    private JsonElement serialize(ResourceLocation id, ScalingAttribute scalingAttribute) {
+    private JsonElement serialize(Identifier id, ScalingAttribute scalingAttribute) {
         var jsonElementDataResult = ScalingAttribute.CODEC.encodeStart(JsonOps.INSTANCE, scalingAttribute);
         if (jsonElementDataResult.isError()) {
             PowerScale.LOGGER.error("Something went wrong when serializing scaling attribute \"{}\"", id);

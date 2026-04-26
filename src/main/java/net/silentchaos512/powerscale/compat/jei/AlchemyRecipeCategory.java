@@ -8,19 +8,15 @@ import mezz.jei.api.gui.drawable.IDrawableStatic;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
-import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.AbstractRecipeCategory;
-import mezz.jei.api.recipe.category.IRecipeCategory;
-import mezz.jei.api.recipe.vanilla.IJeiBrewingRecipe;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.silentchaos512.powerscale.PowerScale;
 import net.silentchaos512.powerscale.crafting.recipe.AlchemyRecipe;
 import net.silentchaos512.powerscale.setup.PsBlocks;
 import net.silentchaos512.powerscale.setup.PsTags;
-import org.jetbrains.annotations.Nullable;
 
 public class AlchemyRecipeCategory extends AbstractRecipeCategory<AlchemyRecipe> {
     private final IDrawable background;
@@ -69,10 +65,10 @@ public class AlchemyRecipeCategory extends AbstractRecipeCategory<AlchemyRecipe>
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, AlchemyRecipe recipe, IFocusGroup focusGroup) {
-        builder.addInputSlot(1, 37).addIngredients(Ingredient.of(PsTags.Items.ALCHEMY_FUELS));
-        builder.addInputSlot(24, 44).addIngredients(recipe.flask());
-        builder.addInputSlot(24, 3).addIngredients(recipe.ingredient());
-        builder.addOutputSlot(81, 3).addItemStack(recipe.result()).setStandardSlotBackground();
+        builder.addInputSlot(1, 37).add(Ingredient.of(BuiltInRegistries.ITEM.getOrThrow(PsTags.Items.ALCHEMY_FUELS)));
+        builder.addInputSlot(24, 44).add(recipe.flask());
+        builder.addInputSlot(24, 3).add(recipe.ingredient());
+        builder.addOutputSlot(81, 3).add(recipe.result()).setStandardSlotBackground();
     }
 
     private static class BrewingBubblesTickTimer implements ITickTimer {

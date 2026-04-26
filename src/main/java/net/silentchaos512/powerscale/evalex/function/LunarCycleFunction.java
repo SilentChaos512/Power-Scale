@@ -7,6 +7,8 @@ import com.ezylang.evalex.data.EvaluationValue;
 import com.ezylang.evalex.functions.AbstractFunction;
 import com.ezylang.evalex.functions.FunctionParameter;
 import com.ezylang.evalex.parser.Token;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.level.Level;
 
 @FunctionParameter(name = "phase1")
@@ -21,7 +23,7 @@ public class LunarCycleFunction extends AbstractFunction {
     @Override
     public EvaluationValue evaluate(Expression expression, Token token, EvaluationValue... evaluationValues) throws EvaluationException {
         var level = (Level) expression.getDataAccessor().getData("level").getValue();
-        int phase = level.getMoonPhase();
+        int phase = level.environmentAttributes().getValue(EnvironmentAttributes.MOON_PHASE, BlockPos.ZERO).index();
         return EvaluationValue.of(evaluationValues[phase], ExpressionConfiguration.defaultConfiguration());
     }
 }

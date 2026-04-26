@@ -2,9 +2,7 @@ package net.silentchaos512.powerscale.setup;
 
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.ModConfigSpec;
-import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.silentchaos512.powerscale.Config;
@@ -24,135 +22,127 @@ public class PsItems {
     static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(PowerScale.MOD_ID);
 
     static {
-        ITEMS.register("alchemy_set", simpleBlockItem(PsBlocks.ALCHEMY_SET));
+        ITEMS.registerItem("alchemy_set", p -> new BlockItem(PsBlocks.ALCHEMY_SET.get(), p));
     }
 
-    public static final DeferredItem<Item> ALCHEMY_POWDER = ITEMS.register(
+    public static final DeferredItem<Item> ALCHEMY_POWDER = ITEMS.registerItem(
             "alchemy_powder",
-            () -> new Item(new Item.Properties())
+            Item::new
     );
 
-    public static final DeferredItem<DifficultyMeterItem> DIFFICULTY_METER = ITEMS.register(
+    public static final DeferredItem<DifficultyMeterItem> DIFFICULTY_METER = ITEMS.registerItem(
             "difficulty_meter",
-            () -> new DifficultyMeterItem(
-                    new Item.Properties()
-                            .stacksTo(1)
-            )
+            DifficultyMeterItem::new,
+            p -> p.stacksTo(1)
     );
 
-    public static final DeferredItem<AttributeMutatorItem> HEART_CRYSTAL = ITEMS.register(
+    public static final DeferredItem<AttributeMutatorItem> HEART_CRYSTAL = ITEMS.registerItem(
             "heart_crystal",
-            () -> new AttributeMutatorItem(
+            p -> new AttributeMutatorItem(
                     true,
                     () -> simpleBoosterWrapper(Config.COMMON.simpleAttributeBoosters, PsItems::healthBoostModifier),
-                    new Item.Properties()
+                    p
             )
     );
-    public static final DeferredItem<AttributeMutatorItem> POWER_CRYSTAL = ITEMS.register(
+    public static final DeferredItem<AttributeMutatorItem> POWER_CRYSTAL = ITEMS.registerItem(
             "power_crystal",
-            () -> new AttributeMutatorItem(
+            p -> new AttributeMutatorItem(
                     true,
                     () -> simpleBoosterWrapper(Config.COMMON.simpleAttributeBoosters, PsItems::powerBoostModifier),
-                    new Item.Properties()
+                    p
             )
     );
-    public static final DeferredItem<AttributeMutatorItem> ARCHER_CRYSTAL = ITEMS.register(
+    public static final DeferredItem<AttributeMutatorItem> ARCHER_CRYSTAL = ITEMS.registerItem(
             "archer_crystal",
-            () -> new AttributeMutatorItem(
+            p -> new AttributeMutatorItem(
                     true,
                     () -> simpleBoosterWrapper(Config.COMMON.simpleAttributeBoosters, PsItems::arrowPowerBoostModifier),
-                    new Item.Properties()
+                    p
             )
     );
-    public static final DeferredItem<AttributeMutatorItem> WING_CRYSTAL = ITEMS.register(
+    public static final DeferredItem<AttributeMutatorItem> WING_CRYSTAL = ITEMS.registerItem(
             "wing_crystal",
-            () -> new AttributeMutatorItem(
+            p -> new AttributeMutatorItem(
                     true,
                     () -> simpleBoosterWrapper(Config.COMMON.simpleAttributeBoosters, PsItems::speedBoostModifier),
-                    new Item.Properties()
+                    p
             )
     );
 
-    public static final DeferredItem<DifficultyMutatorItem> CURSED_HEART = ITEMS.register(
+    public static final DeferredItem<DifficultyMutatorItem> CURSED_HEART = ITEMS.registerItem(
             "cursed_heart",
-            () -> new DifficultyMutatorItem(
+            p -> new DifficultyMutatorItem(
                     true,
                     () -> simpleMutatorWrapper(Config.COMMON.simpleDifficultyMutators, PsItems::difficultyIncreaseModifier),
-                    new Item.Properties()
+                    p
             )
     );
-    public static final DeferredItem<DifficultyMutatorItem> ENCHANTED_HEART = ITEMS.register(
+    public static final DeferredItem<DifficultyMutatorItem> ENCHANTED_HEART = ITEMS.registerItem(
             "enchanted_heart",
-            () -> new DifficultyMutatorItem(
+            p -> new DifficultyMutatorItem(
                     true,
                     () -> simpleMutatorWrapper(Config.COMMON.simpleDifficultyMutators, PsItems::difficultyDecreaseModifier),
-                    new Item.Properties()
+                    p
             )
     );
 
-    public static final DeferredItem<FlaskItem> FLASK = ITEMS.register(
+    public static final DeferredItem<FlaskItem> FLASK = ITEMS.registerItem(
             "flask",
-            () -> new FlaskItem(new Item.Properties())
+            FlaskItem::new
     );
     public static final DeferredItem<Item> WATER_FLASK = registerBasicBrew("water_flask");
     public static final DeferredItem<Item> MELLOW_BREW = registerBasicBrew("mellow_brew");
     public static final DeferredItem<Item> TORPID_BREW = registerBasicBrew("torpid_brew");
     public static final DeferredItem<Item> PRETENTIOUS_BREW = registerBasicBrew("pretentious_brew");
 
-    public static final DeferredItem<AttributeMutatorItem> HEALTH_BOOSTER_TONIC = ITEMS.register(
+    public static final DeferredItem<AttributeMutatorItem> HEALTH_BOOSTER_TONIC = ITEMS.registerItem(
             "health_booster_tonic",
-            () -> new AttributeMutatorItem(
+            p -> new AttributeMutatorItem(
                     false,
                     PsItems::healthBoostModifier,
-                    new Item.Properties()
-                            .stacksTo(1)
+                    p.stacksTo(1)
             )
     );
-    public static final DeferredItem<AttributeMutatorItem> POWER_BOOSTER_TONIC = ITEMS.register(
+    public static final DeferredItem<AttributeMutatorItem> POWER_BOOSTER_TONIC = ITEMS.registerItem(
             "power_booster_tonic",
-            () -> new AttributeMutatorItem(
+            p -> new AttributeMutatorItem(
                     false,
                     PsItems::powerBoostModifier,
-                    new Item.Properties()
-                            .stacksTo(1)
+                    p.stacksTo(1)
             )
     );
-    public static final DeferredItem<AttributeMutatorItem> ARROW_POWER_BOOSTER_TONIC = ITEMS.register(
+    public static final DeferredItem<AttributeMutatorItem> ARROW_POWER_BOOSTER_TONIC = ITEMS.registerItem(
             "arrow_power_booster_tonic",
-            () -> new AttributeMutatorItem(
+            p -> new AttributeMutatorItem(
                     false,
                     PsItems::arrowPowerBoostModifier,
-                    new Item.Properties()
-                            .stacksTo(1)
+                    p.stacksTo(1)
             )
     );
-    public static final DeferredItem<AttributeMutatorItem> SPEED_BOOSTER_TONIC = ITEMS.register(
+    public static final DeferredItem<AttributeMutatorItem> SPEED_BOOSTER_TONIC = ITEMS.registerItem(
             "speed_booster_tonic",
-            () -> new AttributeMutatorItem(
+            p -> new AttributeMutatorItem(
                     false,
                     PsItems::speedBoostModifier,
-                    new Item.Properties()
-                            .stacksTo(1)
+                    p.stacksTo(1)
             )
     );
 
-    public static final DeferredItem<DifficultyMutatorItem> ARDUOUS_BREW = ITEMS.register(
+    public static final DeferredItem<DifficultyMutatorItem> ARDUOUS_BREW = ITEMS.registerItem(
             "arduous_brew",
-            () -> new DifficultyMutatorItem(
+            p -> new DifficultyMutatorItem(
                     false,
                     PsItems::difficultyIncreaseModifier,
-                    new Item.Properties()
-                            .stacksTo(1)
+                    p.stacksTo(1)
             )
     );
 
-    public static final DeferredItem<DifficultyMutatorItem> LANGUID_BREW = ITEMS.register(
+    public static final DeferredItem<DifficultyMutatorItem> LANGUID_BREW = ITEMS.registerItem(
             "languid_brew",
-            () -> new DifficultyMutatorItem(
+            p -> new DifficultyMutatorItem(
                     false,
                     PsItems::difficultyDecreaseModifier,
-                    new Item.Properties()
-                            .stacksTo(1)
+                    p.stacksTo(1)
             )
     );
 
@@ -208,13 +198,10 @@ public class PsItems {
     }
 
     private static DeferredItem<Item> registerBasicBrew(String name) {
-        return ITEMS.register(
+        return ITEMS.registerItem(
                 name,
-                () -> new Item(new Item.Properties().stacksTo(1))
+                Item::new,
+                p -> p.stacksTo(1)
         );
-    }
-
-    private static <T extends Block> Supplier<BlockItem> simpleBlockItem(DeferredBlock<T> block) {
-        return () -> new BlockItem(block.get(), new Item.Properties());
     }
 }

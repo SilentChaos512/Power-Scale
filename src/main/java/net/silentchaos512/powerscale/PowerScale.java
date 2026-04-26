@@ -1,8 +1,6 @@
 package net.silentchaos512.powerscale;
 
-import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.Identifier;
-import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -10,19 +8,16 @@ import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
-import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.fml.loading.FMLEnvironment;
-import net.neoforged.fml.loading.FMLLoader;
+import net.neoforged.neoforge.client.event.RegisterRangeSelectItemModelPropertyEvent;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.event.AddReloadListenerEvent;
 import net.neoforged.neoforge.event.AddServerReloadListenersEvent;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
-import net.silentchaos512.powerscale.item.DifficultyMeterItem;
-import net.silentchaos512.powerscale.setup.PsItems;
+import net.silentchaos512.powerscale.client.renderer.properties.DifficultyRatioItemModelProperty;
 import net.silentchaos512.powerscale.setup.PsRegistries;
 import net.silentchaos512.powerscale.setup.Registration;
 import org.apache.logging.log4j.LogManager;
@@ -71,15 +66,8 @@ public class PowerScale {
     @EventBusSubscriber(value = Dist.CLIENT)
     public static class ClientModEvents {
         @SubscribeEvent
-        public static void onClientSetup(FMLClientSetupEvent event) {
-            //noinspection deprecation
-            event.enqueueWork(() ->
-                    ItemProperties.register(
-                            PsItems.DIFFICULTY_METER.get(),
-                            PowerScale.getId("difficulty"),
-                            DifficultyMeterItem::getDifficultyScaleForModel
-                    )
-            );
+        public static void onRegisterRangeSelectItemModelProperties(RegisterRangeSelectItemModelPropertyEvent event) {
+            event.register(PowerScale.getId("difficulty_ratio"), DifficultyRatioItemModelProperty.CODEC);
         }
     }
 

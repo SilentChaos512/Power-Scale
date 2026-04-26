@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "tag": "c:gunpowders"
-    },
-    {
-      "item": "minecraft:clay_ball"
-    }
+    "#c:gunpowders",
+    "minecraft:clay_ball"
   ],
   "result": {
     "count": 1,

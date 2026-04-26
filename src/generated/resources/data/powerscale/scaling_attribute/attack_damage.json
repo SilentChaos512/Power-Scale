@@ -1,5 +1,5 @@
 {
-  "attribute": "minecraft:generic.attack_damage",
+  "attribute": "minecraft:attack_damage",
   "blight_scaling": {
     "boss_mobs": "$scaling_attributes.attack_damage.blight_scaling.boss",
     "hostile_mobs": "$scaling_attributes.attack_damage.blight_scaling.hostile",

@@ -1,0 +1,11 @@
+{
+  "model": {
+    "type": "minecraft:range_dispatch",
+    "entries": [],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "powerscale:item/difficulty_meter_0"
+    },
+    "property": "powerscale:difficulty_ratio"
+  }
+}
