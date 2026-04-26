@@ -408,7 +408,7 @@ public class Config {
                             "USING_ITEM: Only displayed when the player is using an item in the powerscale:power_level_detectors tag (must be an item with a use action)",
                             "HOLDING_ITEM: Only displayed when the player is holding an item in the powerscale:power_level_detectors tag (any item will work)",
                             "ALWAYS: Levels are always displayed")
-                    .define("power_level_display.restriction", PowerLevelDisplayHandler.ConfigType.USING_ITEM);
+                    .defineEnum("power_level_display.restriction", PowerLevelDisplayHandler.ConfigType.USING_ITEM);
             powerLevelDisplayRange = builder
                     .comment("The range that a mob's level can be seen from (depending on restriction)")
                     .defineInRange("power_level_display.range", 100, 0, 256);
