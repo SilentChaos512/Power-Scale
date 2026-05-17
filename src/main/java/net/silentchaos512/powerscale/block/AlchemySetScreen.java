@@ -36,23 +36,23 @@ public class AlchemySetScreen extends AbstractContainerScreen<AlchemySetMenu> {
     protected void renderBg(GuiGraphics pGuiGraphics, float pPartialTick, int pMouseX, int pMouseY) {
         int i = (this.width - this.imageWidth) / 2;
         int j = (this.height - this.imageHeight) / 2;
-        pGuiGraphics.blit(RenderPipelines.GUI, MAIN_TEXTURE, i, j, 0, 0, this.imageWidth, this.imageHeight, 256, 256);
+        pGuiGraphics.blit(RenderPipelines.GUI_TEXTURED, MAIN_TEXTURE, i, j, 0, 0, this.imageWidth, this.imageHeight, 256, 256);
         int fuel = this.menu.getFuel();
         int fuelLength = Mth.clamp((18 * fuel + 10 - 1) / 10, 0, 18);
         if (fuelLength > 0) {
-            pGuiGraphics.blitSprite(RenderPipelines.GUI, FUEL_LENGTH_SPRITE, 18, 4, 0, 0, i + 60, j + 44, fuelLength, 4);
+            pGuiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, FUEL_LENGTH_SPRITE, 18, 4, 0, 0, i + 60, j + 44, fuelLength, 4);
         }
 
         int brewingTicks = this.menu.getBrewingTicks();
         if (brewingTicks > 0) {
             int j1 = (int)(28.0F * (1.0F - (float)brewingTicks / 400.0F));
             if (j1 > 0) {
-                pGuiGraphics.blitSprite(RenderPipelines.GUI, BREW_PROGRESS_SPRITE, 9, 28, 0, 0, i + 97, j + 16, 9, j1);
+                pGuiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, BREW_PROGRESS_SPRITE, 9, 28, 0, 0, i + 97, j + 16, 9, j1);
             }
 
             j1 = BUBBLE_LENGTHS[brewingTicks / 2 % 7];
             if (j1 > 0) {
-                pGuiGraphics.blitSprite(RenderPipelines.GUI, BUBBLES_SPRITE, 12, 29, 0, 29 - j1, i + 63, j + 14 + 29 - j1, 12, j1);
+                pGuiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, BUBBLES_SPRITE, 12, 29, 0, 29 - j1, i + 63, j + 14 + 29 - j1, 12, j1);
             }
         }
     }

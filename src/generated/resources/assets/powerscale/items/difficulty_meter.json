@@ -1,11 +1,106 @@
 {
   "model": {
     "type": "minecraft:range_dispatch",
-    "entries": [],
-    "fallback": {
-      "type": "minecraft:model",
-      "model": "powerscale:item/difficulty_meter_0"
-    },
+    "entries": [
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "powerscale:item/difficulty_meter_0"
+        },
+        "threshold": 0.0
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "powerscale:item/difficulty_meter_1"
+        },
+        "threshold": 0.035714287
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "powerscale:item/difficulty_meter_2"
+        },
+        "threshold": 0.107142866
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "powerscale:item/difficulty_meter_3"
+        },
+        "threshold": 0.17857143
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "powerscale:item/difficulty_meter_4"
+        },
+        "threshold": 0.25
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "powerscale:item/difficulty_meter_5"
+        },
+        "threshold": 0.32142857
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "powerscale:item/difficulty_meter_6"
+        },
+        "threshold": 0.39285713
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "powerscale:item/difficulty_meter_7"
+        },
+        "threshold": 0.4642857
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "powerscale:item/difficulty_meter_8"
+        },
+        "threshold": 0.5357143
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "powerscale:item/difficulty_meter_9"
+        },
+        "threshold": 0.60714287
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "powerscale:item/difficulty_meter_10"
+        },
+        "threshold": 0.67857146
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "powerscale:item/difficulty_meter_11"
+        },
+        "threshold": 0.75
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "powerscale:item/difficulty_meter_12"
+        },
+        "threshold": 0.8214286
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "powerscale:item/difficulty_meter_13"
+        },
+        "threshold": 0.89285713
+      }
+    ],
     "property": "powerscale:difficulty_ratio"
   }
 }

@@ -24,6 +24,7 @@ import net.neoforged.neoforge.client.event.RenderLivingEvent;
 import net.neoforged.neoforge.client.renderstate.RegisterRenderStateModifiersEvent;
 import net.neoforged.neoforge.common.util.Lazy;
 import net.silentchaos512.powerscale.PowerScale;
+import net.silentchaos512.powerscale.setup.PsAttachmentTypes;
 import org.joml.Quaternionf;
 
 @EventBusSubscriber(value = Dist.CLIENT)
@@ -38,9 +39,9 @@ public class BlightFireRenderer {
         event.registerEntityModifier(
                 new TypeToken<EntityRenderer<? extends Entity, ? extends EntityRenderState>>() {},
                 (mob, renderState) -> {
-//                    if (mob.hasData(PsAttachmentTypes.IS_BLIGHT) && mob.getData(PsAttachmentTypes.IS_BLIGHT)) {
+                    if (mob.hasData(PsAttachmentTypes.IS_BLIGHT) && mob.getData(PsAttachmentTypes.IS_BLIGHT)) {
                         renderState.setRenderData(FIRE_CONTEXT_KEY, true);
-//                    }
+                    }
                 }
         );
     }

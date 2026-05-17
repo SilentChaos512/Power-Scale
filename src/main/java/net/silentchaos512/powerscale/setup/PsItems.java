@@ -22,7 +22,11 @@ public class PsItems {
     static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(PowerScale.MOD_ID);
 
     static {
-        ITEMS.registerItem("alchemy_set", p -> new BlockItem(PsBlocks.ALCHEMY_SET.get(), p));
+        ITEMS.registerItem(
+                "alchemy_set",
+                p -> new BlockItem(PsBlocks.ALCHEMY_SET.get(), p),
+                Item.Properties::useBlockDescriptionPrefix
+        );
     }
 
     public static final DeferredItem<Item> ALCHEMY_POWDER = ITEMS.registerItem(

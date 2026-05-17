@@ -63,7 +63,7 @@ public class ModItemModelProvider extends ItemModelGenerators {
         this.itemModelOutput
                 .accept(
                         item,
-                        ItemModelUtils.rangeSelect(DifficultyRatioItemModelProperty.INSTANCE, model0)
+                        ItemModelUtils.rangeSelect(DifficultyRatioItemModelProperty.INSTANCE, list)
                 );
     }
 }

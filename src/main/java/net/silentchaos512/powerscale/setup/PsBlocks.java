@@ -1,7 +1,6 @@
 package net.silentchaos512.powerscale.setup;
 
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -17,7 +16,7 @@ public class PsBlocks {
     public static final DeferredBlock<AlchemySetBlock> ALCHEMY_SET = BLOCKS.registerBlock(
             "alchemy_set",
             AlchemySetBlock::new,
-            BlockBehaviour.Properties.of()
+            p -> p
                     .mapColor(MapColor.METAL)
                     .requiresCorrectToolForDrops()
                     .strength(0.5f)

@@ -41,7 +41,8 @@ public class FlaskItem extends Item {
                         player, player.getX(), player.getY(), player.getZ(), SoundEvents.BOTTLE_FILL, SoundSource.NEUTRAL, 1.0F, 1.0F
                 );
                 level.gameEvent(player, GameEvent.FLUID_PICKUP, blockpos);
-                return InteractionResult.SUCCESS;
+                return InteractionResult.SUCCESS
+                        .heldItemTransformedTo(this.turnEmptyFlaskIntoWaterFlask(stack, player));
             }
         }
         return InteractionResult.PASS;
@@ -60,13 +61,13 @@ public class FlaskItem extends Item {
             );
             LayeredCauldronBlock.lowerFillLevel(state, level, context.getClickedPos());
             var stack = player.getItemInHand(context.getHand());
-            return InteractionResult.SUCCESS.heldItemTransformedTo(turnFlaskIntoItem(stack, player));
+            return InteractionResult.SUCCESS.heldItemTransformedTo(turnEmptyFlaskIntoWaterFlask(stack, player));
         }
 
         return super.useOn(context);
     }
 
-    private ItemStack turnFlaskIntoItem(ItemStack flaskStack, Player player) {
+    private ItemStack turnEmptyFlaskIntoWaterFlask(ItemStack flaskStack, Player player) {
         player.awardStat(Stats.ITEM_USED.get(this));
         return ItemUtils.createFilledResult(flaskStack, player, PsItems.WATER_FLASK.toStack());
     }
